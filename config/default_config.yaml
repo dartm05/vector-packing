@@ -1,0 +1,56 @@
+# Configuration file for Vector Packing experiments
+# YAML format
+
+# Experiment settings
+experiment:
+  name: "vector_packing_ga_woc"
+  seed: 42
+  output_directory: "results"
+
+# Problem configuration
+problem:
+  scenario: "medium"  # small, medium, large, extra_large
+  # Or specify custom:
+  # num_vms: 50
+  
+  # Server capacity (if custom)
+  server_template:
+    cpu_cores: 64
+    ram_gb: 256
+    storage_gb: 2000
+
+# Genetic Algorithm configuration
+ga:
+  population_size: 100
+  num_generations: 500
+  crossover_rate: 0.8
+  mutation_rate: 0.1
+  elitism_count: 2
+  tournament_size: 3
+  max_stagnation: 50  # Early stopping
+  
+  # Fitness weights
+  fitness:
+    weight_servers: 10.0
+    weight_utilization: 1.0
+    penalty_invalid: 1000.0
+  
+  # Initialization strategy
+  initialization: "ffd_total"  # random, ffd_cpu, ffd_ram, ffd_storage, ffd_total, best_fit
+
+# Wisdom of Crowds configuration
+woc:
+  top_n_solutions: 20
+  min_support: 0.3
+  min_confidence: 0.5
+
+# Logging and output
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "results/experiment.log"
+  verbose: false
+
+# Visualization
+visualization:
+  generate_plots: true
+  save_solution_details: true
