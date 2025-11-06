@@ -181,15 +181,16 @@ class VMMapCrossover(CrossoverOperator):
 #
 class MoveVMMutation(MutationOperator):
     """
-    Mutates a solution by randomly moving one VM
-    from one server to another.
+    Mutates a solution by randomly moving VMs between servers
+    or performing more aggressive mutations.
     """
-    def __init__(self, mutation_rate: float = 0.1):
+    def __init__(self, mutation_rate: float = 0.2):
         self.mutation_rate = mutation_rate
 
     def mutate(self, solution: Solution) -> Solution:
         """
         Mutates a solution based on the mutation rate.
+        Performs multiple types of mutations for better exploration.
         """
         
         if random.random() > self.mutation_rate:
@@ -198,22 +199,85 @@ class MoveVMMutation(MutationOperator):
         # Clone the solution to avoid modifying the original
         mutated_solution = solution.clone()
         
-        # Find two random servers
-        if len(mutated_solution.servers) < 2:
-            return mutated_solution # Can't mutate if less than 2 servers
-            
-        s1, s2 = random.sample(mutated_solution.servers, 2)
+        # Choose a mutation type randomly
+        mutation_type = random.choice(['move', 'swap', 'shuffle'])
         
-        # Find a VM on s1 that can be moved
+        if mutation_type == 'move':
+            # Move a VM from one server to another
+            mutated_solution = self._move_vm_mutation(mutated_solution)
+        elif mutation_type == 'swap':
+            # Swap two VMs between servers
+            mutated_solution = self._swap_vms_mutation(mutated_solution)
+        else:  # shuffle
+            # Shuffle VMs on a single server (try to repack)
+            mutated_solution = self._shuffle_server_mutation(mutated_solution)
+        
+        return mutated_solution
+    
+    def _move_vm_mutation(self, solution: Solution) -> Solution:
+        """Move a random VM from one server to another."""
+        if len(solution.servers) < 2:
+            return solution
+            
+        s1, s2 = random.sample(solution.servers, 2)
+        
         if not s1.vms:
-            return mutated_solution # s1 is empty, nothing to move
+            return solution
 
         vm_to_move = random.choice(s1.vms)
         
-        # Check if s2 can fit the VM
         if s2.can_fit(vm_to_move):
             s1.remove_vm(vm_to_move)
             s2.add_vm(vm_to_move)
-            # print("  -> Mutation: Moved VM!") # Uncomment for debugging
         
-        return mutated_solution
+        return solution
+    
+    def _swap_vms_mutation(self, solution: Solution) -> Solution:
+        """Swap two VMs between two servers if both swaps are valid."""
+        if len(solution.servers) < 2:
+            return solution
+        
+        servers_with_vms = [s for s in solution.servers if s.vms]
+        if len(servers_with_vms) < 2:
+            return solution
+            
+        s1, s2 = random.sample(servers_with_vms, 2)
+        
+        vm1 = random.choice(s1.vms)
+        vm2 = random.choice(s2.vms)
+        
+        # Check if swap is feasible
+        s1.remove_vm(vm1)
+        s2.remove_vm(vm2)
+        
+        can_swap = s1.can_fit(vm2) and s2.can_fit(vm1)
+        
+        if can_swap:
+            s1.add_vm(vm2)
+            s2.add_vm(vm1)
+        else:
+            # Restore original state
+            s1.add_vm(vm1)
+            s2.add_vm(vm2)
+        
+        return solution
+    
+    def _shuffle_server_mutation(self, solution: Solution) -> Solution:
+        """Remove all VMs from a server and re-add them in random order."""
+        servers_with_vms = [s for s in solution.servers if len(s.vms) > 1]
+        if not servers_with_vms:
+            return solution
+        
+        server = random.choice(servers_with_vms)
+        vms = list(server.vms)
+        
+        # Clear the server
+        for vm in vms:
+            server.remove_vm(vm)
+        
+        # Re-add in random order
+        random.shuffle(vms)
+        for vm in vms:
+            server.add_vm(vm)
+        
+        return solution

@@ -12,6 +12,8 @@ from ..models import VirtualMachine, Server, Solution
 # --- GA Imports ---
 from .simple_fitness import SimpleFitnessEvaluator, INVALID_PENALTY
 from .concrete_operators import TournamentSelection, VMMapCrossover, MoveVMMutation
+from .advanced_selection import RankSelection
+from .local_search import local_search_improvement
 
 # --- Utility Imports ---
 from ..utils.data_generator import DataGenerator
@@ -55,12 +57,35 @@ def create_initial_population(vms: List[VirtualMachine],
                               size: int) -> List[Solution]:
     """
     Creates the initial population (Generation 0) for the GA.
+    Uses different strategies to ensure diversity.
     """
     population = []
     vms_to_pack = list(vms)
     
+    strategies = ['random', 'largest_first', 'smallest_first', 'balanced']
+    
     for i in range(size):
-        random.shuffle(vms_to_pack)
+        # Use different sorting strategies for diversity
+        strategy = strategies[i % len(strategies)]
+        
+        if strategy == 'random':
+            random.shuffle(vms_to_pack)
+        elif strategy == 'largest_first':
+            # Sort by total resource demand (descending)
+            vms_to_pack.sort(key=lambda v: v.cpu_cores + v.ram_gb/10 + v.storage_gb/100, reverse=True)
+        elif strategy == 'smallest_first':
+            # Sort by total resource demand (ascending)
+            vms_to_pack.sort(key=lambda v: v.cpu_cores + v.ram_gb/10 + v.storage_gb/100)
+        else:  # balanced
+            # Sort by a random resource dimension
+            dimension = random.choice(['cpu', 'ram', 'storage'])
+            if dimension == 'cpu':
+                vms_to_pack.sort(key=lambda v: v.cpu_cores, reverse=random.choice([True, False]))
+            elif dimension == 'ram':
+                vms_to_pack.sort(key=lambda v: v.ram_gb, reverse=random.choice([True, False]))
+            else:
+                vms_to_pack.sort(key=lambda v: v.storage_gb, reverse=random.choice([True, False]))
+        
         solution = _create_solution_first_fit(vms_to_pack, server_template)
         solution.generation = 0
         population.append(solution)
@@ -75,8 +100,9 @@ def run_ga(vms: List[VirtualMachine],
            population_size: int, 
            generations: int,
            elitism_count: int = 2,
-           mutation_rate: float = 0.1,
-           tournament_k: int = 3) -> Solution:
+           mutation_rate: float = 0.3,
+           tournament_k: int = 3,
+           use_local_search: bool = False) -> Solution:
     """
     Runs the full Genetic Algorithm using operator classes.
     """
@@ -85,15 +111,25 @@ def run_ga(vms: List[VirtualMachine],
     
     # 1. Initialize Operators and Evaluator
     evaluator = SimpleFitnessEvaluator()
-    selection_op = TournamentSelection(k=tournament_k)
+    
+    # Use multiple selection strategies for diversity
+    tournament_selection = TournamentSelection(k=tournament_k)
+    rank_selection = RankSelection(selection_pressure=1.5)
+    
     crossover_op = VMMapCrossover()
-    mutation_op = MoveVMMutation(mutation_rate=mutation_rate)
+    
+    # Start with higher mutation rate, decrease over time
+    base_mutation_rate = mutation_rate
+    mutation_op = MoveVMMutation(mutation_rate=base_mutation_rate)
     
     # 2. Create Initial Population (Generation 0)
     print(f"Creating initial population (size={population_size})...")
     population = create_initial_population(vms, server_template, population_size)
     
     # 3. Run Evolutionary Loop
+    best_ever_fitness = float('inf')
+    stagnation_counter = 0
+    
     for gen in range(generations):
         
         # 3a. Evaluate Population
@@ -104,20 +140,48 @@ def run_ga(vms: List[VirtualMachine],
         
         best_fitness = population[0].fitness
         best_servers = population[0].num_servers_used
-        print(f"Generation {gen+1}/{generations}: Best Fitness = {best_fitness:.4f} (Servers: {best_servers})")
+        worst_fitness = population[-1].fitness
+        
+        # Track improvement for early stopping
+        if best_fitness < best_ever_fitness:
+            best_ever_fitness = best_fitness
+            stagnation_counter = 0
+        else:
+            stagnation_counter += 1
+        
+        # Adaptive mutation rate - increase when stagnating
+        if stagnation_counter > 10:
+            current_mutation_rate = min(0.5, base_mutation_rate * (1 + stagnation_counter / 20))
+            mutation_op.mutation_rate = current_mutation_rate
+        else:
+            mutation_op.mutation_rate = base_mutation_rate
+            
+        print(f"Generation {gen+1}/{generations}: Best={best_fitness:.2f} ({best_servers} servers), "
+              f"Worst={worst_fitness:.2f}, Stagnation={stagnation_counter}, MutRate={mutation_op.mutation_rate:.2f}")
+
+        # Early stopping if no improvement for too long
+        if stagnation_counter >= 30:
+            print(f"Stopping early - no improvement for {stagnation_counter} generations")
+            break
 
         # 3b. Create Next Generation
         new_population = []
         
         # Elitism: The best solutions survive unchanged
         for i in range(elitism_count):
-            new_population.append(population[i].clone())
+            elite = population[i].clone()
+            elite.generation = gen + 1
+            new_population.append(elite)
             
         # 3c. Crossover & Mutation Loop
         while len(new_population) < population_size:
-            # Selection
-            parent1 = selection_op.select(population)
-            parent2 = selection_op.select(population)
+            # Alternate between selection strategies for diversity
+            if random.random() < 0.7:
+                parent1 = tournament_selection.select(population)
+                parent2 = tournament_selection.select(population)
+            else:
+                parent1 = rank_selection.select(population)
+                parent2 = rank_selection.select(population)
             
             # Crossover
             child1, child2 = crossover_op.crossover(parent1, parent2)
@@ -126,10 +190,28 @@ def run_ga(vms: List[VirtualMachine],
             child1 = mutation_op.mutate(child1)
             child2 = mutation_op.mutate(child2)
             
+            # Set generation
+            child1.generation = gen + 1
+            child2.generation = gen + 1
+            
+            # Optional: Apply local search to children
+            if use_local_search and random.random() < 0.2:  # 20% chance
+                child1 = local_search_improvement(child1, max_iterations=5)
+            if use_local_search and random.random() < 0.2:
+                child2 = local_search_improvement(child2, max_iterations=5)
+            
             # Add both children (if space allows)
             new_population.append(child1)
             if len(new_population) < population_size:
                 new_population.append(child2)
+        
+        # *** CRITICAL FIX: Update population with new generation ***
+        population = new_population
+        
+        # Optional: Apply local search to best solutions periodically
+        if use_local_search and (gen + 1) % 10 == 0:
+            for i in range(min(3, len(population))):
+                population[i] = local_search_improvement(population[i], max_iterations=10)
 
     # 4. Return Best Solution
     for sol in population:

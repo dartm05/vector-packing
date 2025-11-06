@@ -39,15 +39,25 @@ class SimpleFitnessEvaluator(FitnessEvaluator):
             solution.fitness = 0.0
             return 0.0  # An empty solution has 0 cost
 
-        # --- 2. Primary Goal: Minimize Servers ---
-        primary_cost = num_servers
+        # --- 2. Primary Goal: Minimize Servers (weighted heavily) ---
+        primary_cost = num_servers * 100.0
 
-        # --- 3. Secondary Goal: Maximize Utilization (as a "cost reduction") ---
+        # --- 3. Secondary Goal: Maximize Utilization ---
+        # Penalize waste more significantly to encourage better packing
         utils = solution.average_utilization
         avg_util = (utils['cpu'] + utils['ram'] + utils['storage']) / 3.0
-        waste_cost = 1.0 - (avg_util / 100.0)
+        
+        # Convert utilization percentage to a cost (100% util = 0 cost, 0% util = 100 cost)
+        waste_cost = (100.0 - avg_util)
 
-        total_cost = primary_cost + waste_cost
+        # --- 4. Balance Penalty: Penalize unbalanced resource usage ---
+        # Encourage balanced usage of CPU, RAM, and storage
+        util_variance = ((utils['cpu'] - avg_util)**2 + 
+                        (utils['ram'] - avg_util)**2 + 
+                        (utils['storage'] - avg_util)**2) / 3.0
+        balance_penalty = util_variance * 0.1
+
+        total_cost = primary_cost + waste_cost + balance_penalty
         
         solution.fitness = total_cost
         return total_cost
