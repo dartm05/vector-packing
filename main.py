@@ -2,6 +2,7 @@
 """
 Main entry point for the Vector Packing Solver
 Demonstrates how to use the Genetic Algorithm to solve VM placement problems
+test2
 """
 
 import argparse
