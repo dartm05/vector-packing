@@ -50,7 +50,9 @@ final-project/
 │   │   └── chromosome.py          # Chromosome representation
 │   │
 │   ├── woc/                       # Wisdom of Crowds components
-│   │   └── __init__.py            # (To be implemented)
+│   │   ├── __init__.py            # Module exports
+│   │   ├── crowd_analyzer.py      # Discovers VM co-location patterns
+│   │   └── crowd_builder.py       # Builds solutions using patterns
 │   │
 │   └── utils/                     # Utility functions
 │       ├── __init__.py
