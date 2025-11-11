@@ -36,6 +36,7 @@ class VectorPackingGUI:
         self.is_running = False
         self.best_ga_solution = None
         self.best_woc_solution = None
+        self.ga_population = None  # Store entire GA population for WoC
         self.vms = None
         self.server_template = None
         
@@ -368,13 +369,14 @@ Utilization:
             
             start_time = time.time()
             
-            self.best_ga_solution = run_ga(
+            self.best_ga_solution, self.ga_population = run_ga(
                 vms=self.vms,
                 server_template=self.server_template,
                 population_size=pop_size,
                 generations=generations,
                 mutation_rate=mutation_rate,
-                use_local_search=local_search
+                use_local_search=local_search,
+                return_population=True  # Get the evolved population
             )
             
             elapsed = time.time() - start_time
@@ -432,16 +434,23 @@ Utilization:
             
             start_time = time.time()
             
-            # Generate population for analysis
-            self.log("Generating population for analysis...")
+            # Create evaluator (needed for WoC solutions)
             evaluator = SimpleFitnessEvaluator()
-            population = create_initial_population(self.vms, self.server_template, 30)
-            for sol in population:
-                evaluator.evaluate(sol)
-            population.append(self.best_ga_solution)
+            
+            # Use the evolved GA population for analysis
+            if self.ga_population:
+                self.log(f"Using evolved GA population ({len(self.ga_population)} solutions)")
+                population = self.ga_population
+            else:
+                # Fallback: Generate population for analysis
+                self.log("Generating population for analysis...")
+                population = create_initial_population(self.vms, self.server_template, 30)
+                for sol in population:
+                    evaluator.evaluate(sol)
+                population.append(self.best_ga_solution)
             
             # Analyze with CrowdAnalyzer
-            self.log("Analyzing patterns...")
+            self.log("Analyzing patterns from evolved solutions...")
             analyzer = CrowdAnalyzer()
             analyzer.analyze_solutions(population, top_k=top_k)
             
@@ -510,28 +519,63 @@ Utilization:
             return
             
         self.log("="*50)
-        self.log("COMPARISON:")
+        self.log("DETAILED COMPARISON:")
         self.log("="*50)
         
         if self.best_ga_solution:
-            self.log(f"GA:  {self.best_ga_solution.num_servers_used} servers, "
-                    f"fitness={self.best_ga_solution.fitness:.2f}")
+            ga_util = self.best_ga_solution.average_utilization
+            self.log(f"GA Solution:")
+            self.log(f"  Servers: {self.best_ga_solution.num_servers_used}")
+            self.log(f"  Fitness: {self.best_ga_solution.fitness:.2f}")
+            self.log(f"  Utilization: CPU={ga_util['cpu']:.1f}%, RAM={ga_util['ram']:.1f}%, Storage={ga_util['storage']:.1f}%")
+            self.log(f"  Valid: {self.best_ga_solution.is_valid()}")
                     
         if self.best_woc_solution:
-            self.log(f"WoC: {self.best_woc_solution.num_servers_used} servers, "
-                    f"fitness={self.best_woc_solution.fitness:.2f}")
+            woc_util = self.best_woc_solution.average_utilization
+            self.log(f"\nWoC Solution:")
+            self.log(f"  Servers: {self.best_woc_solution.num_servers_used}")
+            self.log(f"  Fitness: {self.best_woc_solution.fitness:.2f}")
+            self.log(f"  Utilization: CPU={woc_util['cpu']:.1f}%, RAM={woc_util['ram']:.1f}%, Storage={woc_util['storage']:.1f}%")
+            self.log(f"  Valid: {self.best_woc_solution.is_valid()}")
                     
         if self.best_ga_solution and self.best_woc_solution:
-            if self.best_woc_solution.fitness < self.best_ga_solution.fitness:
-                improvement = ((self.best_ga_solution.fitness - self.best_woc_solution.fitness) / 
-                              self.best_ga_solution.fitness * 100)
-                self.log(f"WoC is better by {improvement:.1f}%")
-            elif self.best_ga_solution.fitness < self.best_woc_solution.fitness:
-                improvement = ((self.best_woc_solution.fitness - self.best_ga_solution.fitness) / 
-                              self.best_woc_solution.fitness * 100)
-                self.log(f"GA is better by {improvement:.1f}%")
+            self.log(f"\nComparison:")
+            server_diff = self.best_woc_solution.num_servers_used - self.best_ga_solution.num_servers_used
+            fitness_diff = self.best_woc_solution.fitness - self.best_ga_solution.fitness
+            
+            if server_diff < 0:
+                self.log(f"  ✅ WoC uses {abs(server_diff)} FEWER servers")
+            elif server_diff > 0:
+                self.log(f"  ⚠️ WoC uses {server_diff} MORE servers")
             else:
-                self.log("Both solutions have equal fitness")
+                self.log(f"  🔵 Same number of servers ({self.best_ga_solution.num_servers_used})")
+            
+            if abs(fitness_diff) < 0.01:
+                self.log(f"  🔵 Same fitness (likely optimal solution)")
+            elif fitness_diff < 0:
+                improvement = abs((fitness_diff / self.best_ga_solution.fitness) * 100)
+                self.log(f"  ✅ WoC fitness is {improvement:.1f}% BETTER")
+            else:
+                degradation = (fitness_diff / self.best_woc_solution.fitness) * 100
+                self.log(f"  ⚠️ GA fitness is {degradation:.1f}% better")
+                
+            # Show VM placement differences
+            ga_map = self.best_ga_solution.get_vm_assignment()
+            woc_map = self.best_woc_solution.get_vm_assignment()
+            
+            all_vms = set(ga_map.keys()) | set(woc_map.keys())
+            differences = sum(1 for vm_id in all_vms if ga_map.get(vm_id) != woc_map.get(vm_id))
+            
+            self.log(f"\nVM Placement:")
+            self.log(f"  Total VMs: {len(all_vms)}")
+            self.log(f"  Different placements: {differences} VMs ({(differences/len(all_vms)*100):.1f}%)")
+            
+            if differences == 0:
+                self.log(f"Identical VM assignments (solutions are the same)")
+            elif differences < len(all_vms) * 0.3:
+                self.log(f"Very similar solutions (minor differences)")
+            else:
+                self.log(f"Different solutions (WoC explored alternative packing)")
                 
         self.log("="*50)
         
