@@ -102,9 +102,17 @@ def run_ga(vms: List[VirtualMachine],
            elitism_count: int = 2,
            mutation_rate: float = 0.3,
            tournament_k: int = 3,
-           use_local_search: bool = False) -> Solution:
+           use_local_search: bool = False,
+           return_population: bool = False):
     """
     Runs the full Genetic Algorithm using operator classes.
+    
+    Args:
+        return_population: If True, returns (best_solution, final_population)
+                          If False, returns just best_solution
+    
+    Returns:
+        Solution or tuple of (Solution, List[Solution])
     """
     
     print("--- 🧬 Starting Genetic Algorithm (Object-Oriented) ---")
@@ -213,7 +221,7 @@ def run_ga(vms: List[VirtualMachine],
             for i in range(min(3, len(population))):
                 population[i] = local_search_improvement(population[i], max_iterations=10)
 
-    # 4. Return Best Solution
+    # 4. Return Best Solution (and optionally the population)
     for sol in population:
         evaluator.evaluate(sol)
     population.sort(key=lambda sol: sol.fitness)
@@ -224,7 +232,10 @@ def run_ga(vms: List[VirtualMachine],
     print(f"Best solution found: {best_solution.num_servers_used} servers")
     print(f"Best fitness: {best_solution.fitness:.4f}")
     
-    return best_solution
+    if return_population:
+        return best_solution, population
+    else:
+        return best_solution
 # -----------------------------------------------------------------
 #  TESTING BLOCK: Run this file directly to test its functions
 # -----------------------------------------------------------------
