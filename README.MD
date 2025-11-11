@@ -50,7 +50,9 @@ final-project/
 │   │   └── chromosome.py          # Chromosome representation
 │   │
 │   ├── woc/                       # Wisdom of Crowds components
-│   │   └── __init__.py            # (To be implemented)
+│   │   ├── __init__.py            # Module exports
+│   │   ├── crowd_analyzer.py      # Discovers VM co-location patterns
+│   │   └── crowd_builder.py       # Builds solutions using patterns
 │   │
 │   └── utils/                     # Utility functions
 │       ├── __init__.py
@@ -143,7 +145,28 @@ print(f"Server capacity: {server_template.max_cpu_cores} cores, "
       f"{server_template.max_storage_gb} GB storage")
 ```
 
-### 4. Run Tests
+### 4. Run WoC Example
+
+**Console Mode** (default):
+```bash
+python examples/woc_example.py
+```
+
+**Interactive GUI Mode**:
+```bash
+python examples/woc_example.py --gui
+```
+
+The GUI provides:
+- 🎛️ Interactive parameter configuration
+- 📊 Real-time visualization of solutions
+- 🔍 VM affinity heatmaps
+- ⚖️ Side-by-side GA vs WoC comparison
+- 📈 Resource utilization charts
+
+See `examples/GUI_README.md` for detailed instructions.
+
+### 5. Run Tests
 
 ```bash
 # Run all tests
