@@ -17,14 +17,36 @@ from src.woc import CrowdAnalyzer, CrowdBuilder
 from src.utils.data_generator import DataGenerator
 from src.ga.simple_fitness import SimpleFitnessEvaluator
 
-# Visualization imports
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from matplotlib.figure import Figure
-import numpy as np
-import tkinter as tk
-from tkinter import ttk, messagebox
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+# Optional visualization imports
+try:
+    import matplotlib
+    matplotlib.use('Agg')  # Use non-interactive backend to avoid display issues
+    import matplotlib.pyplot as plt
+    import matplotlib.patches as mpatches
+    from matplotlib.figure import Figure
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    print("Warning: matplotlib not available. Visualizations will be disabled.")
+    MATPLOTLIB_AVAILABLE = False
+
+try:
+    import numpy as np
+    NUMPY_AVAILABLE = True
+except ImportError:
+    print("Warning: numpy not available. Some features will be limited.")
+    NUMPY_AVAILABLE = False
+
+try:
+    import tkinter as tk
+    from tkinter import ttk, messagebox
+    try:
+        from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+        GUI_AVAILABLE = MATPLOTLIB_AVAILABLE
+    except ImportError:
+        GUI_AVAILABLE = False
+except ImportError:
+    print("Warning: tkinter not available. GUI will be disabled.")
+    GUI_AVAILABLE = False
 
 
 def demonstrate_woc_integration():

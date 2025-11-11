@@ -44,7 +44,17 @@ class CrowdBuilder:
         """
         # Create copies of VMs to avoid modifying originals
         remaining_vms = list(vms)
-        random.shuffle(remaining_vms)  # Add some randomness
+        
+        # Vary initial VM ordering for diversity
+        ordering_strategy = random.random()
+        if ordering_strategy < 0.33:
+            random.shuffle(remaining_vms)  # Random order
+        elif ordering_strategy < 0.66:
+            # Sort by largest first
+            remaining_vms.sort(key=lambda v: v.cpu_cores + v.ram_gb/10 + v.storage_gb/100, reverse=True)
+        else:
+            # Sort by smallest first
+            remaining_vms.sort(key=lambda v: v.cpu_cores + v.ram_gb/10 + v.storage_gb/100)
         
         solution = Solution(servers=[], generation=0, metadata={'method': 'crowd_wisdom'})
         
@@ -177,17 +187,22 @@ class CrowdBuilder:
             vms: List of VMs to pack
             server_template: Template server with capacity constraints
             num_solutions: Number of solutions to generate
-            affinity_weight: Weight for affinity vs random selection
+            affinity_weight: Base weight for affinity vs random selection
         
         Returns:
             List of solutions
         """
         solutions = []
         for i in range(num_solutions):
-            # Vary affinity weight slightly for diversity
-            varied_weight = max(0.5, min(0.9, affinity_weight + random.uniform(-0.1, 0.1)))
+            # Vary affinity weight MORE aggressively for diversity
+            # Use wider range: from 0.3 (more random) to 0.95 (highly guided)
+            weight_variation = (i / num_solutions) * 0.65 + 0.3  # Maps 0->0.3, num_solutions->0.95
+            varied_weight = weight_variation + random.uniform(-0.1, 0.1)
+            varied_weight = max(0.2, min(0.95, varied_weight))
+            
             solution = self.build_solution(vms, server_template, varied_weight)
             solution.metadata['crowd_solution_index'] = i
+            solution.metadata['affinity_weight_used'] = varied_weight
             solutions.append(solution)
         
         return solutions

@@ -199,8 +199,13 @@ class MoveVMMutation(MutationOperator):
         # Clone the solution to avoid modifying the original
         mutated_solution = solution.clone()
         
-        # Choose a mutation type randomly
-        mutation_type = random.choice(['move', 'swap', 'shuffle'])
+        # Choose a mutation type with weighted probabilities
+        # Favor consolidation (server reduction) mutations
+        mutation_type = random.choices(
+            ['move', 'swap', 'shuffle', 'consolidate', 'empty_server'],
+            weights=[0.25, 0.20, 0.15, 0.30, 0.10],  # 40% server-reducing mutations
+            k=1
+        )[0]
         
         if mutation_type == 'move':
             # Move a VM from one server to another
@@ -208,9 +213,15 @@ class MoveVMMutation(MutationOperator):
         elif mutation_type == 'swap':
             # Swap two VMs between servers
             mutated_solution = self._swap_vms_mutation(mutated_solution)
-        else:  # shuffle
+        elif mutation_type == 'shuffle':
             # Shuffle VMs on a single server (try to repack)
             mutated_solution = self._shuffle_server_mutation(mutated_solution)
+        elif mutation_type == 'consolidate':
+            # Try to consolidate two servers into one
+            mutated_solution = self._consolidate_servers_mutation(mutated_solution)
+        else:  # empty_server
+            # Try to empty a server by moving all its VMs
+            mutated_solution = self._empty_server_mutation(mutated_solution)
         
         return mutated_solution
     
@@ -279,5 +290,76 @@ class MoveVMMutation(MutationOperator):
         random.shuffle(vms)
         for vm in vms:
             server.add_vm(vm)
+        
+        return solution
+    
+    def _consolidate_servers_mutation(self, solution: Solution) -> Solution:
+        """
+        Try to consolidate two servers by moving all VMs from one to the other.
+        This directly targets reducing server count.
+        """
+        if len(solution.servers) < 2:
+            return solution
+        
+        # Sort servers by VM count (try to empty smaller servers first)
+        sorted_servers = sorted(solution.servers, key=lambda s: len(s.vms))
+        
+        # Try to consolidate a small server into a larger one
+        for source_server in sorted_servers[:3]:  # Try 3 smallest
+            if not source_server.vms:
+                continue
+            
+            # Find target servers that might have capacity
+            potential_targets = [s for s in solution.servers if s != source_server]
+            random.shuffle(potential_targets)
+            
+            for target_server in potential_targets[:5]:  # Try up to 5 targets
+                # Try to move all VMs from source to target
+                vms_to_move = list(source_server.vms)
+                success = True
+                
+                for vm in vms_to_move:
+                    if target_server.can_fit(vm):
+                        source_server.remove_vm(vm)
+                        target_server.add_vm(vm)
+                    else:
+                        success = False
+                        break
+                
+                if success:
+                    # Successfully consolidated!
+                    return solution
+                else:
+                    # Revert moves
+                    for vm in vms_to_move:
+                        if vm in target_server.vms:
+                            target_server.remove_vm(vm)
+                            source_server.add_vm(vm)
+        
+        return solution
+    
+    def _empty_server_mutation(self, solution: Solution) -> Solution:
+        """
+        Try to empty a server by distributing its VMs to other servers.
+        """
+        servers_with_vms = [s for s in solution.servers if s.vms]
+        if len(servers_with_vms) < 2:
+            return solution
+        
+        # Pick a random server to empty (favor smaller ones)
+        sorted_servers = sorted(servers_with_vms, key=lambda s: len(s.vms))
+        source_server = random.choice(sorted_servers[:max(1, len(sorted_servers)//2)])
+        
+        vms_to_relocate = list(source_server.vms)
+        other_servers = [s for s in solution.servers if s != source_server]
+        
+        for vm in vms_to_relocate:
+            # Try to find a server that can fit this VM
+            random.shuffle(other_servers)
+            for target_server in other_servers:
+                if target_server.can_fit(vm):
+                    source_server.remove_vm(vm)
+                    target_server.add_vm(vm)
+                    break
         
         return solution
