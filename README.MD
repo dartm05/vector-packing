@@ -369,12 +369,73 @@ This is expected! The enhanced algorithm with 8 initialization strategies and sm
 
 ## References
 
-- **Multi-Dimensional Bin Packing Problem (MDBPP)**: NP-Complete optimization problem
-- **Genetic Algorithms (GA)**: Evolutionary optimization technique
-- **Wisdom of Crowds (WoC)**: Collective intelligence approach  
-- **Cloud Computing**: VM placement and resource allocation optimization
-- **Best-Fit Decreasing**: Classic bin packing heuristic
-- **Diversity Preservation**: Immigration and adaptive mechanisms
+### Core Problem & Complexity
+1. **Garey, M. R., & Johnson, D. S. (1979)**. *Computers and Intractability: A Guide to the Theory of NP-Completeness*. W.H. Freeman.
+   - Establishes bin packing as NP-Complete problem
+
+2. **Lodi, A., Martello, S., & Vigo, D. (2002)**. "Recent advances on two-dimensional bin packing problems." *Discrete Applied Mathematics*, 123(1-3), 379-396.
+   - Multi-dimensional bin packing formalization
+
+### Genetic Algorithms
+3. **Goldberg, D. E. (1989)**. *Genetic Algorithms in Search, Optimization, and Machine Learning*. Addison-Wesley.
+   - Foundational GA concepts: selection, crossover, mutation, elitism
+
+4. **Falkenauer, E. (1996)**. "A hybrid grouping genetic algorithm for bin packing." *Journal of Heuristics*, 2(1), 5-30.
+   - Grouping genetic algorithms for bin packing problems
+   - Specialized chromosome representations
+
+5. **Eiben, A. E., & Smith, J. E. (2015)**. *Introduction to Evolutionary Computing* (2nd ed.). Springer.
+   - Adaptive mutation rates (Chapter 6)
+   - Diversity preservation techniques (Chapter 9)
+
+### Heuristic Approaches
+6. **Johnson, D. S. (1973)**. "Near-optimal bin packing algorithms." Doctoral Dissertation, MIT.
+   - Best-Fit Decreasing (BFD) heuristic
+   - Worst-Fit heuristic
+   - First-Fit Decreasing (FFD)
+
+7. **Coffman Jr, E. G., Garey, M. R., & Johnson, D. S. (1996)**. "Approximation algorithms for bin packing: A survey." *Approximation Algorithms for NP-hard Problems*, 46-93.
+   - Performance bounds for FFD and BFD heuristics
+
+### Wisdom of Crowds & Pattern Learning
+8. **Surowiecki, J. (2004)**. *The Wisdom of Crowds: Why the Many Are Smarter Than the Few*. Doubleday.
+   - Collective intelligence principles
+
+9. **Nguyen, S., Zhang, M., Johnston, M., & Tan, K. C. (2013)**. "A computational study of representations in genetic programming to evolve dispatching rules for the job shop scheduling problem." *IEEE Transactions on Evolutionary Computation*, 17(5), 621-639.
+   - Learning patterns from evolved solutions
+   - Knowledge extraction from populations
+
+### Diversity Mechanisms
+10. **Cobb, H. G., & Grefenstette, J. J. (1993)**. "Genetic algorithms for tracking changing environments." *Proceedings of the 5th International Conference on Genetic Algorithms*, 523-530.
+    - Immigration as diversity maintenance
+
+11. **Črepinšek, M., Liu, S. H., & Mernik, M. (2013)**. "Exploration and exploitation in evolutionary algorithms: A survey." *ACM Computing Surveys*, 45(3), 1-33.
+    - Adaptive parameter control
+    - Diversity measures (Hamming distance)
+
+### Cloud Computing & VM Placement
+12. **Beloglazov, A., & Buyya, R. (2012)**. "Optimal online deterministic algorithms and adaptive heuristics for energy and performance efficient dynamic consolidation of virtual machines in cloud data centers." *Concurrency and Computation: Practice and Experience*, 24(13), 1397-1420.
+    - VM consolidation strategies
+    - Resource utilization optimization
+
+13. **Xu, J., & Fortes, J. A. (2010)**. "Multi-objective virtual machine placement in virtualized data center environments." *2010 IEEE/ACM International Conference on Green Computing and Communications*, 179-188.
+    - Multi-dimensional resource constraints
+    - Fitness function design for VM placement
+
+### Hybrid Approaches
+14. **Talbi, E. G. (2009)**. *Metaheuristics: From Design to Implementation*. Wiley.
+    - Hybrid metaheuristics (Chapter 9)
+    - Combining evolutionary algorithms with constructive heuristics
+
+15. **Poli, R., Langdon, W. B., & McPhee, N. F. (2008)**. *A Field Guide to Genetic Programming*. Lulu Enterprises.
+    - Available free at: http://www.gp-field-guide.org.uk
+    - Practical implementation guidance
+
+### Implementation-Specific Techniques
+- **Tournament Selection**: Goldberg & Deb (1991), "A comparative analysis of selection schemes"
+- **Elitism**: De Jong (1975), "An analysis of the behavior of a class of genetic adaptive systems"
+- **Early Stopping**: No Free Lunch theorems (Wolpert & Macready, 1997)
+- **Co-occurrence Matrices**: Applied from association rule mining (Agrawal & Srikant, 1994)
 
 ## Contributing
 
@@ -390,13 +451,3 @@ Contributions are welcome! Areas for enhancement:
 See LICENSE file for details.
 
 ---
-
-**Status**: ✅ Production-ready implementation with GUI, CLI, and comprehensive algorithm features.
-
-**Key Achievements**:
-- 8 diverse initialization strategies
-- 5 mutation types with smart consolidation
-- Diversity preservation through immigration
-- Adaptive mutation rates
-- Pattern learning from evolved populations
-- User-friendly GUI with real-time monitoring
