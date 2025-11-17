@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GA Chromosome Representation</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 40px; }
+        .chromosome { margin: 30px 0; }
+        .gene-row { display: flex; justify-content: center; margin: 10px 0; }
+        .gene { width: 80px; height: 60px; margin: 0 5px; border: 3px solid #2c3e50; border-radius: 8px;
+                display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .label { text-align: center; font-size: 14px; color: #7f8c8d; margin: 5px 0; font-weight: bold; }
+        .vm-label { color: #3498db; }
+        .server-label { color: #e74c3c; }
+        .explanation { background: #ecf0f1; padding: 20px; border-radius: 8px; margin: 30px 0; }
+        .explanation h3 { margin-top: 0; color: #2c3e50; }
+        .mapping { display: flex; justify-content: space-around; margin: 30px 0; }
+        .mapping-item { text-align: center; padding: 20px; background: #e8f5e9; border-radius: 8px; flex: 1; margin: 0 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Genetic Algorithm: Chromosome Representation</h1>
+        
+        <div class="explanation">
+            <h3>Direct Encoding Scheme</h3>
+            <p><strong>Each chromosome</strong> represents a complete VM-to-Server assignment</p>
+            <p><strong>Each gene</strong> (position in array) corresponds to one VM</p>
+            <p><strong>Gene value</strong> indicates which server that VM is assigned to</p>
+        </div>
+        
+        <div class="chromosome">
+            <div class="label vm-label">Virtual Machine Index:</div>
+            <div class="gene-row">
+                <div class="gene" style="background: #3498db;">VM0</div>
+                <div class="gene" style="background: #3498db;">VM1</div>
+                <div class="gene" style="background: #3498db;">VM2</div>
+                <div class="gene" style="background: #3498db;">VM3</div>
+                <div class="gene" style="background: #3498db;">VM4</div>
+                <div class="gene" style="background: #3498db;">VM5</div>
+                <div class="gene" style="background: #3498db;">VM6</div>
+                <div class="gene" style="background: #3498db;">VM7</div>
+            </div>
+            
+            <div style="text-align: center; margin: 20px 0; font-size: 24px; color: #27ae60;">↓</div>
+            
+            <div class="label server-label">Assigned to Server:</div>
+            <div class="gene-row">
+                <div class="gene" style="background: #e74c3c;">1</div>
+                <div class="gene" style="background: #e74c3c;">1</div>
+                <div class="gene" style="background: #f39c12;">2</div>
+                <div class="gene" style="background: #9b59b6;">3</div>
+                <div class="gene" style="background: #f39c12;">2</div>
+                <div class="gene" style="background: #e74c3c;">1</div>
+                <div class="gene" style="background: #9b59b6;">3</div>
+                <div class="gene" style="background: #f39c12;">2</div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>Example Interpretation:</h3>
+            <div class="mapping">
+                <div class="mapping-item">
+                    <h4 style="color: #e74c3c; margin: 0 0 10px 0;">🖥️ Server 1</h4>
+                    <p>VM0, VM1, VM5</p>
+                    <p style="font-size: 12px; color: #7f8c8d;">(3 VMs)</p>
+                </div>
+                <div class="mapping-item" style="background: #fff3e0;">
+                    <h4 style="color: #f39c12; margin: 0 0 10px 0;">🖥️ Server 2</h4>
+                    <p>VM2, VM4, VM7</p>
+                    <p style="font-size: 12px; color: #7f8c8d;">(3 VMs)</p>
+                </div>
+                <div class="mapping-item" style="background: #f3e5f5;">
+                    <h4 style="color: #9b59b6; margin: 0 0 10px 0;">🖥️ Server 3</h4>
+                    <p>VM3, VM6</p>
+                    <p style="font-size: 12px; color: #7f8c8d;">(2 VMs)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>Mathematical Representation:</h3>
+            <p style="font-size: 18px; text-align: center; font-family: 'Courier New';">
+                S = [s<sub>0</sub>, s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>n-1</sub>]
+            </p>
+            <p style="text-align: center; color: #7f8c8d;">
+                where s<sub>i</sub> ∈ {1, 2, 3, ..., k} indicates the server assignment for VM<sub>i</sub>
+            </p>
+            
+            <h3 style="margin-top: 30px;">Properties:</h3>
+            <ul>
+                <li><strong>Fixed Length:</strong> Always N genes (one per VM)</li>
+                <li><strong>Variable Servers:</strong> Number of distinct values = servers used</li>
+                <li><strong>Easy to Validate:</strong> Check capacity constraints for each server</li>
+                <li><strong>Easy to Mutate:</strong> Change gene values to reassign VMs</li>
+            </ul>
+        </div>
+        
+        <div class="explanation" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+            <h3>Why This Encoding?</h3>
+            <p>✓ <strong>Direct mapping</strong> - no decoding needed</p>
+            <p>✓ <strong>Natural operations</strong> - mutations and crossover are intuitive</p>
+            <p>✓ <strong>Compact representation</strong> - O(N) space</p>
+            <p>✓ <strong>Easy fitness evaluation</strong> - group by server and check constraints</p>
+        </div>
+    </div>
+</body>
+</html>

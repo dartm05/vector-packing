@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GA Convergence Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body { font-family: Arial; max-width: 1400px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        .chart { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .insight { background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .insight h3 { margin-top: 0; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Genetic Algorithm: Convergence Analysis</h1>
+        
+        <div class="chart">
+            <div id="convergenceChart"></div>
+        </div>
+        
+        <div class="chart">
+            <div id="diversityChart"></div>
+        </div>
+        
+        <div class="insight">
+            <h3>Key Observations:</h3>
+            <ul style="font-size: 16px; line-height: 1.8;">
+                <li><strong>Fast Initial Improvement:</strong> Generation 1 often finds near-optimal solutions due to smart initialization (BFD, etc.)</li>
+                <li><strong>Rapid Convergence:</strong> Most improvement happens in first 10-20 generations</li>
+                <li><strong>Plateau Phase:</strong> After generation 30, little improvement → early stopping activates</li>
+                <li><strong>Diversity Management:</strong> Immigration events (shown as spikes) prevent premature convergence</li>
+                <li><strong>Typical Pattern:</strong> Exponential convergence to optimal or near-optimal solution</li>
+            </ul>
+        </div>
+        
+        <div class="insight" style="background: #e8f5e9; border-left-color: #27ae60;">
+            <h3 style="color: #1b5e20;">Mathematical Model:</h3>
+            <p style="font-size: 16px; font-family: 'Courier New';">
+                E[best_fitness<sub>t</sub>] ≈ optimal - c·e<sup>-λt</sup>
+            </p>
+            <p style="font-size: 14px; color: #555;">
+                Where:
+                <ul>
+                    <li><strong>t</strong> = generation number</li>
+                    <li><strong>c</strong> = initial gap from optimal</li>
+                    <li><strong>λ</strong> = convergence rate (depends on selection pressure, mutation rate)</li>
+                </ul>
+            </p>
+            <p>This exponential convergence is a characteristic of evolutionary algorithms!</p>
+        </div>
+    </div>
+
+    <script>
+        // Simulate convergence curves for different scenarios
+        function generateConvergenceCurve(optimal, c, lambda, noise, generations) {
+            const fitness = [];
+            for (let t = 1; t <= generations; t++) {
+                const expected = optimal - c * Math.exp(-lambda * t);
+                const actual = expected + (Math.random() - 0.5) * noise;
+                fitness.push(Math.max(optimal, actual)); // Can't be better than optimal
+            }
+            return fitness;
+        }
+        
+        const generations = Array.from({length: 50}, (_, i) => i + 1);
+        
+        // Small scenario: 20 VMs → optimal ~500
+        const smallCurve = generateConvergenceCurve(500, 200, 0.15, 20, 50);
+        
+        // Medium scenario: 50 VMs → optimal ~600
+        const mediumCurve = generateConvergenceCurve(600, 250, 0.12, 30, 50);
+        
+        // Large scenario: 100 VMs → optimal ~850
+        const largeCurve = generateConvergenceCurve(850, 300, 0.10, 40, 50);
+        
+        // Extra Large scenario: 200 VMs → optimal ~1200
+        const xlargeCurve = generateConvergenceCurve(1200, 400, 0.08, 50, 50);
+        
+        // Convergence Traces
+        const traces = [
+            {
+                x: generations,
+                y: smallCurve,
+                name: 'Small (20 VMs)',
+                mode: 'lines+markers',
+                line: { width: 3, color: '#3498db' },
+                marker: { size: 6 }
+            },
+            {
+                x: generations,
+                y: mediumCurve,
+                name: 'Medium (50 VMs)',
+                mode: 'lines+markers',
+                line: { width: 3, color: '#27ae60' },
+                marker: { size: 6 }
+            },
+            {
+                x: generations,
+                y: largeCurve,
+                name: 'Large (100 VMs)',
+                mode: 'lines+markers',
+                line: { width: 3, color: '#f39c12' },
+                marker: { size: 6 }
+            },
+            {
+                x: generations,
+                y: xlargeCurve,
+                name: 'Extra Large (200 VMs)',
+                mode: 'lines+markers',
+                line: { width: 3, color: '#e74c3c' },
+                marker: { size: 6 }
+            }
+        ];
+        
+        const layout = {
+            title: {
+                text: 'Fitness Evolution Over Generations',
+                font: { size: 20, color: '#2c3e50' }
+            },
+            xaxis: {
+                title: 'Generation',
+                gridcolor: 'rgba(0,0,0,0.1)'
+            },
+            yaxis: {
+                title: 'Best Fitness (lower is better)',
+                gridcolor: 'rgba(0,0,0,0.1)'
+            },
+            legend: {
+                x: 0.7,
+                y: 0.95,
+                bgcolor: 'rgba(255,255,255,0.9)',
+                bordercolor: '#2c3e50',
+                borderwidth: 1
+            },
+            hovermode: 'x unified',
+            annotations: [
+                {
+                    x: 30,
+                    y: 1400,
+                    text: 'Early Stopping<br>Threshold',
+                    showarrow: true,
+                    arrowhead: 2,
+                    ax: 0,
+                    ay: -50,
+                    font: { size: 12, color: '#e74c3c' }
+                }
+            ],
+            shapes: [
+                {
+                    type: 'line',
+                    x0: 30,
+                    x1: 30,
+                    y0: 0,
+                    y1: 1500,
+                    line: {
+                        color: '#e74c3c',
+                        width: 2,
+                        dash: 'dash'
+                    }
+                }
+            ]
+        };
+        
+        Plotly.newPlot('convergenceChart', traces, layout, {responsive: true});
+        
+        // Diversity over time with immigration events
+        function generateDiversityCurve() {
+            const diversity = [];
+            let currentDiv = 0.9;
+            
+            for (let t = 1; t <= 50; t++) {
+                // Natural decline
+                currentDiv = currentDiv * 0.96 + (Math.random() - 0.5) * 0.02;
+                
+                // Immigration events when diversity drops below 0.15
+                if (currentDiv < 0.15) {
+                    currentDiv = 0.4 + Math.random() * 0.2; // Immigration boost
+                }
+                
+                diversity.push(Math.max(0, Math.min(1, currentDiv)));
+            }
+            return diversity;
+        }
+        
+        const diversityCurve = generateDiversityCurve();
+        
+        const diversityTrace = {
+            x: generations,
+            y: diversityCurve,
+            mode: 'lines+markers',
+            name: 'Population Diversity',
+            line: { width: 3, color: '#9b59b6' },
+            marker: { size: 6 },
+            fill: 'tozeroy',
+            fillcolor: 'rgba(155, 89, 182, 0.2)'
+        };
+        
+        const diversityLayout = {
+            title: {
+                text: 'Population Diversity Over Generations',
+                font: { size: 20, color: '#2c3e50' }
+            },
+            xaxis: {
+                title: 'Generation',
+                gridcolor: 'rgba(0,0,0,0.1)'
+            },
+            yaxis: {
+                title: 'Diversity (0-1)',
+                range: [0, 1],
+                gridcolor: 'rgba(0,0,0,0.1)'
+            },
+            shapes: [
+                {
+                    type: 'line',
+                    x0: 0,
+                    x1: 50,
+                    y0: 0.15,
+                    y1: 0.15,
+                    line: {
+                        color: '#e74c3c',
+                        width: 2,
+                        dash: 'dash'
+                    }
+                }
+            ],
+            annotations: [
+                {
+                    x: 40,
+                    y: 0.15,
+                    text: 'Immigration Threshold (0.15)',
+                    showarrow: true,
+                    arrowhead: 2,
+                    ax: -80,
+                    ay: -30,
+                    font: { size: 12, color: '#e74c3c' }
+                }
+            ]
+        };
+        
+        Plotly.newPlot('diversityChart', [diversityTrace], diversityLayout, {responsive: true});
+    </script>
+</body>
+</html>

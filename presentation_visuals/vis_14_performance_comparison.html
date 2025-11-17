@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Performance Comparison: GA vs WOC</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body { font-family: Arial; max-width: 1400px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        .chart { background: #f8f9fa; padding: 20px; border-radius: 8px; }
+        .summary { background: #e8f5e9; padding: 20px; border-radius: 8px; margin: 30px 0; }
+        .summary h2 { margin-top: 0; color: #27ae60; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        th { background: #3498db; color: white; font-weight: bold; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .speedup { color: #27ae60; font-weight: bold; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Performance Comparison: GA vs GA+WOC</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenario</th>
+                    <th>VMs</th>
+                    <th>Method</th>
+                    <th>Time (s)</th>
+                    <th>Servers</th>
+                    <th>Fitness</th>
+                    <th>Speedup</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2"><strong>Small</strong></td>
+                    <td rowspan="2">20</td>
+                    <td>GA</td>
+                    <td>0.32</td>
+                    <td>5</td>
+                    <td>532.18</td>
+                    <td rowspan="2" class="speedup">3.6×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td style="background: #c8e6c9;">0.09</td>
+                    <td>5</td>
+                    <td>532.18</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Medium</strong></td>
+                    <td rowspan="2">50</td>
+                    <td>GA</td>
+                    <td>0.85</td>
+                    <td>6</td>
+                    <td>630.39</td>
+                    <td rowspan="2" class="speedup">12.1×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td style="background: #c8e6c9;">0.07</td>
+                    <td>6</td>
+                    <td>630.39</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Large</strong></td>
+                    <td rowspan="2">100</td>
+                    <td>GA</td>
+                    <td>1.59</td>
+                    <td>8</td>
+                    <td>861.52</td>
+                    <td rowspan="2" class="speedup">9.9×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td style="background: #c8e6c9;">0.16</td>
+                    <td>8</td>
+                    <td>861.52</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Extra Large</strong></td>
+                    <td rowspan="2">200</td>
+                    <td>GA</td>
+                    <td>3.60</td>
+                    <td>11</td>
+                    <td>1214.59</td>
+                    <td rowspan="2" class="speedup">6.7×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td style="background: #c8e6c9;">0.54</td>
+                    <td>11</td>
+                    <td>1214.59</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="grid">
+            <div class="chart">
+                <div id="timeChart"></div>
+            </div>
+            <div class="chart">
+                <div id="speedupChart"></div>
+            </div>
+        </div>
+        
+        <div class="chart" style="grid-column: span 2;">
+            <div id="serversChart"></div>
+        </div>
+        
+        <div class="summary">
+            <h2>Key Findings</h2>
+            <ul style="font-size: 16px; line-height: 1.8;">
+                <li><strong>✓ Identical Solution Quality:</strong> Both GA and WOC achieve the same number of servers and fitness scores</li>
+                <li><strong>✓ Massive Speed Improvements:</strong> WOC is 3.6× to 12.1× faster across all scenarios</li>
+                <li><strong>✓ Scalability:</strong> WOC maintains competitive performance as problem size increases</li>
+                <li><strong>✓ Best Performance:</strong> Maximum speedup of 12.1× on Medium scenario (50 VMs)</li>
+                <li><strong>✓ Consistency:</strong> WOC never produces worse solutions than GA</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const scenarios = ['Small\n(20 VMs)', 'Medium\n(50 VMs)', 'Large\n(100 VMs)', 'Extra Large\n(200 VMs)'];
+        const vms = [20, 50, 100, 200];
+        const gaTimes = [0.32, 0.85, 1.59, 3.60];
+        const wocTimes = [0.09, 0.07, 0.16, 0.54];
+        const servers = [5, 6, 8, 11];
+        const speedups = [3.6, 12.1, 9.9, 6.7];
+        
+        // Execution Time Comparison
+        const timeTrace1 = {
+            x: scenarios,
+            y: gaTimes,
+            name: 'GA',
+            type: 'bar',
+            marker: { color: '#3498db' },
+            text: gaTimes.map(t => `${t}s`),
+            textposition: 'outside'
+        };
+        
+        const timeTrace2 = {
+            x: scenarios,
+            y: wocTimes,
+            name: 'WOC',
+            type: 'bar',
+            marker: { color: '#27ae60' },
+            text: wocTimes.map(t => `${t}s`),
+            textposition: 'outside'
+        };
+        
+        const timeLayout = {
+            title: {
+                text: 'Execution Time Comparison',
+                font: { size: 18, color: '#2c3e50' }
+            },
+            xaxis: { title: 'Test Scenario' },
+            yaxis: { title: 'Time (seconds)' },
+            barmode: 'group',
+            showlegend: true,
+            legend: { x: 0.02, y: 0.98 }
+        };
+        
+        Plotly.newPlot('timeChart', [timeTrace1, timeTrace2], timeLayout, {responsive: true});
+        
+        // Speedup Chart
+        const speedupTrace = {
+            x: scenarios,
+            y: speedups,
+            type: 'bar',
+            marker: {
+                color: speedups,
+                colorscale: 'Greens',
+                showscale: false
+            },
+            text: speedups.map(s => `${s}×`),
+            textposition: 'outside',
+            textfont: { size: 16, color: '#27ae60', weight: 'bold' }
+        };
+        
+        const speedupLayout = {
+            title: {
+                text: 'WOC Speedup Factor',
+                font: { size: 18, color: '#2c3e50' }
+            },
+            xaxis: { title: 'Test Scenario' },
+            yaxis: { title: 'Speedup (×)', range: [0, 14] },
+            showlegend: false
+        };
+        
+        Plotly.newPlot('speedupChart', [speedupTrace], speedupLayout, {responsive: true});
+        
+        // Servers Used - Both Methods
+        const serversTrace1 = {
+            x: vms,
+            y: servers,
+            mode: 'lines+markers',
+            name: 'Servers Used (Both Methods)',
+            line: { color: '#e74c3c', width: 3 },
+            marker: { size: 12, color: '#e74c3c' },
+            text: servers.map(s => `${s} servers`),
+            textposition: 'top center'
+        };
+        
+        const serversLayout = {
+            title: {
+                text: 'Servers Required vs Problem Size',
+                font: { size: 18, color: '#2c3e50' }
+            },
+            xaxis: { 
+                title: 'Number of VMs',
+                type: 'log'
+            },
+            yaxis: { title: 'Servers Used' },
+            showlegend: true,
+            annotations: [{
+                x: 100,
+                y: 8,
+                text: 'Both GA and WOC<br>achieve identical<br>server counts',
+                showarrow: true,
+                arrowhead: 2,
+                ax: 0,
+                ay: -60,
+                font: { size: 12, color: '#27ae60' },
+                bgcolor: 'rgba(200, 230, 201, 0.8)',
+                bordercolor: '#27ae60',
+                borderwidth: 2
+            }]
+        };
+        
+        Plotly.newPlot('serversChart', [serversTrace1], serversLayout, {responsive: true});
+    </script>
+</body>
+</html>

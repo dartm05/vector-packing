@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fitness Function Visualization</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        .formula { background: #e8f5e9; padding: 25px; border-radius: 8px; margin: 30px 0; text-align: center; border-left: 4px solid #27ae60; }
+        .formula-box { font-family: 'Courier New'; font-size: 22px; margin: 20px 0; font-weight: bold; color: #1b5e20; }
+        .example { background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .solution { background: #f8f9fa; padding: 20px; border-radius: 8px; border: 3px solid; }
+        .winner { border-color: #27ae60; background: #e8f5e9; }
+        .loser { border-color: #e74c3c; background: #ffebee; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fitness Function: Measuring Solution Quality</h1>
+        
+        <div class="formula">
+            <h2 style="margin-top: 0; color: #1b5e20;">Mathematical Definition</h2>
+            <div class="formula-box">
+                fitness(S) = 100 × n<sub>servers</sub> + Σ wasted_resources<sub>j</sub>
+            </div>
+            
+            <p style="font-size: 16px; margin-top: 20px;">Where wasted resources for server j:</p>
+            <div class="formula-box" style="font-size: 18px;">
+                W<sub>j</sub> = (CPU<sub>max</sub> - CPU<sub>used</sub>) + (RAM<sub>max</sub> - RAM<sub>used</sub>) + (Storage<sub>max</sub> - Storage<sub>used</sub>)
+            </div>
+        </div>
+        
+        <div class="example">
+            <h3 style="margin-top: 0; color: #856404;">🎯 Why the 100× Multiplier?</h3>
+            <p style="font-size: 16px; line-height: 1.8;">
+                The <strong>100× weight on server count</strong> ensures that using fewer servers <em>always</em> produces a better fitness score, 
+                regardless of resource waste. This encodes our primary objective: <strong>minimize the number of servers</strong>.
+            </p>
+            <ul style="font-size: 16px; line-height: 1.8;">
+                <li><strong>Server count dominates:</strong> One extra server = +100 fitness</li>
+                <li><strong>Wasted resources break ties:</strong> Among solutions with same server count, prefer better utilization</li>
+                <li><strong>Invalid solutions penalized:</strong> Capacity violations get fitness = 10<sup>6</sup></li>
+            </ul>
+        </div>
+        
+        <h2 style="margin-top: 40px; text-align: center; color: #2c3e50;">Example Comparison</h2>
+        
+        <div class="comparison">
+            <div class="solution winner">
+                <h3 style="color: #27ae60; margin-top: 0;">✅ Solution A (WINNER)</h3>
+                <p><strong>Servers Used:</strong> 5</p>
+                <p><strong>Wasted Resources:</strong></p>
+                <ul style="margin: 10px 0;">
+                    <li>Server 1: 200 units</li>
+                    <li>Server 2: 250 units</li>
+                    <li>Server 3: 180 units</li>
+                    <li>Server 4: 220 units</li>
+                    <li>Server 5: 150 units</li>
+                </ul>
+                <p><strong>Total Waste:</strong> 1000 units</p>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin-top: 15px; text-align: center;">
+                    <div style="font-size: 18px; color: #555;">Fitness Calculation:</div>
+                    <div style="font-size: 24px; font-weight: bold; color: #27ae60; margin-top: 10px;">
+                        100 × 5 + 1000 = 1500
+                    </div>
+                </div>
+            </div>
+            
+            <div class="solution loser">
+                <h3 style="color: #e74c3c; margin-top: 0;">❌ Solution B (LOSES)</h3>
+                <p><strong>Servers Used:</strong> 6</p>
+                <p><strong>Wasted Resources:</strong></p>
+                <ul style="margin: 10px 0;">
+                    <li>Server 1: 50 units</li>
+                    <li>Server 2: 20 units</li>
+                    <li>Server 3: 10 units</li>
+                    <li>Server 4: 15 units</li>
+                    <li>Server 5: 5 units</li>
+                    <li>Server 6: 0 units</li>
+                </ul>
+                <p><strong>Total Waste:</strong> 100 units</p>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin-top: 15px; text-align: center;">
+                    <div style="font-size: 18px; color: #555;">Fitness Calculation:</div>
+                    <div style="font-size: 24px; font-weight: bold; color: #e74c3c; margin-top: 10px;">
+                        100 × 6 + 100 = 6100
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 30px 0; text-align: center; border-left: 4px solid #2196f3;">
+            <h3 style="color: #1565c0; margin-top: 0;">📊 Result</h3>
+            <p style="font-size: 18px;">
+                <strong>Solution A wins</strong> even though it wastes 10× more resources!<br>
+                <span style="color: #1565c0; font-weight: bold;">1500 < 6100</span>
+            </p>
+            <p style="font-size: 16px; color: #555; margin-top: 15px;">
+                This is exactly what we want: <em>fewer servers always beats better utilization</em>
+            </p>
+        </div>
+        
+        <div id="fitnessChart" style="margin: 40px 0;"></div>
+        
+        <div style="background: #f3e5f5; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #9c27b0;">
+            <h3 style="color: #6a1b9a; margin-top: 0;">🔍 Fitness Function Properties</h3>
+            <ul style="font-size: 16px; line-height: 1.8;">
+                <li><strong>Monotonic in servers:</strong> More servers = worse fitness (always)</li>
+                <li><strong>Lexicographic ordering:</strong> Servers first, then utilization</li>
+                <li><strong>Easy to compute:</strong> O(N) - just sum up resources per server</li>
+                <li><strong>Differentiates valid solutions:</strong> Among equally-sized solutions, rewards efficiency</li>
+                <li><strong>Penalty for invalidity:</strong> Constraint violations are heavily punished</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Generate fitness landscape visualization
+        const servers = [3, 4, 5, 6, 7, 8];
+        const wasteScenarios = [
+            { name: 'Low Waste (100 units)', waste: 100 },
+            { name: 'Medium Waste (500 units)', waste: 500 },
+            { name: 'High Waste (1000 units)', waste: 1000 }
+        ];
+        
+        const traces = wasteScenarios.map((scenario, idx) => {
+            const colors = ['#27ae60', '#f39c12', '#e74c3c'];
+            return {
+                x: servers,
+                y: servers.map(s => 100 * s + scenario.waste),
+                mode: 'lines+markers',
+                name: scenario.name,
+                line: { width: 3, color: colors[idx] },
+                marker: { size: 10 }
+            };
+        });
+        
+        const layout = {
+            title: {
+                text: 'Fitness Landscape: Server Count Dominates',
+                font: { size: 20, color: '#2c3e50' }
+            },
+            xaxis: {
+                title: 'Number of Servers',
+                dtick: 1
+            },
+            yaxis: {
+                title: 'Fitness Score (lower is better)',
+                gridcolor: 'rgba(0,0,0,0.1)'
+            },
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                bgcolor: 'rgba(255,255,255,0.9)',
+                bordercolor: '#2c3e50',
+                borderwidth: 1
+            },
+            annotations: [
+                {
+                    x: 5,
+                    y: 1100,
+                    text: 'Even with high waste,<br>5 servers beats<br>6 servers with low waste',
+                    showarrow: true,
+                    arrowhead: 2,
+                    ax: 50,
+                    ay: -50,
+                    font: { size: 12, color: '#e74c3c' },
+                    bgcolor: 'rgba(255,255,255,0.9)',
+                    bordercolor: '#e74c3c',
+                    borderwidth: 2
+                }
+            ]
+        };
+        
+        Plotly.newPlot('fitnessChart', traces, layout, {responsive: true});
+    </script>
+</body>
+</html>
