@@ -54,6 +54,11 @@ results/*.csv
 # data/*.json
 # data/*.csv
 
+# Azure dataset (too large for GitHub - 173 MB)
+datasets/
+datasets/*.sqlite
+datasets/*.zip
+
 # Documentation builds
 docs/_build/
 docs/_static/

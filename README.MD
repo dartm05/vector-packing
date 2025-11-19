@@ -133,7 +133,29 @@ pip install -r requirements.txt
 - NumPy 2.0+
 - tkinter (included with Python on most systems)
 
-### 2. Quick Start - GUI Mode (Recommended)
+### 2. Download Azure Dataset (Optional but Recommended)
+
+**NEW!** Validate your algorithms on real Microsoft Azure production data:
+
+```bash
+# Download Azure Packing Trace 2020 dataset (~51 MB download, 173 MB extracted)
+python3 download_azure_dataset.py
+
+# Or use the bash script
+bash download_azure_dataset.sh
+```
+
+**What you get:**
+- 5.5 million real VM requests from Azure production
+- Published in OSDI 2020 (Protean paper)
+- Validates algorithm on real-world workloads
+- Seamlessly integrated with GUI
+
+**Note:** The dataset is not included in the repository due to GitHub's 100 MB file size limit. The download script fetches it directly from Microsoft's Azure public dataset repository.
+
+See `AZURE_DATASET.md` for complete documentation.
+
+### 3. Quick Start - GUI Mode (Recommended)
 
 Launch the graphical interface:
 
@@ -143,12 +165,17 @@ python gui.py
 
 **How to Use:**
 1. Select a test scenario (small, medium, large, extra_large)
-2. Configure GA parameters (population size, generations, mutation rate)
-3. Click "Run GA" to evolve solutions
-4. Click "Run WoC" to apply wisdom of crowds (uses GA results)
-5. Click "Compare Results" to see detailed side-by-side comparison
+2. **NEW:** Choose data source (synthetic or azure)
+3. Configure GA parameters (population size, generations, mutation rate)
+4. Click "Run GA" to evolve solutions
+5. Click "Run WoC" to apply wisdom of crowds (uses GA results)
+6. Click "Compare Results" to see detailed side-by-side comparison
 
-### 3. CLI Mode
+**Try this:** Run the same scenario with both synthetic and Azure data to compare!
+
+See `GUI_AZURE_GUIDE.md` for detailed experiments and usage examples.
+
+### 4. CLI Mode
 
 Run from command line with custom parameters:
 
@@ -173,7 +200,7 @@ python main.py --scenario large --init-quality random
 - `--init-quality`: Initial quality (random/poor/mixed/good, default: random)
 - `--seed`: Random seed for reproducibility (default: 42)
 
-### 4. Programmatic Usage
+### 5. Programmatic Usage
 
 Use the algorithms directly in your Python code:
 

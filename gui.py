@@ -21,6 +21,7 @@ from src.models import Solution
 from src.ga.simple_engine import run_simple_ga, create_initial_population, calculate_fitness
 from src.woc import CrowdAnalyzer, CrowdBuilder
 from src.utils.data_generator import DataGenerator
+from src.utils.azure_data_loader import AzureDataLoader
 
 
 class VectorPackingGUI:
@@ -87,13 +88,25 @@ class VectorPackingGUI:
         ttk.Label(config_frame, text="Scenario:").grid(row=row, column=0, sticky=tk.W)
         self.scenario_var = tk.StringVar(value="small")
         scenario_combo = ttk.Combobox(
-            config_frame, 
+            config_frame,
             textvariable=self.scenario_var,
             values=["small", "medium", "large", "extra_large"],
             state="readonly",
             width=15
         )
         scenario_combo.grid(row=row, column=1, sticky=tk.W, pady=2)
+        row += 1
+
+        ttk.Label(config_frame, text="Data Source:").grid(row=row, column=0, sticky=tk.W)
+        self.data_source_var = tk.StringVar(value="synthetic")
+        data_source_combo = ttk.Combobox(
+            config_frame,
+            textvariable=self.data_source_var,
+            values=["synthetic", "azure"],
+            state="readonly",
+            width=15
+        )
+        data_source_combo.grid(row=row, column=1, sticky=tk.W, pady=2)
         row += 1
         
         ttk.Label(config_frame, text="Random Seed:").grid(row=row, column=0, sticky=tk.W)
@@ -274,10 +287,14 @@ class VectorPackingGUI:
         """Update GA summary display"""
         self.ga_summary_text.config(state='normal')
         self.ga_summary_text.delete(1.0, tk.END)
-        
+
         if solution:
             utils = solution.average_utilization
-            text = f"""Valid: {solution.is_valid()}
+            data_source = self.data_source_var.get().upper()
+            data_badge = "SYNTHETIC" if data_source == "SYNTHETIC" else "AZURE"
+
+            text = f"""Data: {data_badge}
+Valid: {solution.is_valid()}
 Servers Used: {solution.num_servers_used}
 Total VMs: {solution.total_vms}
 Fitness: {solution.fitness:.2f}
@@ -288,17 +305,21 @@ Utilization:
   Storage: {utils['storage']:.1f}%
 """
             self.ga_summary_text.insert(1.0, text)
-        
+
         self.ga_summary_text.config(state='disabled')
         
     def update_woc_summary(self, solution):
         """Update WoC summary display"""
         self.woc_summary_text.config(state='normal')
         self.woc_summary_text.delete(1.0, tk.END)
-        
+
         if solution:
             utils = solution.average_utilization
-            text = f"""Valid: {solution.is_valid()}
+            data_source = self.data_source_var.get().upper()
+            data_badge = "SYNTHETIC" if data_source == "SYNTHETIC" else "AZURE"
+
+            text = f"""Data: {data_badge}
+Valid: {solution.is_valid()}
 Servers Used: {solution.num_servers_used}
 Total VMs: {solution.total_vms}
 Fitness: {solution.fitness:.2f}
@@ -309,7 +330,7 @@ Utilization:
   Storage: {utils['storage']:.1f}%
 """
             self.woc_summary_text.insert(1.0, text)
-        
+
         self.woc_summary_text.config(state='disabled')
         
     def generate_problem(self):
@@ -317,19 +338,53 @@ Utilization:
         try:
             scenario = self.scenario_var.get()
             seed = int(self.seed_var.get())
-            
-            self.log(f"Generating {scenario} scenario (seed={seed})...")
-            
-            scenario_data = DataGenerator.generate_scenario(scenario, seed=seed)
+            data_source = self.data_source_var.get()
+
+            self.log(f"Loading {scenario} scenario from {data_source.upper()} data (seed={seed})...")
+
+            if data_source == "azure":
+                # Load Azure data
+                scenario_data = DataGenerator.load_azure_scenario(scenario, seed=seed)
+                self.log(f"✓ Loaded REAL Azure production data")
+                self.log(f"  Source: {scenario_data['metadata']['source']}")
+                self.log(f"  Original pool: {scenario_data['metadata']['original_pool_size']:,} VMs")
+            else:
+                # Load synthetic data
+                scenario_data = DataGenerator.generate_scenario(scenario, seed=seed)
+                self.log(f"✓ Generated SYNTHETIC data")
+
             self.vms = scenario_data['vms']
             self.server_template = scenario_data['server_template']
-            
-            self.log(f"Generated {len(self.vms)} VMs")
-            self.log(f"Server capacity: {self.server_template.max_cpu_cores} cores, "
+
+            self.log(f"  VMs loaded: {len(self.vms)}")
+            self.log(f"  Server capacity: {self.server_template.max_cpu_cores} cores, "
                     f"{self.server_template.max_ram_gb} GB RAM, "
                     f"{self.server_template.max_storage_gb} GB storage")
-            
+
+            # Calculate and display resource statistics
+            total_cpu = sum(vm.cpu_cores for vm in self.vms)
+            total_ram = sum(vm.ram_gb for vm in self.vms)
+            total_storage = sum(vm.storage_gb for vm in self.vms)
+
+            self.log(f"  Total demand: CPU={total_cpu:.1f} cores, "
+                    f"RAM={total_ram:.1f} GB, Storage={total_storage:.1f} GB")
+
+            # Theoretical minimum
+            min_servers = max(
+                total_cpu / self.server_template.max_cpu_cores,
+                total_ram / self.server_template.max_ram_gb,
+                total_storage / self.server_template.max_storage_gb
+            )
+            self.log(f"  Theoretical minimum: {min_servers:.2f} servers "
+                    f"(~{int(min_servers) + 1} required)")
+
             return True
+        except FileNotFoundError as e:
+            messagebox.showerror("Azure Dataset Not Found",
+                               "Azure dataset not found. Please run:\n\n"
+                               "python3 test_azure_loader.py\n\n"
+                               "This will download and set up the dataset.")
+            return False
         except Exception as e:
             messagebox.showerror("Error", f"Failed to generate problem: {str(e)}")
             return False
