@@ -24,7 +24,7 @@ def calculate_fitness(solution: Solution) -> float:
         return 0.0
 
     # Primary: server count (weighted but not overwhelming)
-    server_cost = num_servers * 10.0
+    server_cost = num_servers * 100.0
 
     # Secondary: utilization (inverted - higher util = lower cost)
     utils = solution.average_utilization

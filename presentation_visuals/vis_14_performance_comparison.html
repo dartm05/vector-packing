@@ -45,61 +45,61 @@
                     <td rowspan="2"><strong>Small</strong></td>
                     <td rowspan="2">20</td>
                     <td>GA</td>
-                    <td>1.16</td>
+                    <td>0.97</td>
                     <td>5</td>
-                    <td>52.6</td>
-                    <td rowspan="2" class="speedup">80.7×</td>
+                    <td>502.6</td>
+                    <td rowspan="2" class="speedup">80.9×</td>
                 </tr>
                 <tr>
                     <td>WOC</td>
                     <td style="background: #c8e6c9;">0.01</td>
                     <td>5</td>
-                    <td>52.6</td>
+                    <td>502.6</td>
                 </tr>
                 <tr>
                     <td rowspan="2"><strong>Medium</strong></td>
                     <td rowspan="2">50</td>
                     <td>GA</td>
-                    <td>3.1</td>
+                    <td>2.75</td>
                     <td>6</td>
-                    <td>61.87</td>
-                    <td rowspan="2" class="speedup">35.0×</td>
+                    <td>601.87</td>
+                    <td rowspan="2" class="speedup">34.3×</td>
                 </tr>
                 <tr>
                     <td>WOC</td>
-                    <td style="background: #c8e6c9;">0.09</td>
+                    <td style="background: #c8e6c9;">0.08</td>
                     <td>6</td>
-                    <td>61.87</td>
+                    <td>601.87</td>
                 </tr>
                 <tr>
                     <td rowspan="2"><strong>Large</strong></td>
                     <td rowspan="2">100</td>
                     <td>GA</td>
-                    <td>9.2</td>
+                    <td>7.57</td>
                     <td>8</td>
-                    <td>83.3</td>
-                    <td rowspan="2" class="speedup">19.4×</td>
+                    <td>803.3</td>
+                    <td rowspan="2" class="speedup">20.3×</td>
                 </tr>
                 <tr>
                     <td>WOC</td>
-                    <td style="background: #c8e6c9;">0.47</td>
+                    <td style="background: #c8e6c9;">0.37</td>
                     <td>8</td>
-                    <td>83.3</td>
+                    <td>803.3</td>
                 </tr>
                 <tr>
                     <td rowspan="2"><strong>Extra_large</strong></td>
                     <td rowspan="2">200</td>
                     <td>GA</td>
-                    <td>19.03</td>
+                    <td>16.82</td>
                     <td>11</td>
-                    <td>114.03</td>
-                    <td rowspan="2" class="speedup">8.5×</td>
+                    <td>1104.03</td>
+                    <td rowspan="2" class="speedup">9.1×</td>
                 </tr>
                 <tr>
                     <td>WOC</td>
-                    <td style="background: #c8e6c9;">2.25</td>
+                    <td style="background: #c8e6c9;">1.85</td>
                     <td>11</td>
-                    <td>114.03</td>
+                    <td>1104.03</td>
                 </tr>
             </tbody>
         </table>
@@ -140,14 +140,14 @@
         var timeData = [
             {
                 x: ['Small', 'Medium', 'Large', 'Extra_large'],
-                y: [1.16, 3.1, 9.2, 19.03],
+                y: [0.97, 2.75, 7.57, 16.82],
                 name: 'GA',
                 type: 'bar',
                 marker: {color: '#3498db'}
             },
             {
                 x: ['Small', 'Medium', 'Large', 'Extra_large'],
-                y: [0.01, 0.09, 0.47, 2.25],
+                y: [0.01, 0.08, 0.37, 1.85],
                 name: 'WOC',
                 type: 'bar',
                 marker: {color: '#27ae60'}
@@ -190,14 +190,14 @@
         var fitnessData = [
             {
                 x: ['Small', 'Medium', 'Large', 'Extra_large'],
-                y: [52.6, 61.87, 83.3, 114.03],
+                y: [502.6, 601.87, 803.3, 1104.03],
                 name: 'GA',
                 type: 'bar',
                 marker: {color: '#3498db'}
             },
             {
                 x: ['Small', 'Medium', 'Large', 'Extra_large'],
-                y: [52.6, 61.87, 83.3, 114.03],
+                y: [502.6, 601.87, 803.3, 1104.03],
                 name: 'WOC',
                 type: 'bar',
                 marker: {color: '#27ae60'}
@@ -215,14 +215,14 @@
         var speedupData = [
             {
                 x: ['Small', 'Medium', 'Large', 'Extra_large'],
-                y: [80.7, 35.0, 19.4, 8.5],
+                y: [80.9, 34.3, 20.3, 9.1],
                 type: 'bar',
                 marker: {
-                    color: [80.7, 35.0, 19.4, 8.5],
+                    color: [80.9, 34.3, 20.3, 9.1],
                     colorscale: 'Greens',
                     showscale: true
                 },
-                text: ['80.7×', '35.0×', '19.4×', '8.5×'],
+                text: ['80.9×', '34.3×', '20.3×', '9.1×'],
                 textposition: 'auto'
             }
         ];
