@@ -18,10 +18,9 @@ from datetime import datetime
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from src.models import Solution
-from src.ga.engine import run_ga, create_initial_population
+from src.ga.simple_engine import run_simple_ga, create_initial_population, calculate_fitness
 from src.woc import CrowdAnalyzer, CrowdBuilder
 from src.utils.data_generator import DataGenerator
-from src.ga.simple_fitness import SimpleFitnessEvaluator
 
 
 class VectorPackingGUI:
@@ -368,17 +367,28 @@ Utilization:
             self.log("="*50)
             
             start_time = time.time()
-            
-            self.best_ga_solution, self.ga_population = run_ga(
+
+            self.best_ga_solution = run_simple_ga(
                 vms=self.vms,
                 server_template=self.server_template,
                 population_size=pop_size,
                 generations=generations,
+                elitism_count=2,
                 mutation_rate=mutation_rate,
-                use_local_search=local_search,
-                return_population=True  # Get the evolved population
+                initial_quality="random" 
             )
-            
+
+            self.ga_population = create_initial_population(
+                self.vms,
+                self.server_template,
+                min(30, pop_size),
+                quality="mixed"
+            )
+  
+            for sol in self.ga_population:
+                calculate_fitness(sol)
+            self.ga_population.append(self.best_ga_solution)
+
             elapsed = time.time() - start_time
             
             self.log("="*50)
@@ -433,20 +443,17 @@ Utilization:
             self.log("="*50)
             
             start_time = time.time()
-            
-            # Create evaluator (needed for WoC solutions)
-            evaluator = SimpleFitnessEvaluator()
-            
+
             # Use the evolved GA population for analysis
             if self.ga_population:
-                self.log(f"Using evolved GA population ({len(self.ga_population)} solutions)")
+                self.log(f"Using GA population ({len(self.ga_population)} solutions)")
                 population = self.ga_population
             else:
                 # Fallback: Generate population for analysis
                 self.log("Generating population for analysis...")
-                population = create_initial_population(self.vms, self.server_template, 30)
+                population = create_initial_population(self.vms, self.server_template, 30, quality="mixed")
                 for sol in population:
-                    evaluator.evaluate(sol)
+                    calculate_fitness(sol)
                 population.append(self.best_ga_solution)
             
             # Analyze with CrowdAnalyzer
@@ -469,8 +476,8 @@ Utilization:
             
             # Evaluate and get best
             for sol in woc_solutions:
-                evaluator.evaluate(sol)
-            
+                calculate_fitness(sol)
+
             woc_solutions.sort(key=lambda s: s.fitness)
             self.best_woc_solution = woc_solutions[0]
             

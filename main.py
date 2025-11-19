@@ -7,7 +7,7 @@ test2
 
 import argparse
 from src.utils.data_generator import DataGenerator
-from src.ga.engine import run_ga
+from src.ga.simple_engine import run_simple_ga
 
 
 def main():
@@ -88,6 +88,14 @@ Examples:
         default=42,
         help='Random seed for reproducibility (default: 42)'
     )
+
+    parser.add_argument(
+        '--init-quality',
+        type=str,
+        choices=['random', 'poor', 'mixed', 'good'],
+        default='random',
+        help='Initial population quality: random (shows improvement), poor, mixed, good (default: random)'
+    )
     
     args = parser.parse_args()
     
@@ -104,6 +112,7 @@ Examples:
     print(f"  Tournament k: {args.tournament_k}")
     print(f"  Local search: {'Enabled' if args.local_search else 'Disabled'}")
     print(f"  Random seed: {args.seed}")
+    print(f"  Initial quality: {args.init_quality}")
     print()
     
     # Generate test data
@@ -119,15 +128,14 @@ Examples:
     print()
     
     # Run Genetic Algorithm
-    best_solution = run_ga(
+    best_solution = run_simple_ga(
         vms=vms,
         server_template=server_template,
         population_size=args.population,
         generations=args.generations,
         elitism_count=args.elitism,
         mutation_rate=args.mutation_rate,
-        tournament_k=args.tournament_k,
-        use_local_search=args.local_search
+        initial_quality=args.init_quality,
     )
     
     # Display final results
