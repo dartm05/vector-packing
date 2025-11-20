@@ -20,7 +20,7 @@ def benchmark_scenario(scenario_name, data_source='synthetic', seed=42):
     """Run both GA and WoC on a scenario and collect results.
 
     Args:
-        scenario_name: 'small', 'medium', 'large', or 'extra_large'
+        scenario_name: 'small', 'medium', 'large', 'extra_large', or 'production'
         data_source: 'synthetic' or 'azure'
         seed: Random seed for reproducibility
     """
@@ -191,7 +191,7 @@ def main():
     print()
     print("="*80)
 
-    scenarios = ['small', 'medium', 'large', 'extra_large']
+    scenarios = ['small', 'medium', 'large', 'extra_large', 'production']
     seed = 42
 
     # Run synthetic benchmarks

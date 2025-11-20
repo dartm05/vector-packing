@@ -235,7 +235,8 @@ class AzureDataLoader:
         Generate a complete scenario from Azure data matching predefined sizes.
 
         Args:
-            scenario_size: 'small' (20), 'medium' (50), 'large' (100), 'extra_large' (200)
+            scenario_size: 'small' (20), 'medium' (50), 'large' (100), 'extra_large' (200),
+                         'production' (500), 'production_medium' (750), 'production_large' (1000)
             time_point: Time point in hours to sample from
             priority: Optional priority filter
             seed: Random seed
@@ -269,6 +270,24 @@ class AzureDataLoader:
                 'server_cpu': 128,
                 'server_ram': 1024,
                 'server_storage': 8000
+            },
+            'production': {
+                'num_vms': 500,
+                'server_cpu': 192,
+                'server_ram': 2048,
+                'server_storage': 16000
+            },
+            'production_medium': {
+                'num_vms': 750,
+                'server_cpu': 256,
+                'server_ram': 3072,
+                'server_storage': 24000
+            },
+            'production_large': {
+                'num_vms': 1000,
+                'server_cpu': 320,
+                'server_ram': 4096,
+                'server_storage': 32000
             }
         }
 
