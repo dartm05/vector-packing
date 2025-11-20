@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Performance Results: GA vs WOC on Azure Production Data</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body { font-family: Arial; max-width: 1600px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        .chart { background: #f8f9fa; padding: 20px; border-radius: 8px; }
+        .summary { background: #e8f5e9; padding: 20px; border-radius: 8px; margin: 30px 0; }
+        .summary h2 { margin-top: 0; color: #27ae60; }
+        .warning { background: #fff3cd; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 5px solid #ffc107; }
+        .info { background: #d1ecf1; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 5px solid #17a2b8; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        th { background: #3498db; color: white; font-weight: bold; }
+        .speedup { color: #27ae60; font-weight: bold; font-size: 16px; }
+        .better { background: #c8e6c9 !important; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GA vs WOC Performance Results</h1>
+        <h2 style="text-align: center; color: #7f8c8d; font-size: 18px;">
+            Evaluated on Real Microsoft Azure Production Data (OSDI 2020)
+        </h2>
+
+        <div class="info">
+            <strong>📊 Dataset:</strong> Microsoft Azure Packing Trace 2020 (5.5M VMs from production)<br>
+            <strong>🎯 Scenarios:</strong> Small (20 VMs), Medium (50 VMs), Large (100 VMs), Extra Large (200 VMs)<br>
+            <strong>⚙️ Server Capacities:</strong> Scaled to match scenario complexity
+        </div>
+
+        <h2>Results Summary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenario</th>
+                    <th>VMs</th>
+                    <th>Method</th>
+                    <th>Time (s)</th>
+                    <th>Servers</th>
+                    <th>Fitness</th>
+                    <th>Speedup</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2"><strong>Small</strong></td>
+                    <td rowspan="2">20</td>
+                    <td>GA</td>
+                    <td>1.01</td>
+                    <td>4</td>
+                    <td>403.59</td>
+                    <td rowspan="2" class="speedup">67.0×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td class="better">0.02</td>
+                    <td class="better">3</td>
+                    <td class="better">301.46</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Medium</strong></td>
+                    <td rowspan="2">50</td>
+                    <td>GA</td>
+                    <td>3.78</td>
+                    <td>12</td>
+                    <td>1205.18</td>
+                    <td rowspan="2" class="speedup">30.3×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td class="better">0.12</td>
+                    <td class="better">7</td>
+                    <td class="better">701.74</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Large</strong></td>
+                    <td rowspan="2">100</td>
+                    <td>GA</td>
+                    <td>7.62</td>
+                    <td>21</td>
+                    <td>2105.96</td>
+                    <td rowspan="2" class="speedup">13.0×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td class="better">0.59</td>
+                    <td class="better">10</td>
+                    <td class="better">1001.52</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Extra_large</strong></td>
+                    <td rowspan="2">200</td>
+                    <td>GA</td>
+                    <td>14.24</td>
+                    <td>50</td>
+                    <td>5006.76</td>
+                    <td rowspan="2" class="speedup">6.3×</td>
+                </tr>
+                <tr>
+                    <td>WOC</td>
+                    <td class="better">2.27</td>
+                    <td class="better">20</td>
+                    <td class="better">2001.89</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary">
+            <h2>🎯 Key Findings</h2>
+            <ul>
+                <li><strong>WOC Quality:</strong> Finds BETTER solutions than GA in ALL 4 scenarios (highlighted in green)</li>
+                <li><strong>WOC Speed:</strong> Achieves 6-67× speedup across all scenarios</li>
+                <li><strong>Real-World Validation:</strong> Tested on actual Azure production workloads</li>
+                <li><strong>Dramatic Improvements:</strong> Extra Large scenario - WOC uses 20 servers vs GA's 50 (60% reduction!)</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Azure Data Characteristics:</strong> Real production VMs have unbalanced resource requirements
+            (CPU-heavy vs RAM-heavy workloads), making optimization challenging. WOC's pattern learning approach
+            handles this complexity better than GA's random mutations.
+        </div>
+
+        <h2>Visual Analysis</h2>
+
+        <div class="grid">
+            <div class="chart">
+                <div id="time-comparison"></div>
+            </div>
+            <div class="chart">
+                <div id="servers-comparison"></div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="chart">
+                <div id="speedup-comparison"></div>
+            </div>
+            <div class="chart">
+                <div id="quality-comparison"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // Time Comparison
+        var timeData = [
+            {
+                x: ['Small', 'Medium', 'Large', 'Extra_large'],
+                y: [1.01, 3.78, 7.62, 14.24],
+                name: 'GA',
+                type: 'bar',
+                marker: {color: '#e74c3c'}
+            },
+            {
+                x: ['Small', 'Medium', 'Large', 'Extra_large'],
+                y: [0.02, 0.12, 0.59, 2.27],
+                name: 'WOC',
+                type: 'bar',
+                marker: {color: '#2ecc71'}
+            }
+        ];
+
+        var timeLayout = {
+            title: 'Execution Time Comparison',
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Time (seconds)', type: 'log'},
+            barmode: 'group',
+            showlegend: true
+        };
+
+        Plotly.newPlot('time-comparison', timeData, timeLayout, {responsive: true});
+
+        // Servers Comparison
+        var serversData = [
+            {
+                x: ['Small', 'Medium', 'Large', 'Extra_large'],
+                y: [4, 12, 21, 50],
+                name: 'GA',
+                type: 'bar',
+                marker: {color: '#e74c3c'}
+            },
+            {
+                x: ['Small', 'Medium', 'Large', 'Extra_large'],
+                y: [3, 7, 10, 20],
+                name: 'WOC',
+                type: 'bar',
+                marker: {color: '#2ecc71'}
+            }
+        ];
+
+        var serversLayout = {
+            title: 'Server Count Comparison',
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Servers Used'},
+            barmode: 'group',
+            showlegend: true
+        };
+
+        Plotly.newPlot('servers-comparison', serversData, serversLayout, {responsive: true});
+
+        // Speedup Comparison
+        var speedupData = [
+            {
+                x: ['Small', 'Medium', 'Large', 'Extra_large'],
+                y: [67.0, 30.3, 13.0, 6.3],
+                type: 'bar',
+                marker: {color: '#3498db'},
+                text: [67.0, 30.3, 13.0, 6.3].map(x => x.toFixed(1) + '×'),
+                textposition: 'auto'
+            }
+        ];
+
+        var speedupLayout = {
+            title: 'WOC Speedup Factor (vs GA)',
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Speedup (times faster)'},
+            showlegend: false
+        };
+
+        Plotly.newPlot('speedup-comparison', speedupData, speedupLayout, {responsive: true});
+
+        // Quality Comparison (WOC - GA server difference)
+        var qualityData = [
+            {
+                x: ['Small', 'Medium', 'Large', 'Extra_large'],
+                y: [-1, -5, -11, -30],
+                type: 'bar',
+                marker: {color: '#27ae60'},
+                text: [-1, -5, -11, -30],
+                textposition: 'auto'
+            }
+        ];
+
+        var qualityLayout = {
+            title: 'Quality Improvement (Negative = WOC Uses Fewer Servers)',
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Server Difference (WOC - GA)'},
+            showlegend: false,
+            shapes: [{
+                type: 'line',
+                x0: -0.5,
+                x1: 3.5,
+                y0: 0,
+                y1: 0,
+                line: {color: 'red', width: 2, dash: 'dash'}
+            }]
+        };
+
+        Plotly.newPlot('quality-comparison', qualityData, qualityLayout, {responsive: true});
+    </script>
+</body>
+</html>
