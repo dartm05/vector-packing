@@ -109,7 +109,7 @@ def main():
         all_results[scenario_name] = result
 
     # Save to JSON
-    output_file = 'convergence_data.json'
+    output_file = 'results/convergence/convergence_data.json'
     with open(output_file, 'w') as f:
         json.dump(all_results, f, indent=2)
 

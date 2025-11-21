@@ -15,11 +15,11 @@ def create_production_visualization():
 
     # Load results
     try:
-        with open('production_benchmark_results.json', 'r') as f:
+        with open('results/benchmarks/production_benchmark_results.json', 'r') as f:
             production_results = json.load(f)
     except FileNotFoundError as e:
         print(f"Error: {e}")
-        print("Please run benchmark_production_scenarios.py first!")
+        print("Please run scripts/benchmarks/benchmark_production_scenarios.py first!")
         return
 
     # Extract data for charts

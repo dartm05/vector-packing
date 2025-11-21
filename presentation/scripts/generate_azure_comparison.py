@@ -239,13 +239,13 @@ def main():
     print("SAVING RESULTS")
     print(f"{'='*80}")
 
-    with open('synthetic_benchmark_results.json', 'w') as f:
+    with open('results/benchmarks/synthetic_benchmark_results.json', 'w') as f:
         json.dump(synthetic_results, f, indent=2)
-    print("✓ Synthetic results saved: synthetic_benchmark_results.json")
+    print("✓ Synthetic results saved: results/benchmarks/synthetic_benchmark_results.json")
 
-    with open('azure_benchmark_results.json', 'w') as f:
+    with open('presentation/data/azure_benchmark_results.json', 'w') as f:
         json.dump(azure_results, f, indent=2)
-    print("✓ Azure results saved: azure_benchmark_results.json")
+    print("✓ Azure results saved: presentation/data/azure_benchmark_results.json")
 
     # Combined results
     combined_results = {
@@ -258,9 +258,9 @@ def main():
         }
     }
 
-    with open('combined_benchmark_results.json', 'w') as f:
+    with open('results/benchmarks/combined_benchmark_results.json', 'w') as f:
         json.dump(combined_results, f, indent=2)
-    print("✓ Combined results saved: combined_benchmark_results.json")
+    print("✓ Combined results saved: results/benchmarks/combined_benchmark_results.json")
 
     # Print comparison table
     print(f"\n{'='*80}")

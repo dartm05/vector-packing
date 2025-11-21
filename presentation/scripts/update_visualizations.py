@@ -8,7 +8,7 @@ import os
 
 def load_results():
     """Load the benchmark results."""
-    with open('updated_benchmark_results.json', 'r') as f:
+    with open('results/benchmarks/updated_benchmark_results.json', 'r') as f:
         return json.load(f)
 
 def update_performance_comparison(results):

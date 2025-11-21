@@ -219,7 +219,7 @@ def main():
     print("SAVING RESULTS")
     print(f"{'='*80}")
 
-    output_file = 'production_benchmark_results.json'
+    output_file = 'results/benchmarks/production_benchmark_results.json'
     with open(output_file, 'w') as f:
         json.dump(production_results, f, indent=2)
     print(f"✓ Production results saved: {output_file}")

@@ -69,7 +69,7 @@ With random initialization, GA demonstrates clear improvement:
 
 ```
 final-project/
-├── src/
+├── src/                           # Source code
 │   ├── models/                    # Core data models
 │   │   ├── __init__.py
 │   │   ├── virtual_machine.py    # VM with resource requirements
@@ -82,6 +82,7 @@ final-project/
 │   │   ├── engine.py              # Original GA engine
 │   │   ├── simple_fitness.py      # Fitness evaluation
 │   │   ├── concrete_operators.py  # Selection, crossover, mutation
+│   │   ├── local_search.py        # Local search improvements
 │   │   ├── fitness.py             # Base class for fitness evaluation
 │   │   └── operators.py           # Base classes for GA operators
 │   │
@@ -93,23 +94,58 @@ final-project/
 │   └── utils/                     # Utility functions
 │       ├── __init__.py
 │       ├── data_generator.py      # Generate test datasets
+│       ├── azure_data_loader.py   # Load Azure dataset
 │       └── logger.py              # Logging configuration
 │
-├── presentation_visuals/          # Visualizations for presentations
-│   ├── vis_11_convergence_curves.html  # GA convergence curves
-│   ├── vis_14_performance_comparison.html  # Performance comparison
-│   └── slide_*.html               # Presentation slides (3)
+├── scripts/                       # Utility scripts (see scripts/README.md)
+│   ├── benchmarks/                # Benchmarking scripts
+│   │   ├── benchmark_production_scenarios.py
+│   │   ├── capture_convergence_data.py
+│   │   └── capture_convergence_simple.py
+│   ├── data/                      # Data processing scripts
+│   │   └── download_azure_dataset.py
+│   └── demos/                     # Demo applications
+│       └── demo_gui_with_azure.py
 │
-├── presentation_scripts/          # Speaking scripts for presentations
-│   ├── script_1_results_comparison.md
-│   ├── script_2_medium_convergence.md
-│   └── script_3_large_convergence.md
+├── tests/                         # Test suite (see tests/README.md)
+│   ├── test_models.py             # Model unit tests
+│   ├── test_utils.py              # Utility tests
+│   ├── test_simple_ga.py          # GA functionality tests
+│   ├── test_ga_convergence.py     # GA convergence tests
+│   ├── test_azure_loader.py       # Azure loader tests
+│   ├── test_production_scenario.py # Production scenario tests
+│   ├── test_woc.py                # WoC tests
+│   └── test_woc_behavior.py       # WoC behavior tests
 │
-├── gui.py                         #  Main GUI application (tkinter)
-├── main.py                        #  CLI entry point
-├── generate_updated_results.py    # Benchmark all scenarios
-├── capture_convergence_simple.py  # Capture convergence data
-├── update_convergence_visual.py   # Update convergence HTML
+├── presentation/                  # Presentation materials
+│   ├── scripts/                   # Visualization generation (see presentation/scripts/README.md)
+│   │   ├── visualize_production_scenarios.py
+│   │   ├── generate_all_visuals.py
+│   │   ├── generate_azure_comparison.py
+│   │   ├── generate_convergence_visual.py
+│   │   └── ... (12 visualization scripts)
+│   ├── visuals/                   # Generated visualization files (PNG, SVG)
+│   └── data/                      # Processed presentation data
+│
+├── presentation_visuals/          # Interactive HTML visualizations
+│   ├── vis_11_convergence_curves.html
+│   ├── vis_14_performance_comparison.html
+│   └── production_scenarios_analysis.html
+│
+├── datasets/                      # Data storage (gitignored)
+│   └── packing_trace_zone_a_v1.sqlite  # Azure dataset
+│
+├── results/                       # Benchmark results (gitignored, see results/README.md)
+│   ├── benchmarks/                # Benchmark result files
+│   │   ├── production_benchmark_results.json
+│   │   ├── synthetic_benchmark_results.json
+│   │   ├── combined_benchmark_results.json
+│   │   └── updated_benchmark_results.json
+│   └── convergence/               # Convergence tracking data
+│       └── convergence_data.json
+│
+├── gui.py                         # ⭐ Main GUI application (tkinter)
+├── main.py                        # ⭐ CLI entry point
 ├── requirements.txt               # Python dependencies
 ├── LICENSE
 └── README.MD                      # This file
@@ -139,7 +175,7 @@ pip install -r requirements.txt
 
 ```bash
 # Download Azure Packing Trace 2020 dataset (~51 MB download, 173 MB extracted)
-python3 download_azure_dataset.py
+python scripts/data/download_azure_dataset.py
 
 # Or use the bash script
 bash download_azure_dataset.sh
@@ -309,29 +345,45 @@ Located in `presentation_visuals/`:
 ### Run New Benchmarks
 
 ```bash
-# Benchmark all scenarios (takes ~5 min)
-python generate_updated_results.py
+# Benchmark production scenarios (500, 750, 1000 VMs)
+python scripts/benchmarks/benchmark_production_scenarios.py
 
-# Results saved to: updated_benchmark_results.json
+# Results saved to: results/benchmarks/production_benchmark_results.json
 ```
 
 ### Capture Convergence Data
 
 ```bash
 # Run experiments to capture generation-by-generation data
-python capture_convergence_simple.py
+python scripts/benchmarks/capture_convergence_simple.py
 
-# Update visualization with new data
-python update_convergence_visual.py
+# Or capture more detailed convergence data
+python scripts/benchmarks/capture_convergence_data.py
 
-# Results saved to: convergence_data.json
-# Visualization updated: presentation_visuals/vis_11_convergence_curves.html
+# Results saved to: results/convergence/convergence_data.json
 ```
+
+### Generate Visualizations
+
+```bash
+# Update convergence visualization
+python presentation/scripts/update_convergence_visual.py
+
+# Visualize production scenario results
+python presentation/scripts/visualize_production_scenarios.py
+
+# Generate all presentation visuals
+python presentation/scripts/generate_all_visuals.py
+
+# Visualizations saved to: presentation_visuals/
+```
+
+**Note:** All benchmark results are saved to the `results/` directory. See `results/README.md` for details on result file formats and locations.
 
 ### All-in-One Regeneration
 
 ```bash
-# Regenerate everything
+# Regenerate everything (if script exists)
 ./regenerate_all_visualizations.sh
 ```
  

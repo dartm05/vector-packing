@@ -13,14 +13,14 @@ from pathlib import Path
 def load_benchmark_data():
     """Load both synthetic and Azure benchmark results."""
     try:
-        with open('synthetic_benchmark_results.json', 'r') as f:
+        with open('results/benchmarks/synthetic_benchmark_results.json', 'r') as f:
             synthetic = json.load(f)
-        with open('azure_benchmark_results.json', 'r') as f:
+        with open('presentation/data/azure_benchmark_results.json', 'r') as f:
             azure = json.load(f)
         return synthetic, azure
     except FileNotFoundError as e:
         print(f"Error: {e}")
-        print("Please run generate_azure_comparison.py first!")
+        print("Please run presentation/scripts/generate_azure_comparison.py first!")
         return None, None
 
 

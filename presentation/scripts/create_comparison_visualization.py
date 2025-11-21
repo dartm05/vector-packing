@@ -15,13 +15,13 @@ def create_comparison_html():
 
     # Load results
     try:
-        with open('synthetic_benchmark_results.json', 'r') as f:
+        with open('results/benchmarks/synthetic_benchmark_results.json', 'r') as f:
             synthetic_results = json.load(f)
-        with open('azure_benchmark_results.json', 'r') as f:
+        with open('presentation/data/azure_benchmark_results.json', 'r') as f:
             azure_results = json.load(f)
     except FileNotFoundError as e:
         print(f"Error: {e}")
-        print("Please run generate_azure_comparison.py first!")
+        print("Please run presentation/scripts/generate_azure_comparison.py first!")
         return
 
     # Extract data for charts

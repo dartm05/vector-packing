@@ -173,7 +173,7 @@ def main():
               f"fitness={best_solution.fitness:.2f}")
 
     # Save to JSON
-    output_file = 'convergence_data.json'
+    output_file = 'results/convergence/convergence_data.json'
     with open(output_file, 'w') as f:
         json.dump(all_results, f, indent=2)
 
@@ -182,7 +182,7 @@ def main():
     print("=" * 70)
     print(f"\nData saved to: {output_file}")
     print("\nNext step:")
-    print("  python update_convergence_visual.py")
+    print("  python presentation/scripts/update_convergence_visual.py")
     print("\nThis will update vis_11_convergence_curves.html with the new data.")
     print()
 
