@@ -213,3 +213,30 @@ class DataGenerator:
         with open(filename, 'r') as f:
             data = json.load(f)
         return [VirtualMachine.from_dict(vm_data) for vm_data in data]
+
+    @staticmethod
+    def load_azure_scenario(scenario_name: str,
+                           db_path: str = None,
+                           seed: int = None) -> Dict:
+        """
+        Load a scenario from Azure Packing Trace 2020 dataset.
+
+        Args:
+            scenario_name: 'small', 'medium', 'large', or 'extra_large'
+            db_path: Path to SQLite database (defaults to datasets/packing_trace_zone_a_v1.sqlite)
+            seed: Random seed for reproducibility
+
+        Returns:
+            Dictionary with VMs and server template
+        """
+        from .azure_data_loader import AzureDataLoader
+        from pathlib import Path
+
+        # Default database path
+        if db_path is None:
+            project_root = Path(__file__).parent.parent.parent
+            db_path = project_root / 'datasets' / 'packing_trace_zone_a_v1.sqlite'
+            db_path = str(db_path)
+
+        loader = AzureDataLoader(db_path)
+        return loader.generate_scenario_from_azure(scenario_name, seed=seed)

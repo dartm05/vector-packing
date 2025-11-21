@@ -1,0 +1,190 @@
+[
+  {
+    "scenario": "small",
+    "data_source": "synthetic",
+    "num_vms": 20,
+    "server_capacity": {
+      "cpu": 32,
+      "ram": 128,
+      "storage": 1000
+    },
+    "total_demand": {
+      "cpu": 134.2,
+      "ram": 413.68,
+      "storage": 3675.1
+    },
+    "theoretical_min_servers": 4.19,
+    "ga": {
+      "time_seconds": 0.89,
+      "servers_used": 5,
+      "fitness": 502.6,
+      "valid": true,
+      "utilization": {
+        "cpu": 83.9,
+        "ram": 64.6,
+        "storage": 73.5,
+        "average": 74.0
+      }
+    },
+    "woc": {
+      "time_seconds": 0.01,
+      "servers_used": 5,
+      "fitness": 502.6,
+      "valid": true,
+      "utilization": {
+        "cpu": 83.9,
+        "ram": 64.6,
+        "storage": 73.5,
+        "average": 74.0
+      },
+      "speedup": 79.7
+    },
+    "comparison": {
+      "quality_verdict": "equal or better",
+      "quality_equal": true,
+      "woc_better": false,
+      "ga_better": false
+    }
+  },
+  {
+    "scenario": "medium",
+    "data_source": "synthetic",
+    "num_vms": 50,
+    "server_capacity": {
+      "cpu": 64,
+      "ram": 256,
+      "storage": 2000
+    },
+    "total_demand": {
+      "cpu": 363.87,
+      "ram": 1047.87,
+      "storage": 9728.26
+    },
+    "theoretical_min_servers": 5.69,
+    "ga": {
+      "time_seconds": 2.09,
+      "servers_used": 6,
+      "fitness": 601.87,
+      "valid": true,
+      "utilization": {
+        "cpu": 94.8,
+        "ram": 68.2,
+        "storage": 81.1,
+        "average": 81.3
+      }
+    },
+    "woc": {
+      "time_seconds": 0.07,
+      "servers_used": 6,
+      "fitness": 601.87,
+      "valid": true,
+      "utilization": {
+        "cpu": 94.8,
+        "ram": 68.2,
+        "storage": 81.1,
+        "average": 81.3
+      },
+      "speedup": 30.2
+    },
+    "comparison": {
+      "quality_verdict": "equal or better",
+      "quality_equal": true,
+      "woc_better": false,
+      "ga_better": false
+    }
+  },
+  {
+    "scenario": "large",
+    "data_source": "synthetic",
+    "num_vms": 100,
+    "server_capacity": {
+      "cpu": 96,
+      "ram": 512,
+      "storage": 4000
+    },
+    "total_demand": {
+      "cpu": 696.86,
+      "ram": 2165.04,
+      "storage": 18368.68
+    },
+    "theoretical_min_servers": 7.26,
+    "ga": {
+      "time_seconds": 6.11,
+      "servers_used": 8,
+      "fitness": 803.3,
+      "valid": true,
+      "utilization": {
+        "cpu": 90.7,
+        "ram": 52.9,
+        "storage": 57.4,
+        "average": 67.0
+      }
+    },
+    "woc": {
+      "time_seconds": 0.32,
+      "servers_used": 8,
+      "fitness": 803.3,
+      "valid": true,
+      "utilization": {
+        "cpu": 90.7,
+        "ram": 52.9,
+        "storage": 57.4,
+        "average": 67.0
+      },
+      "speedup": 19.2
+    },
+    "comparison": {
+      "quality_verdict": "equal or better",
+      "quality_equal": true,
+      "woc_better": false,
+      "ga_better": false
+    }
+  },
+  {
+    "scenario": "extra_large",
+    "data_source": "synthetic",
+    "num_vms": 200,
+    "server_capacity": {
+      "cpu": 128,
+      "ram": 1024,
+      "storage": 8000
+    },
+    "total_demand": {
+      "cpu": 1381.99,
+      "ram": 4289.87,
+      "storage": 37734.35
+    },
+    "theoretical_min_servers": 10.8,
+    "ga": {
+      "time_seconds": 12.25,
+      "servers_used": 19,
+      "fitness": 1906.54,
+      "valid": true,
+      "utilization": {
+        "cpu": 56.8,
+        "ram": 22.0,
+        "storage": 24.8,
+        "average": 34.6
+      }
+    },
+    "woc": {
+      "time_seconds": 1.72,
+      "servers_used": 11,
+      "fitness": 1104.03,
+      "valid": true,
+      "utilization": {
+        "cpu": 98.2,
+        "ram": 38.1,
+        "storage": 42.9,
+        "average": 59.7
+      },
+      "speedup": 7.1
+    },
+    "comparison": {
+      "quality_verdict": "equal or better",
+      "quality_equal": false,
+      "woc_better": true,
+      "ga_better": false
+    }
+  }
+]

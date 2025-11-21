@@ -1,0 +1,143 @@
+[
+  {
+    "scenario": "production",
+    "num_vms": 500,
+    "server_capacity": {
+      "cpu": 192,
+      "ram": 2048,
+      "storage": 16000
+    },
+    "total_demand": {
+      "cpu": 8230.0,
+      "ram": 84467.57,
+      "storage": 465575.64
+    },
+    "theoretical_min_servers": 42.86,
+    "ga": {
+      "time_seconds": 44.01,
+      "servers_used": 143,
+      "fitness": 14307.36,
+      "valid": true,
+      "utilization": {
+        "cpu": 30.0,
+        "ram": 28.8,
+        "storage": 20.3,
+        "average": 26.4
+      }
+    },
+    "woc": {
+      "time_seconds": 19.72,
+      "servers_used": 46,
+      "fitness": 4601.8,
+      "valid": true,
+      "utilization": {
+        "cpu": 93.2,
+        "ram": 89.7,
+        "storage": 63.3,
+        "average": 82.0
+      },
+      "speedup": 2.2
+    },
+    "comparison": {
+      "server_reduction_pct": 67.8,
+      "servers_saved": 97,
+      "quality_equal": false,
+      "woc_better": true,
+      "ga_better": false
+    }
+  },
+  {
+    "scenario": "production_medium",
+    "num_vms": 750,
+    "server_capacity": {
+      "cpu": 256,
+      "ram": 3072,
+      "storage": 24000
+    },
+    "total_demand": {
+      "cpu": 16886.29,
+      "ram": 195832.15,
+      "storage": 1115425.99
+    },
+    "theoretical_min_servers": 65.96,
+    "ga": {
+      "time_seconds": 72.14,
+      "servers_used": 239,
+      "fitness": 23907.54,
+      "valid": true,
+      "utilization": {
+        "cpu": 27.6,
+        "ram": 26.7,
+        "storage": 19.4,
+        "average": 24.6
+      }
+    },
+    "woc": {
+      "time_seconds": 34.09,
+      "servers_used": 70,
+      "fitness": 7001.61,
+      "valid": true,
+      "utilization": {
+        "cpu": 94.2,
+        "ram": 91.1,
+        "storage": 66.4,
+        "average": 83.9
+      },
+      "speedup": 2.1
+    },
+    "comparison": {
+      "server_reduction_pct": 70.7,
+      "servers_saved": 169,
+      "quality_equal": false,
+      "woc_better": true,
+      "ga_better": false
+    }
+  },
+  {
+    "scenario": "production_large",
+    "num_vms": 1000,
+    "server_capacity": {
+      "cpu": 320,
+      "ram": 4096,
+      "storage": 32000
+    },
+    "total_demand": {
+      "cpu": 27655.86,
+      "ram": 342212.86,
+      "storage": 2008301.41
+    },
+    "theoretical_min_servers": 86.42,
+    "ga": {
+      "time_seconds": 100.65,
+      "servers_used": 333,
+      "fitness": 33307.67,
+      "valid": true,
+      "utilization": {
+        "cpu": 26.0,
+        "ram": 25.1,
+        "storage": 18.8,
+        "average": 23.3
+      }
+    },
+    "woc": {
+      "time_seconds": 65.94,
+      "servers_used": 91,
+      "fitness": 9101.48,
+      "valid": true,
+      "utilization": {
+        "cpu": 95.0,
+        "ram": 91.8,
+        "storage": 69.0,
+        "average": 85.2
+      },
+      "speedup": 1.5
+    },
+    "comparison": {
+      "server_reduction_pct": 72.7,
+      "servers_saved": 242,
+      "quality_equal": false,
+      "woc_better": true,
+      "ga_better": false
+    }
+  }
+]

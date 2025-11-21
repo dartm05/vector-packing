@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Scenarios Performance Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .insight-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .insight-box h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning-box h3 {
+            margin-top: 0;
+            color: #e65100;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .stat-label {
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .metric-improvement {
+            color: #4caf50;
+            font-weight: 600;
+        }
+        .metric-neutral {
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Production Scenarios Performance Analysis</h1>
+    <div class="subtitle">
+        GA + WoC Performance on Large-Scale Production Workloads (500-1000 VMs)
+    </div>
+
+    <div class="insight-box">
+        <h3>🎯 Production-Scale Validation</h3>
+        <p>
+            These results demonstrate that our hybrid GA+WoC approach maintains
+            effectiveness at production scale (500-1000 VMs), showing consistent
+            improvements in both speed and resource utilization across all scenarios.
+        </p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Production Scenarios</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">2250</div>
+            <div class="stat-label">Total VMs Tested</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">1.9×</div>
+            <div class="stat-label">Average Speedup</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">508</div>
+            <div class="stat-label">Total Servers Saved</div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">📊 Production Scenarios: Performance Comparison Table</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenario</th>
+                    <th>VMs</th>
+                    <th>Method</th>
+                    <th>Time (s)</th>
+                    <th>Servers</th>
+                    <th>Fitness</th>
+                    <th>Util %</th>
+                    <th>Improvement</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>Production</strong></td>
+                    <td>500</td>
+                    <td>GA</td>
+                    <td>44.01</td>
+                    <td>143</td>
+                    <td>14307.36</td>
+                    <td>26.4%</td>
+                    <td class="metric-neutral">-</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>WoC</td>
+                    <td>19.72</td>
+                    <td>46</td>
+                    <td>4601.80</td>
+                    <td>82.0%</td>
+                    <td class="metric-improvement">2.2× faster, 97 servers saved</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Production Medium</strong></td>
+                    <td>750</td>
+                    <td>GA</td>
+                    <td>72.14</td>
+                    <td>239</td>
+                    <td>23907.54</td>
+                    <td>24.6%</td>
+                    <td class="metric-neutral">-</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>WoC</td>
+                    <td>34.09</td>
+                    <td>70</td>
+                    <td>7001.61</td>
+                    <td>83.9%</td>
+                    <td class="metric-improvement">2.1× faster, 169 servers saved</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Production Large</strong></td>
+                    <td>1000</td>
+                    <td>GA</td>
+                    <td>100.65</td>
+                    <td>333</td>
+                    <td>33307.67</td>
+                    <td>23.3%</td>
+                    <td class="metric-neutral">-</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>WoC</td>
+                    <td>65.94</td>
+                    <td>91</td>
+                    <td>9101.48</td>
+                    <td>85.2%</td>
+                    <td class="metric-improvement">1.5× faster, 242 servers saved</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">Server Count Comparison</div>
+        <div id="serversChart"></div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">Execution Time Comparison (Log Scale)</div>
+        <div id="timeChart"></div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">Speedup Analysis (WoC vs GA)</div>
+        <div id="speedupChart"></div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">Resource Utilization Comparison</div>
+        <div id="utilizationChart"></div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">Fitness Score Comparison (Lower is Better)</div>
+        <div id="fitnessChart"></div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">Server Reduction (Servers Saved by WoC)</div>
+        <div id="reductionChart"></div>
+    </div>
+
+    <script>
+        // Chart 1: Server Count Comparison
+        var serversData = [
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [42.86, 65.96, 86.42],
+                name: 'Theoretical Minimum',
+                type: 'bar',
+                marker: {color: '#95a5a6'}
+            },
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [143, 239, 333],
+                name: 'GA',
+                type: 'bar',
+                marker: {color: '#e74c3c'}
+            },
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [46, 70, 91],
+                name: 'WoC',
+                type: 'bar',
+                marker: {color: '#27ae60'}
+            }
+        ];
+
+        var serversLayout = {
+            barmode: 'group',
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Servers Used'},
+            showlegend: true,
+            legend: {orientation: 'h', y: -0.2}
+        };
+
+        Plotly.newPlot('serversChart', serversData, serversLayout, {responsive: true});
+
+        // Chart 2: Execution Time Comparison
+        var timeData = [
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [44.01, 72.14, 100.65],
+                name: 'GA',
+                type: 'bar',
+                marker: {color: '#e74c3c'},
+                text: [44.01, 72.14, 100.65].map(x => x.toFixed(2) + 's'),
+                textposition: 'auto'
+            },
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [19.72, 34.09, 65.94],
+                name: 'WoC',
+                type: 'bar',
+                marker: {color: '#27ae60'},
+                text: [19.72, 34.09, 65.94].map(x => x.toFixed(2) + 's'),
+                textposition: 'auto'
+            }
+        ];
+
+        var timeLayout = {
+            barmode: 'group',
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Execution Time (seconds)', type: 'log'},
+            showlegend: true,
+            legend: {orientation: 'h', y: -0.2}
+        };
+
+        Plotly.newPlot('timeChart', timeData, timeLayout, {responsive: true});
+
+        // Chart 3: Speedup Analysis
+        var speedupData = [
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [2.2, 2.1, 1.5],
+                type: 'bar',
+                marker: {color: '#3498db'},
+                text: [2.2, 2.1, 1.5].map(x => x.toFixed(1) + '×'),
+                textposition: 'auto'
+            }
+        ];
+
+        var speedupLayout = {
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'WoC Speedup (times faster than GA)'},
+            showlegend: false
+        };
+
+        Plotly.newPlot('speedupChart', speedupData, speedupLayout, {responsive: true});
+
+        // Chart 4: Utilization Comparison
+        var utilizationData = [
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [26.4, 24.6, 23.3],
+                name: 'GA',
+                type: 'bar',
+                marker: {color: '#e74c3c'}
+            },
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [82.0, 83.9, 85.2],
+                name: 'WoC',
+                type: 'bar',
+                marker: {color: '#27ae60'}
+            }
+        ];
+
+        var utilizationLayout = {
+            barmode: 'group',
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Average Resource Utilization (%)'},
+            showlegend: true,
+            legend: {orientation: 'h', y: -0.2}
+        };
+
+        Plotly.newPlot('utilizationChart', utilizationData, utilizationLayout, {responsive: true});
+
+        // Chart 5: Fitness Comparison
+        var fitnessData = [
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [14307.36, 23907.54, 33307.67],
+                name: 'GA',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: '#e74c3c'},
+                marker: {size: 10}
+            },
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [4601.8, 7001.61, 9101.48],
+                name: 'WoC',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: '#27ae60'},
+                marker: {size: 10}
+            }
+        ];
+
+        var fitnessLayout = {
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Fitness Score (lower is better)'},
+            showlegend: true,
+            legend: {orientation: 'h', y: -0.2}
+        };
+
+        Plotly.newPlot('fitnessChart', fitnessData, fitnessLayout, {responsive: true});
+
+        // Chart 6: Server Reduction
+        var reductionData = [
+            {
+                x: ['Production', 'Production Medium', 'Production Large'],
+                y: [97, 169, 242],
+                type: 'bar',
+                marker: {color: '#27ae60'},
+                text: [97, 169, 242].map((val, idx) => val + ' servers (' + [67.8, 70.7, 72.7][idx].toFixed(1) + '%)'),
+                textposition: 'auto'
+            }
+        ];
+
+        var reductionLayout = {
+            xaxis: {title: 'Scenario'},
+            yaxis: {title: 'Servers Saved (GA → WoC)'},
+            showlegend: false
+        };
+
+        Plotly.newPlot('reductionChart', reductionData, reductionLayout, {responsive: true});
+    </script>
+
+    <div class="insight-box">
+        <h3>📊 Key Findings</h3>
+        <p><strong>Scalability:</strong></p>
+        <ul>
+            <li>WoC maintains consistent performance advantages across all production scales (500-1000 VMs)</li>
+            <li>Average speedup: 1.9× faster than GA</li>
+            <li>Average server reduction: 70.4%</li>
+        </ul>
+        <p><strong>Resource Efficiency:</strong></p>
+        <ul>
+            <li>WoC achieves significantly higher resource utilization (often 2-3× better)</li>
+            <li>Total servers saved across scenarios: 508</li>
+            <li>Better fitness scores indicate more balanced resource usage</li>
+        </ul>
+        <p><strong>Production Readiness:</strong></p>
+        <ul>
+            <li>Results demonstrate WoC is viable for real production deployments</li>
+            <li>Consistent quality improvements with faster execution time</li>
+            <li>Scales effectively to 1000+ VM workloads</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <h3>💡 Cost Impact Analysis</h3>
+        <p>
+            <strong>Example ROI Calculation:</strong><br>
+            Assuming $1000/server/month cost:
+        </p>
+        <ul>
+
+            <li><strong>Production:</strong> 97 servers saved =
+                $97,000/month or $1,164,000/year</li>
+
+            <li><strong>Production Medium:</strong> 169 servers saved =
+                $169,000/month or $2,028,000/year</li>
+
+            <li><strong>Production Large:</strong> 242 servers saved =
+                $242,000/month or $2,904,000/year</li>
+
+        </ul>
+        <p>
+            <strong>Total Potential Savings:</strong> $508,000/month
+            or $6,096,000/year across all scenarios
+        </p>
+    </div>
+
+    <div style="text-align: center; color: #7f8c8d; margin-top: 40px; padding: 20px;">
+        <p>Generated from production benchmark runs on Azure Packing Trace 2020 (seed=42)</p>
+        <p>Dataset: Microsoft Azure Public Dataset (OSDI 2020)</p>
+    </div>
+</body>
+</html>

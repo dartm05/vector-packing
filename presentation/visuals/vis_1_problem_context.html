@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Problem Context - Cloud VM Allocation</title>
+    <style>
+        body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        svg { display: block; margin: 20px auto; }
+        .caption { text-align: center; color: #7f8c8d; margin-top: 20px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cloud Computing Resource Allocation</h1>
+        
+        <svg width="1000" height="600" xmlns="http://www.w3.org/2000/svg">
+            <!-- Title -->
+            <text x="500" y="30" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">
+                Virtual Machines → Physical Servers
+            </text>
+            
+            <!-- Virtual Machines Section -->
+            <text x="150" y="80" text-anchor="middle" font-size="18" font-weight="bold" fill="#3498db">
+                Virtual Machines (VMs)
+            </text>
+            
+            <!-- VM 1 -->
+            <g transform="translate(50, 100)">
+                <rect width="200" height="80" fill="#3498db" stroke="#2980b9" stroke-width="3" rx="5"/>
+                <text x="100" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="bold">VM1</text>
+                <text x="100" y="50" text-anchor="middle" fill="white" font-size="12">CPU: 4 cores</text>
+                <text x="100" y="65" text-anchor="middle" fill="white" font-size="12">RAM: 16 GB</text>
+            </g>
+            
+            <!-- VM 2 -->
+            <g transform="translate(50, 200)">
+                <rect width="200" height="80" fill="#3498db" stroke="#2980b9" stroke-width="3" rx="5"/>
+                <text x="100" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="bold">VM2</text>
+                <text x="100" y="50" text-anchor="middle" fill="white" font-size="12">CPU: 2 cores</text>
+                <text x="100" y="65" text-anchor="middle" fill="white" font-size="12">RAM: 8 GB</text>
+            </g>
+            
+            <!-- VM 3 -->
+            <g transform="translate(50, 300)">
+                <rect width="200" height="80" fill="#3498db" stroke="#2980b9" stroke-width="3" rx="5"/>
+                <text x="100" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="bold">VM3</text>
+                <text x="100" y="50" text-anchor="middle" fill="white" font-size="12">CPU: 8 cores</text>
+                <text x="100" y="65" text-anchor="middle" fill="white" font-size="12">RAM: 32 GB</text>
+            </g>
+            
+            <!-- More VMs indicator -->
+            <text x="150" y="420" text-anchor="middle" font-size="24" fill="#3498db">...</text>
+            <text x="150" y="450" text-anchor="middle" font-size="14" fill="#7f8c8d">(N VMs total)</text>
+            
+            <!-- Arrow -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+                </marker>
+            </defs>
+            <line x1="270" y1="250" x2="480" y2="250" stroke="#27ae60" stroke-width="4" marker-end="url(#arrowhead)"/>
+            <text x="375" y="240" text-anchor="middle" font-size="16" font-weight="bold" fill="#27ae60">Pack Efficiently</text>
+            
+            <!-- Physical Servers Section -->
+            <text x="750" y="80" text-anchor="middle" font-size="18" font-weight="bold" fill="#e74c3c">
+                Physical Servers
+            </text>
+            
+            <!-- Server 1 -->
+            <g transform="translate(600, 100)">
+                <rect width="300" height="120" fill="#e74c3c" stroke="#c0392b" stroke-width="3" rx="5"/>
+                <text x="150" y="30" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Server 1</text>
+                <text x="150" y="55" text-anchor="middle" fill="white" font-size="13">Capacity: CPU 16 cores</text>
+                <text x="150" y="75" text-anchor="middle" fill="white" font-size="13">RAM: 64 GB</text>
+                <text x="150" y="95" text-anchor="middle" fill="white" font-size="13">Storage: 500 GB</text>
+                <text x="150" y="110" text-anchor="middle" fill="#ffffcc" font-size="11">▣ VM1, VM2</text>
+            </g>
+            
+            <!-- Server 2 -->
+            <g transform="translate(600, 240)">
+                <rect width="300" height="120" fill="#e74c3c" stroke="#c0392b" stroke-width="3" rx="5"/>
+                <text x="150" y="30" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Server 2</text>
+                <text x="150" y="55" text-anchor="middle" fill="white" font-size="13">Capacity: CPU 16 cores</text>
+                <text x="150" y="75" text-anchor="middle" fill="white" font-size="13">RAM: 64 GB</text>
+                <text x="150" y="95" text-anchor="middle" fill="white" font-size="13">Storage: 500 GB</text>
+                <text x="150" y="110" text-anchor="middle" fill="#ffffcc" font-size="11">▣ VM3</text>
+            </g>
+            
+            <!-- More servers indicator -->
+            <text x="750" y="400" text-anchor="middle" font-size="24" fill="#e74c3c">...</text>
+            
+            <!-- Goal -->
+            <rect x="350" y="500" width="300" height="60" fill="#27ae60" stroke="#229954" stroke-width="3" rx="10"/>
+            <text x="500" y="525" text-anchor="middle" fill="white" font-size="18" font-weight="bold">GOAL</text>
+            <text x="500" y="545" text-anchor="middle" fill="white" font-size="14">Minimize Number of Servers</text>
+        </svg>
+        
+        <div class="caption">
+            <strong>Problem:</strong> Assign N virtual machines to physical servers<br>
+            <strong>Objective:</strong> Minimize server count while respecting CPU, RAM, and Storage capacity constraints
+        </div>
+    </div>
+</body>
+</html>

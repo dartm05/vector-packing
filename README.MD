@@ -1,6 +1,6 @@
 # Vector Packing Solver - GA + WoC Hybrid Approach
 
-A complete implementation of a hybrid Genetic Algorithm (GA) and Wisdom of Crowds (WoC) approach to solve the Multi-Dimensional Bin Packing Problem, with application to cloud computing resource allocation. Features a user-friendly GUI, advanced diversity mechanisms, and intelligent pattern learning.
+A complete implementation of a hybrid Genetic Algorithm (GA) and Wisdom of Crowds (WoC) approach to solve the Multi-Dimensional Bin Packing Problem, with application to cloud computing resource allocation. Features a simplified GA engine, interactive GUI, and comprehensive visualizations for presentations.
 
 ## Problem Overview
 
@@ -24,29 +24,52 @@ Efficient VM placement directly impacts:
 ## Solution Approach
 
 ### Genetic Algorithm (GA)
-Advanced evolutionary optimization with multiple features:
-- **8 Initialization Strategies**: Random, largest-first, smallest-first, balanced, best-fit, worst-fit, CPU-focused, and RAM-focused
-- **5 Mutation Types**: Move, swap, shuffle, consolidate (40%), and empty_server (40%) for smart resource optimization
-- **Diversity Mechanisms**: Immigration (5-50 individuals) when diversity drops below 0.15
+Simplified evolutionary optimization with effective operators:
+- **Configurable Initialization**: Random, poor, mixed, or good quality strategies
+- **Aggressive Consolidation**: 60% consolidation mutations for server reduction
+- **Tournament Selection**: k=3 tournament for parent selection
 - **Adaptive Mutation**: Rates increase from 0.3 to 0.7 during stagnation
-- **Elite Preservation**: Top 10% of solutions carried to next generation
-- **Early Stopping**: Terminates after 30 generations without improvement
+- **Elite Preservation**: Top 2 solutions carried to next generation
+- **Early Stopping**: Terminates after 40 generations without improvement
 
 ### Wisdom of Crowds (WoC)
-Learns from evolved GA populations to build optimized solutions:
+Learns from evolved GA populations to build optimized solutions **8-80× faster**:
 - **Pattern Analysis**: Analyzes top-performing GA solutions to identify VM co-location patterns
 - **Affinity Learning**: Builds co-occurrence matrices showing which VMs work well together
-- **Intelligent Construction**: Uses learned patterns with variable affinity weights (0.2-0.95)
-- **Diverse Generation**: Creates multiple solutions using different strategies and parameters
+- **Intelligent Construction**: Uses learned patterns with configurable affinity weights
+- **Speed Advantage**: Achieves same solution quality in fraction of the time
 
 ### Hybrid Strategy
-The WoC phase learns from the evolved GA population (not random solutions), leveraging GA's exploration with WoC's pattern recognition to discover optimal or near-optimal solutions quickly.
+The WoC phase learns from the evolved GA population, leveraging GA's exploration with WoC's pattern recognition to discover optimal or near-optimal solutions quickly.
+
+## Performance Results
+
+### Benchmark Results (seed=42, 100× fitness multiplier)
+
+| Scenario | VMs | GA Time | WoC Time | Servers | Fitness | Speedup |
+|----------|-----|---------|----------|---------|---------|---------|
+| **Small** | 20 | 0.97s | 0.01s | 5 | 502.60 | **78.4×** |
+| **Medium** | 50 | 2.83s | 0.09s | 6 | 601.87 | **32.2×** |
+| **Large** | 100 | 7.84s | 0.39s | 8 | 803.30 | **20.0×** |
+| **Extra Large** | 200 | 18.88s | 1.90s | 11 | 1104.03 | **10.0×** |
+
+**Key Finding**: WoC achieves identical solution quality while being **8-80× faster** than GA!
+
+### Convergence Performance
+
+With random initialization, GA demonstrates clear improvement:
+
+| Scenario | Initial | Final | Improvement | Generations |
+|----------|---------|-------|-------------|-------------|
+| **Small** | 8 servers | 5 servers | **37% reduction** | 8 |
+| **Medium** | 20 servers | 6 servers | **70% reduction** | 22 |
+| **Large** | 41 servers | 8 servers | **80% reduction** | 55 |
 
 ## Project Structure
 
 ```
 final-project/
-├── src/
+├── src/                           # Source code
 │   ├── models/                    # Core data models
 │   │   ├── __init__.py
 │   │   ├── virtual_machine.py    # VM with resource requirements
@@ -55,86 +78,78 @@ final-project/
 │   │
 │   ├── ga/                        # Genetic Algorithm components
 │   │   ├── __init__.py
-│   │   ├── engine.py              # GA evolution engine with diversity mechanisms
-│   │   ├── simple_fitness.py      # Fitness evaluation implementation
-│   │   ├── concrete_operators.py  # Selection, crossover, mutation operators
+│   │   ├── simple_engine.py       # Simplified GA engine (ACTIVE)
+│   │   ├── engine.py              # Original GA engine
+│   │   ├── simple_fitness.py      # Fitness evaluation
+│   │   ├── concrete_operators.py  # Selection, crossover, mutation
+│   │   ├── local_search.py        # Local search improvements
 │   │   ├── fitness.py             # Base class for fitness evaluation
-│   │   ├── operators.py           # Base classes for GA operators
-│   │   └── chromosome.py          # Chromosome representation
+│   │   └── operators.py           # Base classes for GA operators
 │   │
 │   ├── woc/                       # Wisdom of Crowds components
-│   │   ├── __init__.py            # Module exports
+│   │   ├── __init__.py
 │   │   ├── crowd_analyzer.py      # Discovers VM co-location patterns
 │   │   └── crowd_builder.py       # Builds solutions using learned patterns
 │   │
 │   └── utils/                     # Utility functions
 │       ├── __init__.py
 │       ├── data_generator.py      # Generate test datasets
+│       ├── azure_data_loader.py   # Load Azure dataset
 │       └── logger.py              # Logging configuration
 │
-├── tests/                         # Unit tests
-│   ├── __init__.py
-│   ├── test_models.py             # Test data models
-│   └── test_utils.py              # Test utilities
+├── scripts/                       # Utility scripts (see scripts/README.md)
+│   ├── benchmarks/                # Benchmarking scripts
+│   │   ├── benchmark_production_scenarios.py
+│   │   ├── capture_convergence_data.py
+│   │   └── capture_convergence_simple.py
+│   ├── data/                      # Data processing scripts
+│   │   └── download_azure_dataset.py
+│   └── demos/                     # Demo applications
+│       └── demo_gui_with_azure.py
 │
-├── gui.py                         # Main GUI application (tkinter)
-├── main.py                        # CLI entry point
+├── tests/                         # Test suite (see tests/README.md)
+│   ├── test_models.py             # Model unit tests
+│   ├── test_utils.py              # Utility tests
+│   ├── test_simple_ga.py          # GA functionality tests
+│   ├── test_ga_convergence.py     # GA convergence tests
+│   ├── test_azure_loader.py       # Azure loader tests
+│   ├── test_production_scenario.py # Production scenario tests
+│   ├── test_woc.py                # WoC tests
+│   └── test_woc_behavior.py       # WoC behavior tests
+│
+├── presentation/                  # Presentation materials
+│   ├── scripts/                   # Visualization generation (see presentation/scripts/README.md)
+│   │   ├── visualize_production_scenarios.py
+│   │   ├── generate_all_visuals.py
+│   │   ├── generate_azure_comparison.py
+│   │   ├── generate_convergence_visual.py
+│   │   └── ... (12 visualization scripts)
+│   ├── visuals/                   # Generated visualization files (PNG, SVG)
+│   └── data/                      # Processed presentation data
+│
+├── presentation_visuals/          # Interactive HTML visualizations
+│   ├── vis_11_convergence_curves.html
+│   ├── vis_14_performance_comparison.html
+│   └── production_scenarios_analysis.html
+│
+├── datasets/                      # Data storage (gitignored)
+│   └── packing_trace_zone_a_v1.sqlite  # Azure dataset
+│
+├── results/                       # Benchmark results (gitignored, see results/README.md)
+│   ├── benchmarks/                # Benchmark result files
+│   │   ├── production_benchmark_results.json
+│   │   ├── synthetic_benchmark_results.json
+│   │   ├── combined_benchmark_results.json
+│   │   └── updated_benchmark_results.json
+│   └── convergence/               # Convergence tracking data
+│       └── convergence_data.json
+│
+├── gui.py                         # ⭐ Main GUI application (tkinter)
+├── main.py                        # ⭐ CLI entry point
 ├── requirements.txt               # Python dependencies
 ├── LICENSE
 └── README.MD                      # This file
 ```
-
-## Components Status
-
-### Complete & Production-Ready
-
-**GUI Application (`gui.py`)**
-- Full-featured tkinter GUI for both GA and WoC algorithms
-- Real-time console output with color-coded messages
-- Interactive parameter configuration
-- Side-by-side results comparison showing VM placement details
-- Non-blocking execution using threading
-
-**Data Models (`src/models/`)**
-- `VirtualMachine`: Represents a VM with CPU, RAM, and storage requirements
-- `Server`: Represents a physical server with capacity constraints and VM tracking
-- `Solution`: Represents a complete packing solution with validation and metrics
-
-**GA Engine (`src/ga/engine.py`)**
-- Complete evolution engine with 8 initialization strategies
-- Diversity monitoring and immigration mechanism
-- Adaptive mutation rates (0.3 → 0.7)
-- Elite preservation (10%)
-- Early stopping after 30 stagnant generations
-- Returns evolved population for WoC learning
-
-**GA Operators (`src/ga/concrete_operators.py`)**
-- Tournament selection with configurable size
-- VM map crossover preserving valid assignments
-- 5 mutation types: move, swap, shuffle, consolidate, empty_server
-- Smart consolidation mutations (40% probability) for resource optimization
-
-**Fitness Evaluation (`src/ga/simple_fitness.py`)**
-- Weighted fitness function: `100 × servers + wasted_resources`
-- Strongly prioritizes minimizing server count
-- Secondary optimization on resource utilization
-
-**WoC Components (`src/woc/`)**
-- `CrowdAnalyzer`: Pattern analysis from top GA solutions
-- `CrowdBuilder`: Solution construction using learned affinities
-- Configurable affinity weights and initialization strategies
-
-**Utilities (`src/utils/`)**
-- `DataGenerator`: Generate test datasets with various scenarios (small, medium, large, extra_large)
-- `Logger`: Logging configuration and utilities
-
-**CLI (`main.py`)**
-- Command-line interface for running GA and WoC
-- Configurable parameters via command-line arguments
-
-**Tests**
-- Unit tests for models
-- Unit tests for utilities
 
 ## Getting Started
 
@@ -154,46 +169,72 @@ pip install -r requirements.txt
 - NumPy 2.0+
 - tkinter (included with Python on most systems)
 
-### 2. Quick Start - GUI Mode (Recommended)
+### 2. Download Azure Dataset (Optional but Recommended)
+
+**NEW!** Validate your algorithms on real Microsoft Azure production data:
+
+```bash
+# Download Azure Packing Trace 2020 dataset (~51 MB download, 173 MB extracted)
+python scripts/data/download_azure_dataset.py
+
+# Or use the bash script
+bash download_azure_dataset.sh
+```
+
+**What you get:**
+- 5.5 million real VM requests from Azure production
+- Published in OSDI 2020 (Protean paper)
+- Validates algorithm on real-world workloads
+- Seamlessly integrated with GUI
+
+**Note:** The dataset is not included in the repository due to GitHub's 100 MB file size limit. The download script fetches it directly from Microsoft's Azure public dataset repository.
+
+See `AZURE_DATASET.md` for complete documentation.
+
+### 3. Quick Start - GUI Mode (Recommended)
 
 Launch the graphical interface:
 
 ```bash
-python3 gui.py
+python gui.py
 ```
 
-### 3. CLI Mode
+**How to Use:**
+1. Select a test scenario (small, medium, large, extra_large)
+2. **NEW:** Choose data source (synthetic or azure)
+3. Configure GA parameters (population size, generations, mutation rate)
+4. Click "Run GA" to evolve solutions
+5. Click "Run WoC" to apply wisdom of crowds (uses GA results)
+6. Click "Compare Results" to see detailed side-by-side comparison
+
+**Try this:** Run the same scenario with both synthetic and Azure data to compare!
+
+See `GUI_AZURE_GUIDE.md` for detailed experiments and usage examples.
+
+### 4. CLI Mode
 
 Run from command line with custom parameters:
 
 ```bash
-# Run with default settings
-python3 main.py
+# Run with default settings (small scenario)
+python main.py
 
-# Run with custom parameters
-python3 main.py --scenario medium --population 100 --generations 100
+# Run medium scenario with more generations
+python main.py --scenario medium --generations 100
+
+# Run with different initialization quality
+python main.py --scenario large --init-quality random
 ```
 
 **Available CLI Options:**
 - `--scenario`: Test scenario (small/medium/large/extra_large)
 - `--population`: Population size (default: 50)
 - `--generations`: Number of generations (default: 100)
-- `--mutation-rate`: Initial mutation rate (default: 0.3)
-- `--crossover-rate`: Crossover probability (default: 0.8)
-- `--elite-size`: Elite preservation count (default: 5)
-
-### 4. Run Tests
-
-```bash
-# Run all tests
-pytest tests/ -v
-
-# Run specific test file
-pytest tests/test_models.py -v
-
-# Run with coverage
-pytest tests/ --cov=src
-```
+- `--mutation-rate`: Mutation rate (default: 0.3)
+- `--elitism`: Elite solutions preserved (default: 2)
+- `--tournament-k`: Tournament size (default: 3)
+- `--init-quality`: Initial quality (random/poor/mixed/good, default: random)
+- `--seed`: Random seed for reproducibility (default: 42)
 
 ### 5. Programmatic Usage
 
@@ -201,142 +242,182 @@ Use the algorithms directly in your Python code:
 
 ```python
 from src.utils.data_generator import DataGenerator
-from src.ga.engine import run_ga
+from src.ga.simple_engine import run_simple_ga
 from src.woc import CrowdAnalyzer, CrowdBuilder
-from src.ga.simple_fitness import SimpleFitnessEvaluator
+from src.ga.simple_engine import calculate_fitness
 
 # Generate test scenario
 scenario = DataGenerator.generate_scenario('medium', seed=42)
 vms = scenario['vms']
 server = scenario['server_template']
 
-# Run GA (returns best solution and evolved population)
-best_ga, ga_population = run_ga(
+# Run GA
+best_ga = run_simple_ga(
     vms=vms,
     server_template=server,
     population_size=50,
     generations=100,
-    return_population=True  # Required for WoC
+    elitism_count=2,
+    mutation_rate=0.3,
+    initial_quality="random"
 )
 
-print(f"GA Result: {best_ga.num_servers_used} servers")
+print(f"GA Result: {best_ga.num_servers_used} servers, fitness={best_ga.fitness:.2f}")
 
 # Run WoC using GA's evolved population
-analyzer = CrowdAnalyzer()
-analyzer.analyze_solutions(ga_population, top_k=20)
-
-builder = CrowdBuilder(analyzer)
-woc_solutions = builder.build_multiple_solutions(
-    vms, server, num_solutions=10, affinity_weight=0.5
-)
-
-# Evaluate WoC solutions
-evaluator = SimpleFitnessEvaluator()
-for sol in woc_solutions:
-    evaluator.evaluate(sol)
-
-best_woc = min(woc_solutions, key=lambda s: s.fitness)
-print(f"WoC Result: {best_woc.num_servers_used} servers")
+# (WoC is integrated in gui.py, see gui.py for full implementation)
 ```
 
 ## Available Test Scenarios
 
 The data generator provides four predefined scenarios:
 
-| Scenario | VMs | Server Capacity | Difficulty | Typical Result |
-|----------|-----|-----------------|------------|----------------|
-| `small` | 20 | 32 cores, 128 GB RAM, 1 TB storage | Easy | ~5 servers |
-| `medium` | 50 | 64 cores, 256 GB RAM, 2 TB storage | Medium | ~11 servers |
-| `large` | 100 | 96 cores, 512 GB RAM, 4 TB storage | Hard | ~22 servers |
-| `extra_large` | 200 | 128 cores, 1 TB RAM, 8 TB storage | Very Hard | ~45 servers |
+| Scenario | VMs | Server Capacity | GA Result | WoC Speedup |
+|----------|-----|-----------------|-----------|-------------|
+| `small` | 20 | 32 cores, 128 GB RAM, 1 TB | ~5 servers | 78× faster |
+| `medium` | 50 | 64 cores, 256 GB RAM, 2 TB | ~6 servers | 32× faster |
+| `large` | 100 | 96 cores, 512 GB RAM, 4 TB | ~8 servers | 20× faster |
+| `extra_large` | 200 | 128 cores, 1 TB RAM, 8 TB | ~11 servers | 10× faster |
 
 ## Algorithm Features
 
-### GA Initialization Strategies (8 types)
-The engine creates diverse initial populations using:
-1. **Random**: Completely random VM assignments
-2. **Largest-First**: Place largest VMs first (greedy)
-3. **Smallest-First**: Place smallest VMs first
-4. **Balanced**: Balance resource dimensions
-5. **Best-Fit**: Best-fit decreasing heuristic (minimizes wasted space)
-6. **Worst-Fit**: Worst-fit heuristic (balances server loads)
-7. **CPU-Focused**: Prioritize CPU utilization
-8. **RAM-Focused**: Prioritize RAM utilization
+### Simplified GA Engine (`src/ga/simple_engine.py`)
 
-### GA Mutations (5 types with smart weighting)
-1. **Move** (normal probability): Move a VM to a different server
-2. **Swap** (normal probability): Swap two VMs between servers
-3. **Shuffle** (normal probability): Shuffle VMs on a server
-4. **Consolidate** (40% probability): Aggressively consolidate VMs to fewer servers
-5. **Empty Server** (40% probability): Empty a server and redistribute its VMs
+**Key Features:**
+- **Clear, maintainable code**: Focused on effectiveness over complexity
+- **Aggressive consolidation**: 60% of mutations attempt to reduce servers
+- **Configurable initialization**: Supports random, poor, mixed, and good quality
+- **Early stopping**: Terminates after 40 stagnant generations
+- **Effective operators**: Tournament selection, simple crossover, smart mutations
 
-The high probability for consolidate and empty_server mutations drives the algorithm toward fewer servers.
+**Initialization Strategies:**
+1. **Random**: Completely random VM assignments (shows improvement)
+2. **Poor**: Intentionally poor placement (for testing)
+3. **Mixed**: Combination of strategies (balanced)
+4. **Good**: Heuristic-based placement (fast convergence)
 
-### Diversity Mechanisms
-- **Population Diversity**: Calculated as average Hamming distance between solutions
-- **Immigration**: When diversity drops below 0.15, inject 5-50 new random individuals
-- **Adaptive Mutation**: Mutation rate increases from 0.3 to 0.7 when fitness stagnates
-- **Early Stopping**: Terminates after 30 generations without improvement
+**Mutation Types:**
+1. **Consolidation** (60%): Aggressively move VMs to reduce servers
+2. **Simple moves** (40%): Move VMs between servers for fine-tuning
 
 ### WoC Pattern Learning
 - Analyzes top 20 solutions from evolved GA population
 - Builds co-occurrence matrix showing VM affinity scores
-- Uses variable affinity weights (0.2-0.95) for diverse solution generation
-- Employs 3 initialization strategies (greedy, balanced, random)
+- Uses configurable affinity weights for diverse solution generation
+- Achieves same solution quality as GA in fraction of the time
 
-## Performance & Results
+## Fitness Function
 
-### Typical Performance
-The enhanced algorithm consistently finds optimal or near-optimal solutions:
-- **Small scenarios**: Often finds theoretical optimum in Generation 1
-- **Medium scenarios**: Converges to optimal within 5-10 generations
-- **Large scenarios**: Achieves near-optimal solutions within 20-30 generations
-- **Diversity**: Maintains 0.40-0.65 range throughout evolution
-- **Convergence**: Early stopping after 30 stagnant generations prevents wasted computation
+The simplified fitness evaluator uses:
 
-### Example Results (Medium Scenario, seed=42)
 ```
-Scenario: 50 VMs, Server: 64 cores, 256GB RAM, 2TB storage
-
-GA Results:
-- Best: 11 servers
-- Fitness: 1104.25
-- Found in: Generation 1
-- Final diversity: 0.45
-
-WoC Results:
-- Best: 11 servers  
-- Fitness: 1104.25
-- Improved solutions: 3 out of 10
+fitness = (servers × 100) + (100 - avg_utilization) / 10
 ```
 
-### Understanding Results
-- **Servers Used**: Primary metric - lower is better
-- **Fitness Score**: `100 × servers + wasted_resources` - lower is better
-- **Diversity**: 0.15-0.75 is healthy range (triggers immigration if < 0.15)
-- **Generation 1 Optimum**: Indicates excellent initialization strategies working
+Where:
+- **100× server weight**: Strongly prioritizes minimizing server count
+- **Utilization penalty**: Secondary optimization on resource efficiency
+- **Result**: Solutions with fewer servers always score better
 
+**Example:**
+- 5 servers with 83.9% avg utilization → fitness = 502.60
+- 6 servers with 94.8% avg utilization → fitness = 601.87
+
+## Visualizations & Presentation Materials
+
+### Interactive Visualizations
+
+Located in `presentation_visuals/`:
+
+1. **vis_11_convergence_curves.html** - GA convergence curves showing:
+   - Fitness improvement over generations
+   - Server count reduction
+   - Best vs average fitness tracking
+
+2. **vis_14_performance_comparison.html** - Performance comparison:
+   - GA vs WoC execution times
+   - Speedup factors
+   - Solution quality metrics
+ 
+
+## Regenerating Results
+
+### Run New Benchmarks
+
+```bash
+# Benchmark production scenarios (500, 750, 1000 VMs)
+python scripts/benchmarks/benchmark_production_scenarios.py
+
+# Results saved to: results/benchmarks/production_benchmark_results.json
+```
+
+### Capture Convergence Data
+
+```bash
+# Run experiments to capture generation-by-generation data
+python scripts/benchmarks/capture_convergence_simple.py
+
+# Or capture more detailed convergence data
+python scripts/benchmarks/capture_convergence_data.py
+
+# Results saved to: results/convergence/convergence_data.json
+```
+
+### Generate Visualizations
+
+```bash
+# Update convergence visualization
+python presentation/scripts/update_convergence_visual.py
+
+# Visualize production scenario results
+python presentation/scripts/visualize_production_scenarios.py
+
+# Generate all presentation visuals
+python presentation/scripts/generate_all_visuals.py
+
+# Visualizations saved to: presentation_visuals/
+```
+
+**Note:** All benchmark results are saved to the `results/` directory. See `results/README.md` for details on result file formats and locations.
+
+### All-in-One Regeneration
+
+```bash
+# Regenerate everything (if script exists)
+./regenerate_all_visualizations.sh
+```
+ 
 ## Solution Metrics
 
 The `Solution` class provides comprehensive metrics:
 - `num_servers_used`: Total servers with at least one VM (primary objective)
 - `total_vms`: Total VMs successfully placed
-- `average_utilization`: Average resource utilization across all dimensions
+- `average_utilization`: Average resource utilization across CPU, RAM, storage
 - `is_valid()`: Validates no capacity constraints are violated
 - `fitness`: Evaluated by fitness function (lower is better)
 
-## Fitness Function
+## Understanding Results
 
-The `SimpleFitnessEvaluator` uses a weighted formula:
+### Fitness Values
+- **Small (5 servers)**: fitness ~502.60
+- **Medium (6 servers)**: fitness ~601.87
+- **Large (8 servers)**: fitness ~803.30
+- **Extra Large (11 servers)**: fitness ~1104.03
 
-```
-fitness = (100 × num_servers_used) + wasted_resources
-```
+Lower fitness is better. Each additional server adds ~100 to fitness.
 
-Where:
-- **100× server weight**: Strongly prioritizes minimizing server count
-- **wasted_resources**: Sum of unused CPU, RAM, and storage across all servers
-- **Result**: Solutions with fewer servers always score better, with utilization as tiebreaker
+### Speedup Factors
+WoC achieves dramatic speedup while finding identical solutions:
+- Small problems: **70-80× faster**
+- Medium problems: **30-40× faster**
+- Large problems: **15-25× faster**
+- Extra large: **8-12× faster**
+
+### Convergence Patterns
+- **Early generations**: Rapid server count reduction
+- **Middle generations**: Continued consolidation
+- **Late generations**: Fine-tuning utilization
+- **Typical convergence**: 5-60 generations depending on problem size
 
 ## Troubleshooting
 
@@ -350,78 +431,42 @@ Where:
 pip install numpy
 ```
 
-### Results seem too good (finds optimum immediately)
-This is expected! The enhanced algorithm with 8 initialization strategies and smart mutations often finds optimal solutions in the first generation, especially for smaller scenarios. This demonstrates the effectiveness of the improvements.
+### Visualizations don't show data
+The HTML visualizations require a modern browser (Chrome, Firefox, Safari, Edge). They use Plotly.js loaded from CDN.
 
 ## References
 
 ### Core Problem & Complexity
 1. **Garey, M. R., & Johnson, D. S. (1979)**. *Computers and Intractability: A Guide to the Theory of NP-Completeness*. W.H. Freeman.
-   - Establishes bin packing as NP-Complete problem
 
 2. **Lodi, A., Martello, S., & Vigo, D. (2002)**. "Recent advances on two-dimensional bin packing problems." *Discrete Applied Mathematics*, 123(1-3), 379-396.
-   - Multi-dimensional bin packing formalization
 
 ### Genetic Algorithms
 3. **Goldberg, D. E. (1989)**. *Genetic Algorithms in Search, Optimization, and Machine Learning*. Addison-Wesley.
-   - Foundational GA concepts: selection, crossover, mutation, elitism
 
 4. **Falkenauer, E. (1996)**. "A hybrid grouping genetic algorithm for bin packing." *Journal of Heuristics*, 2(1), 5-30.
-   - Grouping genetic algorithms for bin packing problems
-   - Specialized chromosome representations
 
 5. **Eiben, A. E., & Smith, J. E. (2015)**. *Introduction to Evolutionary Computing* (2nd ed.). Springer.
-   - Adaptive mutation rates (Chapter 6)
-   - Diversity preservation techniques (Chapter 9)
 
 ### Heuristic Approaches
 6. **Johnson, D. S. (1973)**. "Near-optimal bin packing algorithms." Doctoral Dissertation, MIT.
-   - Best-Fit Decreasing (BFD) heuristic
-   - Worst-Fit heuristic
-   - First-Fit Decreasing (FFD)
 
 7. **Coffman Jr, E. G., Garey, M. R., & Johnson, D. S. (1996)**. "Approximation algorithms for bin packing: A survey." *Approximation Algorithms for NP-hard Problems*, 46-93.
-   - Performance bounds for FFD and BFD heuristics
 
 ### Wisdom of Crowds & Pattern Learning
 8. **Surowiecki, J. (2004)**. *The Wisdom of Crowds: Why the Many Are Smarter Than the Few*. Doubleday.
-   - Collective intelligence principles
 
 9. **Nguyen, S., Zhang, M., Johnston, M., & Tan, K. C. (2013)**. "A computational study of representations in genetic programming to evolve dispatching rules for the job shop scheduling problem." *IEEE Transactions on Evolutionary Computation*, 17(5), 621-639.
-   - Learning patterns from evolved solutions
-   - Knowledge extraction from populations
-
-### Diversity Mechanisms
-10. **Cobb, H. G., & Grefenstette, J. J. (1993)**. "Genetic algorithms for tracking changing environments." *Proceedings of the 5th International Conference on Genetic Algorithms*, 523-530.
-    - Immigration as diversity maintenance
-
-11. **Črepinšek, M., Liu, S. H., & Mernik, M. (2013)**. "Exploration and exploitation in evolutionary algorithms: A survey." *ACM Computing Surveys*, 45(3), 1-33.
-    - Adaptive parameter control
-    - Diversity measures (Hamming distance)
 
 ### Cloud Computing & VM Placement
-12. **Beloglazov, A., & Buyya, R. (2012)**. "Optimal online deterministic algorithms and adaptive heuristics for energy and performance efficient dynamic consolidation of virtual machines in cloud data centers." *Concurrency and Computation: Practice and Experience*, 24(13), 1397-1420.
-    - VM consolidation strategies
-    - Resource utilization optimization
+10. **Beloglazov, A., & Buyya, R. (2012)**. "Optimal online deterministic algorithms and adaptive heuristics for energy and performance efficient dynamic consolidation of virtual machines in cloud data centers." *Concurrency and Computation: Practice and Experience*, 24(13), 1397-1420.
 
-13. **Xu, J., & Fortes, J. A. (2010)**. "Multi-objective virtual machine placement in virtualized data center environments." *2010 IEEE/ACM International Conference on Green Computing and Communications*, 179-188.
-    - Multi-dimensional resource constraints
-    - Fitness function design for VM placement
+11. **Xu, J., & Fortes, J. A. (2010)**. "Multi-objective virtual machine placement in virtualized data center environments." *2010 IEEE/ACM International Conference on Green Computing and Communications*, 179-188.
 
 ### Hybrid Approaches
-14. **Talbi, E. G. (2009)**. *Metaheuristics: From Design to Implementation*. Wiley.
-    - Hybrid metaheuristics (Chapter 9)
-    - Combining evolutionary algorithms with constructive heuristics
+12. **Talbi, E. G. (2009)**. *Metaheuristics: From Design to Implementation*. Wiley.
 
-15. **Poli, R., Langdon, W. B., & McPhee, N. F. (2008)**. *A Field Guide to Genetic Programming*. Lulu Enterprises.
-    - Available free at: http://www.gp-field-guide.org.uk
-    - Practical implementation guidance
-
-### Implementation-Specific Techniques
-- **Tournament Selection**: Goldberg & Deb (1991), "A comparative analysis of selection schemes"
-- **Elitism**: De Jong (1975), "An analysis of the behavior of a class of genetic adaptive systems"
-- **Early Stopping**: No Free Lunch theorems (Wolpert & Macready, 1997)
-- **Co-occurrence Matrices**: Applied from association rule mining (Agrawal & Srikant, 1994)
+13. **Poli, R., Langdon, W. B., & McPhee, N. F. (2008)**. *A Field Guide to Genetic Programming*. Lulu Enterprises. Available free at: http://www.gp-field-guide.org.uk
 
 ## Contributing
 
@@ -437,3 +482,4 @@ Contributions are welcome! Areas for enhancement:
 See LICENSE file for details.
 
 ---
+ 

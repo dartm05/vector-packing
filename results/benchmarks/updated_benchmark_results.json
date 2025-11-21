@@ -1,0 +1,130 @@
+[
+  {
+    "scenario": "small",
+    "num_vms": 20,
+    "server_capacity": {
+      "cpu": 32,
+      "ram": 128,
+      "storage": 1000
+    },
+    "ga": {
+      "time_seconds": 0.97,
+      "servers_used": 5,
+      "fitness": 502.6,
+      "valid": true,
+      "utilization": {
+        "cpu": 83.9,
+        "ram": 64.6,
+        "storage": 73.5
+      }
+    },
+    "woc": {
+      "time_seconds": 0.01,
+      "servers_used": 5,
+      "fitness": 502.6,
+      "valid": true,
+      "utilization": {
+        "cpu": 83.9,
+        "ram": 64.6,
+        "storage": 73.5
+      },
+      "speedup": 80.9
+    }
+  },
+  {
+    "scenario": "medium",
+    "num_vms": 50,
+    "server_capacity": {
+      "cpu": 64,
+      "ram": 256,
+      "storage": 2000
+    },
+    "ga": {
+      "time_seconds": 2.75,
+      "servers_used": 6,
+      "fitness": 601.87,
+      "valid": true,
+      "utilization": {
+        "cpu": 94.8,
+        "ram": 68.2,
+        "storage": 81.1
+      }
+    },
+    "woc": {
+      "time_seconds": 0.08,
+      "servers_used": 6,
+      "fitness": 601.87,
+      "valid": true,
+      "utilization": {
+        "cpu": 94.8,
+        "ram": 68.2,
+        "storage": 81.1
+      },
+      "speedup": 34.3
+    }
+  },
+  {
+    "scenario": "large",
+    "num_vms": 100,
+    "server_capacity": {
+      "cpu": 96,
+      "ram": 512,
+      "storage": 4000
+    },
+    "ga": {
+      "time_seconds": 7.57,
+      "servers_used": 8,
+      "fitness": 803.3,
+      "valid": true,
+      "utilization": {
+        "cpu": 90.7,
+        "ram": 52.9,
+        "storage": 57.4
+      }
+    },
+    "woc": {
+      "time_seconds": 0.37,
+      "servers_used": 8,
+      "fitness": 803.3,
+      "valid": true,
+      "utilization": {
+        "cpu": 90.7,
+        "ram": 52.9,
+        "storage": 57.4
+      },
+      "speedup": 20.3
+    }
+  },
+  {
+    "scenario": "extra_large",
+    "num_vms": 200,
+    "server_capacity": {
+      "cpu": 128,
+      "ram": 1024,
+      "storage": 8000
+    },
+    "ga": {
+      "time_seconds": 16.82,
+      "servers_used": 11,
+      "fitness": 1104.03,
+      "valid": true,
+      "utilization": {
+        "cpu": 98.2,
+        "ram": 38.1,
+        "storage": 42.9
+      }
+    },
+    "woc": {
+      "time_seconds": 1.85,
+      "servers_used": 11,
+      "fitness": 1104.03,
+      "valid": true,
+      "utilization": {
+        "cpu": 98.2,
+        "ram": 38.1,
+        "storage": 42.9
+      },
+      "speedup": 9.1
+    }
+  }
+]

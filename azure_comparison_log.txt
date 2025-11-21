@@ -1,0 +1,1203 @@
+================================================================================
+COMPREHENSIVE BENCHMARK: SYNTHETIC vs AZURE DATA
+================================================================================
+
+This script will:
+  1. Run benchmarks on Synthetic data (all scenarios)
+  2. Run benchmarks on Azure data (all scenarios)
+  3. Generate comparison visualizations
+  4. Create detailed analysis reports
+
+================================================================================
+
+################################################################################
+PHASE 1: SYNTHETIC DATA BENCHMARKS
+################################################################################
+
+================================================================================
+Benchmarking SMALL scenario with SYNTHETIC data
+================================================================================
+Data source: Synthetic (pattern-based generation)
+Sampled VMs: 20
+Server capacity: 32 cores, 128 GB RAM, 1000 GB storage
+Total demand: CPU=134.2, RAM=413.7, Storage=3675.1
+Theoretical minimum: 4.19 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 20 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 8 servers! ***
+Gen   1: Best=805.37 (8s), Avg=1044.38, Worst=1407.36, Stag=0
+Gen   2: Best=805.37 (8s), Avg=1006.25, Worst=1307.15, Stag=0
+  *** NEW BEST: 6 servers! ***
+Gen   3: Best=603.83 (6s), Avg=923.90, Worst=1106.64, Stag=0
+Gen   4: Best=603.83 (6s), Avg=901.80, Worst=1106.64, Stag=0
+Gen   5: Best=603.83 (6s), Avg=875.64, Worst=1106.64, Stag=1
+Gen   6: Best=603.83 (6s), Avg=833.45, Worst=1006.30, Stag=2
+Gen   7: Best=603.83 (6s), Avg=811.31, Worst=1006.30, Stag=3
+  *** NEW BEST: 5 servers! ***
+Gen   8: Best=502.60 (5s), Avg=756.96, Worst=1006.30, Stag=0
+Gen   9: Best=502.60 (5s), Avg=714.66, Worst=1006.30, Stag=0
+Gen  10: Best=502.60 (5s), Avg=650.17, Worst=905.89, Stag=1
+Gen  11: Best=502.60 (5s), Avg=607.79, Worst=805.37, Stag=2
+Gen  12: Best=502.60 (5s), Avg=601.72, Worst=704.71, Stag=3
+Gen  13: Best=502.60 (5s), Avg=561.29, Worst=704.71, Stag=4
+Gen  14: Best=502.60 (5s), Avg=553.21, Worst=704.71, Stag=5
+Gen  15: Best=502.60 (5s), Avg=559.28, Worst=704.71, Stag=6
+Gen  16: Best=502.60 (5s), Avg=555.23, Worst=704.71, Stag=7
+Gen  17: Best=502.60 (5s), Avg=537.01, Worst=704.71, Stag=8
+Gen  18: Best=502.60 (5s), Avg=539.04, Worst=704.71, Stag=9
+Gen  19: Best=502.60 (5s), Avg=567.35, Worst=805.37, Stag=10
+Gen  20: Best=502.60 (5s), Avg=545.12, Worst=603.83, Stag=11
+Gen  21: Best=502.60 (5s), Avg=539.03, Worst=704.71, Stag=12
+Gen  22: Best=502.60 (5s), Avg=551.19, Worst=603.83, Stag=13
+Gen  23: Best=502.60 (5s), Avg=545.11, Worst=704.71, Stag=14
+Gen  24: Best=502.60 (5s), Avg=539.04, Worst=603.83, Stag=15
+Gen  25: Best=502.60 (5s), Avg=520.81, Worst=704.71, Stag=16
+Gen  26: Best=502.60 (5s), Avg=534.99, Worst=603.83, Stag=17
+Gen  27: Best=502.60 (5s), Avg=522.85, Worst=603.83, Stag=18
+Gen  28: Best=502.60 (5s), Avg=520.82, Worst=603.83, Stag=19
+Gen  29: Best=502.60 (5s), Avg=528.92, Worst=603.83, Stag=20
+Gen  30: Best=502.60 (5s), Avg=508.67, Worst=603.83, Stag=21
+Gen  31: Best=502.60 (5s), Avg=510.70, Worst=603.83, Stag=22
+Gen  32: Best=502.60 (5s), Avg=528.92, Worst=603.83, Stag=23
+Gen  33: Best=502.60 (5s), Avg=510.70, Worst=603.83, Stag=24
+Gen  34: Best=502.60 (5s), Avg=522.85, Worst=603.83, Stag=25
+Gen  35: Best=502.60 (5s), Avg=524.87, Worst=603.83, Stag=26
+Gen  36: Best=502.60 (5s), Avg=514.75, Worst=603.83, Stag=27
+Gen  37: Best=502.60 (5s), Avg=522.85, Worst=603.83, Stag=28
+Gen  38: Best=502.60 (5s), Avg=512.72, Worst=603.83, Stag=29
+Gen  39: Best=502.60 (5s), Avg=516.77, Worst=603.83, Stag=30
+Gen  40: Best=502.60 (5s), Avg=524.87, Worst=603.83, Stag=31
+Gen  41: Best=502.60 (5s), Avg=524.87, Worst=603.83, Stag=32
+Gen  42: Best=502.60 (5s), Avg=522.85, Worst=603.83, Stag=33
+Gen  43: Best=502.60 (5s), Avg=518.80, Worst=603.83, Stag=34
+Gen  44: Best=502.60 (5s), Avg=522.85, Worst=603.83, Stag=35
+Gen  45: Best=502.60 (5s), Avg=522.85, Worst=603.83, Stag=36
+Gen  46: Best=502.60 (5s), Avg=526.89, Worst=704.71, Stag=37
+Gen  47: Best=502.60 (5s), Avg=518.80, Worst=603.83, Stag=38
+Gen  48: Best=502.60 (5s), Avg=528.92, Worst=603.83, Stag=39
+Gen  49: Best=502.60 (5s), Avg=516.77, Worst=603.83, Stag=40
+
+Stopping early after 40 generations without improvement
+
+--- Simple GA Finished ---
+Best solution: 5 servers
+Best fitness: 502.5996
+Valid: True
+Utilization: CPU=83.9%, RAM=64.6%, Storage=73.5%
+✓ GA completed in 0.89s
+  Result: 5 servers, fitness=502.60
+  Utilization: CPU=83.9%, RAM=64.6%, Storage=73.5%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 0.01s
+  Result: 5 servers, fitness=502.60
+  Speedup: 79.7×
+
+✓ SMALL synthetic complete
+  GA: 5 servers in 0.89s
+  WoC: 5 servers in 0.01s (79.7× faster)
+
+================================================================================
+Benchmarking MEDIUM scenario with SYNTHETIC data
+================================================================================
+Data source: Synthetic (pattern-based generation)
+Sampled VMs: 50
+Server capacity: 64 cores, 256 GB RAM, 2000 GB storage
+Total demand: CPU=363.9, RAM=1047.9, Storage=9728.3
+Theoretical minimum: 5.69 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 50 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 20 servers! ***
+Gen   1: Best=2007.56 (20s), Avg=2598.09, Worst=3408.56, Stag=0
+Gen   2: Best=2007.56 (20s), Avg=2518.04, Worst=2908.32, Stag=0
+Gen   3: Best=2007.56 (20s), Avg=2409.95, Worst=2908.32, Stag=1
+  *** NEW BEST: 17 servers! ***
+Gen   4: Best=1707.13 (17s), Avg=2331.88, Worst=2808.26, Stag=0
+Gen   5: Best=1707.13 (17s), Avg=2197.75, Worst=2608.12, Stag=0
+Gen   6: Best=1707.13 (17s), Avg=2073.62, Worst=2407.97, Stag=1
+  *** NEW BEST: 16 servers! ***
+Gen   7: Best=1606.95 (16s), Avg=2009.54, Worst=2608.12, Stag=0
+Gen   8: Best=1606.95 (16s), Avg=1839.31, Worst=2207.78, Stag=0
+  *** NEW BEST: 15 servers! ***
+Gen   9: Best=1506.75 (15s), Avg=1709.12, Worst=2107.68, Stag=0
+  *** NEW BEST: 14 servers! ***
+Gen  10: Best=1406.51 (14s), Avg=1630.98, Worst=1907.43, Stag=0
+  *** NEW BEST: 13 servers! ***
+Gen  11: Best=1306.25 (13s), Avg=1544.81, Worst=1707.13, Stag=0
+  *** NEW BEST: 12 servers! ***
+Gen  12: Best=1205.93 (12s), Avg=1462.63, Worst=1707.13, Stag=0
+Gen  13: Best=1205.93 (12s), Avg=1390.44, Worst=1707.13, Stag=0
+  *** NEW BEST: 11 servers! ***
+Gen  14: Best=1105.56 (11s), Avg=1316.25, Worst=1606.95, Stag=0
+  *** NEW BEST: 10 servers! ***
+Gen  15: Best=1005.12 (10s), Avg=1207.90, Worst=1506.75, Stag=0
+  *** NEW BEST: 9 servers! ***
+Gen  16: Best=904.58 (9s), Avg=1121.59, Worst=1306.25, Stag=0
+Gen  17: Best=904.58 (9s), Avg=1037.23, Worst=1205.93, Stag=0
+  *** NEW BEST: 8 servers! ***
+Gen  18: Best=803.90 (8s), Avg=958.85, Worst=1105.56, Stag=0
+Gen  19: Best=803.90 (8s), Avg=890.46, Worst=1005.12, Stag=0
+  *** NEW BEST: 7 servers! ***
+Gen  20: Best=703.03 (7s), Avg=830.05, Worst=1005.12, Stag=0
+Gen  21: Best=703.03 (7s), Avg=783.72, Worst=904.58, Stag=0
+  *** NEW BEST: 6 servers! ***
+Gen  22: Best=601.87 (6s), Avg=759.51, Worst=803.90, Stag=0
+Gen  23: Best=601.87 (6s), Avg=751.43, Worst=803.90, Stag=0
+Gen  24: Best=601.87 (6s), Avg=747.39, Worst=904.58, Stag=1
+Gen  25: Best=601.87 (6s), Avg=721.16, Worst=803.90, Stag=2
+Gen  26: Best=601.87 (6s), Avg=711.06, Worst=904.58, Stag=3
+Gen  27: Best=601.87 (6s), Avg=698.93, Worst=904.58, Stag=4
+Gen  28: Best=601.87 (6s), Avg=686.83, Worst=803.90, Stag=5
+Gen  29: Best=601.87 (6s), Avg=690.85, Worst=803.90, Stag=6
+Gen  30: Best=601.87 (6s), Avg=700.96, Worst=803.90, Stag=7
+Gen  31: Best=601.87 (6s), Avg=702.98, Worst=803.90, Stag=8
+Gen  32: Best=601.87 (6s), Avg=688.84, Worst=803.90, Stag=9
+Gen  33: Best=601.87 (6s), Avg=674.70, Worst=703.03, Stag=10
+Gen  34: Best=601.87 (6s), Avg=670.64, Worst=803.90, Stag=11
+Gen  35: Best=601.87 (6s), Avg=660.53, Worst=803.90, Stag=12
+Gen  36: Best=601.87 (6s), Avg=648.40, Worst=703.03, Stag=13
+Gen  37: Best=601.87 (6s), Avg=662.56, Worst=703.03, Stag=14
+Gen  38: Best=601.87 (6s), Avg=654.47, Worst=703.03, Stag=15
+Gen  39: Best=601.87 (6s), Avg=638.28, Worst=703.03, Stag=16
+Gen  40: Best=601.87 (6s), Avg=642.33, Worst=703.03, Stag=17
+Gen  41: Best=601.87 (6s), Avg=656.49, Worst=703.03, Stag=18
+Gen  42: Best=601.87 (6s), Avg=642.33, Worst=703.03, Stag=19
+Gen  43: Best=601.87 (6s), Avg=654.47, Worst=703.03, Stag=20
+Gen  44: Best=601.87 (6s), Avg=668.61, Worst=803.90, Stag=21
+Gen  45: Best=601.87 (6s), Avg=676.72, Worst=803.90, Stag=22
+Gen  46: Best=601.87 (6s), Avg=670.66, Worst=703.03, Stag=23
+Gen  47: Best=601.87 (6s), Avg=664.59, Worst=703.03, Stag=24
+Gen  48: Best=601.87 (6s), Avg=648.40, Worst=703.03, Stag=25
+Gen  49: Best=601.87 (6s), Avg=656.49, Worst=703.03, Stag=26
+Gen  50: Best=601.87 (6s), Avg=668.63, Worst=703.03, Stag=27
+Gen  51: Best=601.87 (6s), Avg=672.67, Worst=803.90, Stag=28
+Gen  52: Best=601.87 (6s), Avg=648.40, Worst=703.03, Stag=29
+Gen  53: Best=601.87 (6s), Avg=652.45, Worst=703.03, Stag=30
+Gen  54: Best=601.87 (6s), Avg=660.53, Worst=803.90, Stag=31
+Gen  55: Best=601.87 (6s), Avg=660.53, Worst=803.90, Stag=32
+Gen  56: Best=601.87 (6s), Avg=660.54, Worst=703.03, Stag=33
+Gen  57: Best=601.87 (6s), Avg=660.53, Worst=803.90, Stag=34
+Gen  58: Best=601.87 (6s), Avg=646.38, Worst=703.03, Stag=35
+Gen  59: Best=601.87 (6s), Avg=652.45, Worst=703.03, Stag=36
+Gen  60: Best=601.87 (6s), Avg=660.54, Worst=703.03, Stag=37
+Gen  61: Best=601.87 (6s), Avg=644.35, Worst=703.03, Stag=38
+Gen  62: Best=601.87 (6s), Avg=642.33, Worst=703.03, Stag=39
+Gen  63: Best=601.87 (6s), Avg=662.56, Worst=703.03, Stag=40
+
+Stopping early after 40 generations without improvement
+
+--- Simple GA Finished ---
+Best solution: 6 servers
+Best fitness: 601.8651
+Valid: True
+Utilization: CPU=94.8%, RAM=68.2%, Storage=81.1%
+✓ GA completed in 2.09s
+  Result: 6 servers, fitness=601.87
+  Utilization: CPU=94.8%, RAM=68.2%, Storage=81.1%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 0.07s
+  Result: 6 servers, fitness=601.87
+  Speedup: 30.2×
+
+✓ MEDIUM synthetic complete
+  GA: 6 servers in 2.09s
+  WoC: 6 servers in 0.07s (30.2× faster)
+
+================================================================================
+Benchmarking LARGE scenario with SYNTHETIC data
+================================================================================
+Data source: Synthetic (pattern-based generation)
+Sampled VMs: 100
+Server capacity: 96 cores, 512 GB RAM, 4000 GB storage
+Total demand: CPU=696.9, RAM=2165.0, Storage=18368.7
+Theoretical minimum: 7.26 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 100 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 41 servers! ***
+Gen   1: Best=4108.69 (41s), Avg=5218.96, Worst=6209.14, Stag=0
+Gen   2: Best=4108.69 (41s), Avg=4876.89, Worst=5709.06, Stag=0
+Gen   3: Best=4108.69 (41s), Avg=4656.84, Worst=5208.97, Stag=1
+  *** NEW BEST: 40 servers! ***
+Gen   4: Best=4008.66 (40s), Avg=4596.83, Worst=5509.03, Stag=0
+  *** NEW BEST: 39 servers! ***
+Gen   5: Best=3908.63 (39s), Avg=4474.80, Worst=4908.91, Stag=0
+  *** NEW BEST: 36 servers! ***
+Gen   6: Best=3608.51 (36s), Avg=4354.76, Worst=4908.91, Stag=0
+  *** NEW BEST: 35 servers! ***
+Gen   7: Best=3508.47 (35s), Avg=4154.70, Worst=4808.88, Stag=0
+  *** NEW BEST: 34 servers! ***
+Gen   8: Best=3408.42 (34s), Avg=4010.66, Worst=4608.83, Stag=0
+Gen   9: Best=3408.42 (34s), Avg=3840.60, Worst=4408.78, Stag=0
+  *** NEW BEST: 33 servers! ***
+Gen  10: Best=3308.38 (33s), Avg=3682.54, Worst=4108.69, Stag=0
+  *** NEW BEST: 32 servers! ***
+Gen  11: Best=3208.33 (32s), Avg=3502.46, Worst=4108.69, Stag=0
+  *** NEW BEST: 31 servers! ***
+Gen  12: Best=3108.27 (31s), Avg=3390.41, Worst=3708.55, Stag=0
+  *** NEW BEST: 30 servers! ***
+Gen  13: Best=3008.21 (30s), Avg=3278.36, Worst=3508.47, Stag=0
+  *** NEW BEST: 29 servers! ***
+Gen  14: Best=2908.15 (29s), Avg=3190.31, Worst=3408.42, Stag=0
+  *** NEW BEST: 28 servers! ***
+Gen  15: Best=2808.09 (28s), Avg=3124.28, Worst=3408.42, Stag=0
+Gen  16: Best=2808.09 (28s), Avg=3060.24, Worst=3208.33, Stag=0
+Gen  17: Best=2808.09 (28s), Avg=3016.22, Worst=3208.33, Stag=1
+  *** NEW BEST: 27 servers! ***
+Gen  18: Best=2708.01 (27s), Avg=2940.17, Worst=3108.27, Stag=0
+Gen  19: Best=2708.01 (27s), Avg=2816.09, Worst=3008.21, Stag=0
+  *** NEW BEST: 26 servers! ***
+Gen  20: Best=2607.94 (26s), Avg=2732.03, Worst=3008.21, Stag=0
+  *** NEW BEST: 25 servers! ***
+Gen  21: Best=2507.86 (25s), Avg=2686.00, Worst=2908.15, Stag=0
+  *** NEW BEST: 24 servers! ***
+Gen  22: Best=2407.77 (24s), Avg=2605.94, Worst=2808.09, Stag=0
+Gen  23: Best=2407.77 (24s), Avg=2547.89, Worst=2708.01, Stag=0
+  *** NEW BEST: 23 servers! ***
+Gen  24: Best=2307.67 (23s), Avg=2477.83, Worst=2607.94, Stag=0
+Gen  25: Best=2307.67 (23s), Avg=2435.79, Worst=2507.86, Stag=0
+Gen  26: Best=2307.67 (23s), Avg=2401.76, Worst=2507.86, Stag=1
+  *** NEW BEST: 22 servers! ***
+Gen  27: Best=2207.56 (22s), Avg=2389.75, Worst=2507.86, Stag=0
+  *** NEW BEST: 21 servers! ***
+Gen  28: Best=2107.45 (21s), Avg=2353.71, Worst=2507.86, Stag=0
+Gen  29: Best=2107.45 (21s), Avg=2287.65, Worst=2507.86, Stag=0
+  *** NEW BEST: 20 servers! ***
+Gen  30: Best=2007.32 (20s), Avg=2223.58, Worst=2407.77, Stag=0
+Gen  31: Best=2007.32 (20s), Avg=2159.51, Worst=2307.67, Stag=0
+  *** NEW BEST: 19 servers! ***
+Gen  32: Best=1907.18 (19s), Avg=2109.45, Worst=2207.56, Stag=0
+  *** NEW BEST: 18 servers! ***
+Gen  33: Best=1807.02 (18s), Avg=2043.36, Worst=2207.56, Stag=0
+Gen  34: Best=1807.02 (18s), Avg=1985.28, Worst=2107.45, Stag=0
+  *** NEW BEST: 17 servers! ***
+Gen  35: Best=1706.85 (17s), Avg=1899.16, Worst=2007.32, Stag=0
+Gen  36: Best=1706.85 (17s), Avg=1847.08, Worst=1907.18, Stag=0
+Gen  37: Best=1706.85 (17s), Avg=1823.04, Worst=1907.18, Stag=1
+  *** NEW BEST: 16 servers! ***
+Gen  38: Best=1606.65 (16s), Avg=1770.96, Worst=1907.18, Stag=0
+  *** NEW BEST: 15 servers! ***
+Gen  39: Best=1506.43 (15s), Avg=1728.88, Worst=1907.18, Stag=0
+Gen  40: Best=1506.43 (15s), Avg=1660.75, Worst=1807.02, Stag=0
+  *** NEW BEST: 14 servers! ***
+Gen  41: Best=1406.17 (14s), Avg=1602.63, Worst=1807.02, Stag=0
+Gen  42: Best=1406.17 (14s), Avg=1540.50, Worst=1706.85, Stag=0
+  *** NEW BEST: 13 servers! ***
+Gen  43: Best=1305.88 (13s), Avg=1456.29, Worst=1606.65, Stag=0
+Gen  44: Best=1305.88 (13s), Avg=1398.14, Worst=1506.43, Stag=0
+  *** NEW BEST: 12 servers! ***
+Gen  45: Best=1205.53 (12s), Avg=1364.04, Worst=1506.43, Stag=0
+  *** NEW BEST: 11 servers! ***
+Gen  46: Best=1105.13 (11s), Avg=1309.88, Worst=1406.17, Stag=0
+Gen  47: Best=1105.13 (11s), Avg=1267.74, Worst=1406.17, Stag=0
+Gen  48: Best=1105.13 (11s), Avg=1237.63, Worst=1406.17, Stag=1
+  *** NEW BEST: 10 servers! ***
+Gen  49: Best=1004.64 (10s), Avg=1203.51, Worst=1305.88, Stag=0
+Gen  50: Best=1004.64 (10s), Avg=1167.36, Worst=1305.88, Stag=0
+  *** NEW BEST: 9 servers! ***
+Gen  51: Best=904.04 (9s), Avg=1129.20, Worst=1305.88, Stag=0
+Gen  52: Best=904.04 (9s), Avg=1089.03, Worst=1205.53, Stag=0
+Gen  53: Best=904.04 (9s), Avg=1040.80, Worst=1205.53, Stag=1
+Gen  54: Best=904.04 (9s), Avg=1010.64, Worst=1205.53, Stag=2
+  *** NEW BEST: 8 servers! ***
+Gen  55: Best=803.30 (8s), Avg=974.44, Worst=1105.13, Stag=0
+Gen  56: Best=803.30 (8s), Avg=924.15, Worst=1105.13, Stag=0
+Gen  57: Best=803.30 (8s), Avg=895.97, Worst=1004.64, Stag=1
+Gen  58: Best=803.30 (8s), Avg=879.87, Worst=904.04, Stag=2
+Gen  59: Best=803.30 (8s), Avg=859.72, Worst=904.04, Stag=3
+Gen  60: Best=803.30 (8s), Avg=825.46, Worst=904.04, Stag=4
+Gen  61: Best=803.30 (8s), Avg=805.31, Worst=904.04, Stag=5
+Gen  62: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=6
+Gen  63: Best=803.30 (8s), Avg=805.31, Worst=904.04, Stag=7
+Gen  64: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=8
+Gen  65: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=9
+Gen  66: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=10
+Gen  67: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=11
+Gen  68: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=12
+Gen  69: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=13
+Gen  70: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=14
+Gen  71: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=15
+Gen  72: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=16
+Gen  73: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=17
+Gen  74: Best=803.30 (8s), Avg=805.31, Worst=904.04, Stag=18
+Gen  75: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=19
+Gen  76: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=20
+Gen  77: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=21
+Gen  78: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=22
+Gen  79: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=23
+Gen  80: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=24
+Gen  81: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=25
+Gen  82: Best=803.30 (8s), Avg=805.31, Worst=904.04, Stag=26
+Gen  83: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=27
+Gen  84: Best=803.30 (8s), Avg=805.31, Worst=904.04, Stag=28
+Gen  85: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=29
+Gen  86: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=30
+Gen  87: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=31
+Gen  88: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=32
+Gen  89: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=33
+Gen  90: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=34
+Gen  91: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=35
+Gen  92: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=36
+Gen  93: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=37
+Gen  94: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=38
+Gen  95: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=39
+Gen  96: Best=803.30 (8s), Avg=803.30, Worst=803.30, Stag=40
+
+Stopping early after 40 generations without improvement
+
+--- Simple GA Finished ---
+Best solution: 8 servers
+Best fitness: 803.3001
+Valid: True
+Utilization: CPU=90.7%, RAM=52.9%, Storage=57.4%
+✓ GA completed in 6.11s
+  Result: 8 servers, fitness=803.30
+  Utilization: CPU=90.7%, RAM=52.9%, Storage=57.4%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 0.32s
+  Result: 8 servers, fitness=803.30
+  Speedup: 19.2×
+
+✓ LARGE synthetic complete
+  GA: 8 servers in 6.11s
+  WoC: 8 servers in 0.32s (19.2× faster)
+
+================================================================================
+Benchmarking EXTRA_LARGE scenario with SYNTHETIC data
+================================================================================
+Data source: Synthetic (pattern-based generation)
+Sampled VMs: 200
+Server capacity: 128 cores, 1024 GB RAM, 8000 GB storage
+Total demand: CPU=1382.0, RAM=4289.9, Storage=37734.4
+Theoretical minimum: 10.80 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 200 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 84 servers! ***
+Gen   1: Best=8409.22 (84s), Avg=10259.35, Worst=12009.45, Stag=0
+Gen   2: Best=8409.22 (84s), Avg=9665.32, Worst=11309.42, Stag=0
+Gen   3: Best=8409.22 (84s), Avg=9183.28, Worst=10409.37, Stag=1
+Gen   4: Best=8409.22 (84s), Avg=8947.26, Worst=9709.32, Stag=2
+  *** NEW BEST: 82 servers! ***
+Gen   5: Best=8209.20 (82s), Avg=8925.26, Worst=9709.32, Stag=0
+Gen   6: Best=8209.20 (82s), Avg=8843.26, Worst=9509.31, Stag=0
+  *** NEW BEST: 80 servers! ***
+Gen   7: Best=8009.18 (80s), Avg=8723.25, Worst=9509.31, Stag=0
+Gen   8: Best=8009.18 (80s), Avg=8627.24, Worst=9309.29, Stag=0
+  *** NEW BEST: 78 servers! ***
+Gen   9: Best=7809.16 (78s), Avg=8511.23, Worst=9309.29, Stag=0
+Gen  10: Best=7809.16 (78s), Avg=8357.21, Worst=8909.26, Stag=0
+  *** NEW BEST: 77 servers! ***
+Gen  11: Best=7709.15 (77s), Avg=8247.20, Worst=8909.26, Stag=0
+  *** NEW BEST: 75 servers! ***
+Gen  12: Best=7509.12 (75s), Avg=8077.19, Worst=8609.24, Stag=0
+Gen  13: Best=7509.12 (75s), Avg=8067.18, Worst=8609.24, Stag=0
+Gen  14: Best=7509.12 (75s), Avg=7881.17, Worst=8509.23, Stag=1
+  *** NEW BEST: 70 servers! ***
+Gen  15: Best=7009.06 (70s), Avg=7685.14, Worst=8209.20, Stag=0
+Gen  16: Best=7009.06 (70s), Avg=7515.12, Worst=8009.18, Stag=0
+Gen  17: Best=7009.06 (70s), Avg=7403.11, Worst=7909.17, Stag=1
+  *** NEW BEST: 69 servers! ***
+Gen  18: Best=6909.05 (69s), Avg=7319.10, Worst=7709.15, Stag=0
+  *** NEW BEST: 68 servers! ***
+Gen  19: Best=6809.03 (68s), Avg=7157.08, Worst=7709.15, Stag=0
+  *** NEW BEST: 63 servers! ***
+Gen  20: Best=6308.96 (63s), Avg=6987.06, Worst=7609.14, Stag=0
+Gen  21: Best=6308.96 (63s), Avg=6853.04, Worst=7309.10, Stag=0
+Gen  22: Best=6308.96 (63s), Avg=6733.02, Worst=7309.10, Stag=1
+Gen  23: Best=6308.96 (63s), Avg=6585.00, Worst=6909.05, Stag=2
+  *** NEW BEST: 62 servers! ***
+Gen  24: Best=6208.94 (62s), Avg=6458.98, Worst=6909.05, Stag=0
+  *** NEW BEST: 61 servers! ***
+Gen  25: Best=6108.92 (61s), Avg=6354.96, Worst=6709.02, Stag=0
+  *** NEW BEST: 59 servers! ***
+Gen  26: Best=5908.89 (59s), Avg=6248.95, Worst=6508.99, Stag=0
+Gen  27: Best=5908.89 (59s), Avg=6118.92, Worst=6408.97, Stag=0
+Gen  28: Best=5908.89 (59s), Avg=6044.91, Worst=6308.96, Stag=1
+  *** NEW BEST: 58 servers! ***
+Gen  29: Best=5808.87 (58s), Avg=5994.90, Worst=6308.96, Stag=0
+  *** NEW BEST: 57 servers! ***
+Gen  30: Best=5708.85 (57s), Avg=5904.89, Worst=6108.92, Stag=0
+  *** NEW BEST: 56 servers! ***
+Gen  31: Best=5608.83 (56s), Avg=5814.87, Worst=6008.91, Stag=0
+  *** NEW BEST: 55 servers! ***
+Gen  32: Best=5508.81 (55s), Avg=5726.85, Worst=5908.89, Stag=0
+  *** NEW BEST: 54 servers! ***
+Gen  33: Best=5408.78 (54s), Avg=5626.83, Worst=5808.87, Stag=0
+Gen  34: Best=5408.78 (54s), Avg=5540.81, Worst=5708.85, Stag=0
+  *** NEW BEST: 52 servers! ***
+Gen  35: Best=5208.74 (52s), Avg=5450.79, Worst=5708.85, Stag=0
+Gen  36: Best=5208.74 (52s), Avg=5384.78, Worst=5608.83, Stag=0
+  *** NEW BEST: 51 servers! ***
+Gen  37: Best=5108.71 (51s), Avg=5310.76, Worst=5508.81, Stag=0
+Gen  38: Best=5108.71 (51s), Avg=5242.74, Worst=5408.78, Stag=0
+  *** NEW BEST: 50 servers! ***
+Gen  39: Best=5008.69 (50s), Avg=5204.74, Worst=5408.78, Stag=0
+Gen  40: Best=5008.69 (50s), Avg=5132.72, Worst=5308.76, Stag=0
+  *** NEW BEST: 48 servers! ***
+Gen  41: Best=4808.63 (48s), Avg=5058.70, Worst=5208.74, Stag=0
+Gen  42: Best=4808.63 (48s), Avg=5004.68, Worst=5208.74, Stag=0
+  *** NEW BEST: 47 servers! ***
+Gen  43: Best=4708.60 (47s), Avg=4924.66, Worst=5208.74, Stag=0
+Gen  44: Best=4708.60 (47s), Avg=4860.65, Worst=5008.69, Stag=0
+  *** NEW BEST: 46 servers! ***
+Gen  45: Best=4608.57 (46s), Avg=4778.62, Worst=4908.66, Stag=0
+  *** NEW BEST: 45 servers! ***
+Gen  46: Best=4508.54 (45s), Avg=4672.59, Worst=4908.66, Stag=0
+Gen  47: Best=4508.54 (45s), Avg=4600.57, Worst=4808.63, Stag=0
+  *** NEW BEST: 44 servers! ***
+Gen  48: Best=4408.51 (44s), Avg=4532.55, Worst=4608.57, Stag=0
+Gen  49: Best=4408.51 (44s), Avg=4490.53, Worst=4608.57, Stag=0
+  *** NEW BEST: 43 servers! ***
+Gen  50: Best=4308.47 (43s), Avg=4458.52, Worst=4508.54, Stag=0
+Gen  51: Best=4308.47 (43s), Avg=4420.51, Worst=4508.54, Stag=0
+  *** NEW BEST: 42 servers! ***
+Gen  52: Best=4208.44 (42s), Avg=4388.50, Worst=4508.54, Stag=0
+Gen  53: Best=4208.44 (42s), Avg=4358.49, Worst=4508.54, Stag=0
+  *** NEW BEST: 41 servers! ***
+Gen  54: Best=4108.40 (41s), Avg=4306.47, Worst=4408.51, Stag=0
+Gen  55: Best=4108.40 (41s), Avg=4252.45, Worst=4408.51, Stag=0
+  *** NEW BEST: 40 servers! ***
+Gen  56: Best=4008.36 (40s), Avg=4200.43, Worst=4408.51, Stag=0
+  *** NEW BEST: 39 servers! ***
+Gen  57: Best=3908.32 (39s), Avg=4156.42, Worst=4308.47, Stag=0
+Gen  58: Best=3908.32 (39s), Avg=4110.40, Worst=4208.44, Stag=0
+Gen  59: Best=3908.32 (39s), Avg=4066.38, Worst=4208.44, Stag=1
+Gen  60: Best=3908.32 (39s), Avg=4028.37, Worst=4208.44, Stag=2
+Gen  61: Best=3908.32 (39s), Avg=4004.36, Worst=4108.40, Stag=3
+  *** NEW BEST: 38 servers! ***
+Gen  62: Best=3808.27 (38s), Avg=3974.34, Worst=4108.40, Stag=0
+  *** NEW BEST: 37 servers! ***
+Gen  63: Best=3708.22 (37s), Avg=3944.33, Worst=4108.40, Stag=0
+Gen  64: Best=3708.22 (37s), Avg=3898.31, Worst=4108.40, Stag=0
+  *** NEW BEST: 36 servers! ***
+Gen  65: Best=3608.18 (36s), Avg=3864.30, Worst=4008.36, Stag=0
+Gen  66: Best=3608.18 (36s), Avg=3840.28, Worst=4008.36, Stag=0
+Gen  67: Best=3608.18 (36s), Avg=3774.26, Worst=4008.36, Stag=1
+Gen  68: Best=3608.18 (36s), Avg=3738.24, Worst=4008.36, Stag=2
+  *** NEW BEST: 35 servers! ***
+Gen  69: Best=3508.12 (35s), Avg=3660.20, Worst=3808.27, Stag=0
+  *** NEW BEST: 34 servers! ***
+Gen  70: Best=3408.07 (34s), Avg=3582.16, Worst=3808.27, Stag=0
+  *** NEW BEST: 33 servers! ***
+Gen  71: Best=3308.01 (33s), Avg=3534.14, Worst=3708.22, Stag=0
+Gen  72: Best=3308.01 (33s), Avg=3512.12, Worst=3608.18, Stag=0
+  *** NEW BEST: 32 servers! ***
+Gen  73: Best=3207.95 (32s), Avg=3454.09, Worst=3608.18, Stag=0
+Gen  74: Best=3207.95 (32s), Avg=3406.07, Worst=3608.18, Stag=0
+  *** NEW BEST: 31 servers! ***
+Gen  75: Best=3107.88 (31s), Avg=3352.03, Worst=3508.12, Stag=0
+Gen  76: Best=3107.88 (31s), Avg=3312.01, Worst=3408.07, Stag=0
+Gen  77: Best=3107.88 (31s), Avg=3245.97, Worst=3408.07, Stag=1
+Gen  78: Best=3107.88 (31s), Avg=3171.92, Worst=3308.01, Stag=2
+  *** NEW BEST: 30 servers! ***
+Gen  79: Best=3007.81 (30s), Avg=3115.89, Worst=3207.95, Stag=0
+Gen  80: Best=3007.81 (30s), Avg=3073.86, Worst=3107.88, Stag=0
+  *** NEW BEST: 29 servers! ***
+Gen  81: Best=2907.74 (29s), Avg=3031.83, Worst=3107.88, Stag=0
+  *** NEW BEST: 28 servers! ***
+Gen  82: Best=2807.65 (28s), Avg=2989.80, Worst=3107.88, Stag=0
+  *** NEW BEST: 27 servers! ***
+Gen  83: Best=2707.57 (27s), Avg=2947.76, Worst=3007.81, Stag=0
+Gen  84: Best=2707.57 (27s), Avg=2889.72, Worst=3007.81, Stag=0
+Gen  85: Best=2707.57 (27s), Avg=2849.69, Worst=2907.74, Stag=1
+Gen  86: Best=2707.57 (27s), Avg=2807.65, Worst=2907.74, Stag=2
+  *** NEW BEST: 26 servers! ***
+Gen  87: Best=2607.47 (26s), Avg=2739.59, Worst=2807.65, Stag=0
+Gen  88: Best=2607.47 (26s), Avg=2695.56, Worst=2807.65, Stag=0
+  *** NEW BEST: 25 servers! ***
+Gen  89: Best=2507.37 (25s), Avg=2661.52, Worst=2707.57, Stag=0
+Gen  90: Best=2507.37 (25s), Avg=2603.47, Worst=2707.57, Stag=0
+  *** NEW BEST: 24 servers! ***
+Gen  91: Best=2407.26 (24s), Avg=2569.44, Worst=2607.47, Stag=0
+Gen  92: Best=2407.26 (24s), Avg=2537.40, Worst=2607.47, Stag=0
+  *** NEW BEST: 23 servers! ***
+Gen  93: Best=2307.14 (23s), Avg=2495.36, Worst=2607.47, Stag=0
+Gen  94: Best=2307.14 (23s), Avg=2459.32, Worst=2507.37, Stag=0
+  *** NEW BEST: 22 servers! ***
+Gen  95: Best=2207.01 (22s), Avg=2413.27, Worst=2507.37, Stag=0
+  *** NEW BEST: 21 servers! ***
+Gen  96: Best=2106.87 (21s), Avg=2337.18, Worst=2507.37, Stag=0
+Gen  97: Best=2106.87 (21s), Avg=2285.11, Worst=2407.26, Stag=0
+Gen  98: Best=2106.87 (21s), Avg=2229.04, Worst=2307.14, Stag=1
+  *** NEW BEST: 20 servers! ***
+Gen  99: Best=2006.72 (20s), Avg=2168.96, Worst=2307.14, Stag=0
+Gen 100: Best=2006.72 (20s), Avg=2118.89, Worst=2207.01, Stag=0
+
+--- Simple GA Finished ---
+Best solution: 19 servers
+Best fitness: 1906.5433
+Valid: True
+Utilization: CPU=56.8%, RAM=22.0%, Storage=24.8%
+✓ GA completed in 12.25s
+  Result: 19 servers, fitness=1906.54
+  Utilization: CPU=56.8%, RAM=22.0%, Storage=24.8%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 1.72s
+  Result: 11 servers, fitness=1104.03
+  Speedup: 7.1×
+
+✓ EXTRA_LARGE synthetic complete
+  GA: 19 servers in 12.25s
+  WoC: 11 servers in 1.72s (7.1× faster)
+
+################################################################################
+PHASE 2: AZURE DATA BENCHMARKS
+################################################################################
+
+================================================================================
+Benchmarking SMALL scenario with AZURE data
+================================================================================
+Data source: Azure Packing Trace 2020
+Original pool: 799,479 VMs
+Sampled VMs: 20
+Server capacity: 32 cores, 128 GB RAM, 1000 GB storage
+Total demand: CPU=87.7, RAM=317.9, Storage=2466.7
+Theoretical minimum: 2.74 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 20 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 9 servers! ***
+Gen   1: Best=907.15 (9s), Avg=1167.76, Worst=1408.17, Stag=0
+Gen   2: Best=907.15 (9s), Avg=1103.62, Worst=1508.29, Stag=0
+Gen   3: Best=907.15 (9s), Avg=1049.51, Worst=1408.17, Stag=1
+  *** NEW BEST: 8 servers! ***
+Gen   4: Best=806.80 (8s), Avg=1021.44, Worst=1308.03, Stag=0
+  *** NEW BEST: 7 servers! ***
+Gen   5: Best=706.34 (7s), Avg=931.17, Worst=1207.86, Stag=0
+Gen   6: Best=706.34 (7s), Avg=856.93, Worst=1107.67, Stag=0
+  *** NEW BEST: 6 servers! ***
+Gen   7: Best=605.73 (6s), Avg=812.76, Worst=1007.44, Stag=0
+Gen   8: Best=605.73 (6s), Avg=768.60, Worst=1007.44, Stag=0
+  *** NEW BEST: 5 servers! ***
+Gen   9: Best=504.87 (5s), Avg=726.39, Worst=907.15, Stag=0
+Gen  10: Best=504.87 (5s), Avg=692.20, Worst=907.15, Stag=0
+Gen  11: Best=504.87 (5s), Avg=639.91, Worst=806.80, Stag=1
+Gen  12: Best=504.87 (5s), Avg=599.64, Worst=706.34, Stag=2
+Gen  13: Best=504.87 (5s), Avg=553.27, Worst=706.34, Stag=3
+Gen  14: Best=504.87 (5s), Avg=521.01, Worst=605.73, Stag=4
+Gen  15: Best=504.87 (5s), Avg=504.87, Worst=504.87, Stag=5
+Gen  16: Best=504.87 (5s), Avg=504.87, Worst=504.87, Stag=6
+Gen  17: Best=504.87 (5s), Avg=504.87, Worst=504.87, Stag=7
+Gen  18: Best=504.87 (5s), Avg=504.87, Worst=504.87, Stag=8
+Gen  19: Best=504.87 (5s), Avg=504.87, Worst=504.87, Stag=9
+  *** NEW BEST: 4 servers! ***
+Gen  20: Best=403.59 (4s), Avg=502.85, Worst=504.87, Stag=0
+Gen  21: Best=403.59 (4s), Avg=502.85, Worst=504.87, Stag=0
+Gen  22: Best=403.59 (4s), Avg=500.82, Worst=504.87, Stag=1
+Gen  23: Best=403.59 (4s), Avg=496.77, Worst=504.87, Stag=2
+Gen  24: Best=403.59 (4s), Avg=486.64, Worst=504.87, Stag=3
+Gen  25: Best=403.59 (4s), Avg=478.54, Worst=504.87, Stag=4
+Gen  26: Best=403.59 (4s), Avg=462.34, Worst=504.87, Stag=5
+Gen  27: Best=403.59 (4s), Avg=425.87, Worst=504.87, Stag=6
+Gen  28: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=7
+Gen  29: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=8
+Gen  30: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=9
+Gen  31: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=10
+Gen  32: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=11
+Gen  33: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=12
+Gen  34: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=13
+Gen  35: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=14
+Gen  36: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=15
+Gen  37: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=16
+Gen  38: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=17
+Gen  39: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=18
+Gen  40: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=19
+Gen  41: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=20
+Gen  42: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=21
+Gen  43: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=22
+Gen  44: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=23
+Gen  45: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=24
+Gen  46: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=25
+Gen  47: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=26
+Gen  48: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=27
+Gen  49: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=28
+Gen  50: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=29
+Gen  51: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=30
+Gen  52: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=31
+Gen  53: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=32
+Gen  54: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=33
+Gen  55: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=34
+Gen  56: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=35
+Gen  57: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=36
+Gen  58: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=37
+Gen  59: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=38
+Gen  60: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=39
+Gen  61: Best=403.59 (4s), Avg=403.59, Worst=403.59, Stag=40
+
+Stopping early after 40 generations without improvement
+
+--- Simple GA Finished ---
+Best solution: 4 servers
+Best fitness: 403.5918
+Valid: True
+Utilization: CPU=68.5%, RAM=62.1%, Storage=61.7%
+✓ GA completed in 1.01s
+  Result: 4 servers, fitness=403.59
+  Utilization: CPU=68.5%, RAM=62.1%, Storage=61.7%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 0.02s
+  Result: 3 servers, fitness=301.46
+  Speedup: 67.0×
+
+✓ SMALL Azure complete
+  GA: 4 servers in 1.01s
+  WoC: 3 servers in 0.02s (67.0× faster)
+
+================================================================================
+Benchmarking MEDIUM scenario with AZURE data
+================================================================================
+Data source: Azure Packing Trace 2020
+Original pool: 799,479 VMs
+Sampled VMs: 50
+Server capacity: 64 cores, 256 GB RAM, 2000 GB storage
+Total demand: CPU=434.3, RAM=1544.2, Storage=9042.4
+Theoretical minimum: 6.79 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 50 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 23 servers! ***
+Gen   1: Best=2307.49 (23s), Avg=2869.96, Worst=3608.39, Stag=0
+Gen   2: Best=2307.49 (23s), Avg=2667.81, Worst=3308.25, Stag=0
+  *** NEW BEST: 19 servers! ***
+Gen   3: Best=1906.96 (19s), Avg=2555.72, Worst=3008.07, Stag=0
+Gen   4: Best=1906.96 (19s), Avg=2483.65, Worst=2908.01, Stag=0
+  *** NEW BEST: 18 servers! ***
+Gen   5: Best=1806.79 (18s), Avg=2403.56, Worst=2807.94, Stag=0
+Gen   6: Best=1806.79 (18s), Avg=2243.40, Worst=2607.78, Stag=0
+Gen   7: Best=1806.79 (18s), Avg=2077.19, Worst=2507.69, Stag=1
+  *** NEW BEST: 17 servers! ***
+Gen   8: Best=1706.60 (17s), Avg=1936.99, Worst=2307.49, Stag=0
+  *** NEW BEST: 16 servers! ***
+Gen   9: Best=1606.39 (16s), Avg=1836.83, Worst=2007.11, Stag=0
+Gen  10: Best=1606.39 (16s), Avg=1758.69, Worst=2007.11, Stag=0
+Gen  11: Best=1606.39 (16s), Avg=1688.56, Worst=1906.96, Stag=1
+Gen  12: Best=1606.39 (16s), Avg=1620.42, Worst=1706.60, Stag=2
+Gen  13: Best=1606.39 (16s), Avg=1618.41, Worst=1706.60, Stag=3
+Gen  14: Best=1606.39 (16s), Avg=1612.40, Worst=1706.60, Stag=4
+Gen  15: Best=1606.39 (16s), Avg=1610.40, Worst=1706.60, Stag=5
+Gen  16: Best=1606.39 (16s), Avg=1606.39, Worst=1606.39, Stag=6
+Gen  17: Best=1606.39 (16s), Avg=1606.39, Worst=1606.39, Stag=7
+Gen  18: Best=1606.39 (16s), Avg=1606.39, Worst=1606.39, Stag=8
+  *** NEW BEST: 15 servers! ***
+Gen  19: Best=1506.15 (15s), Avg=1604.38, Worst=1606.39, Stag=0
+Gen  20: Best=1506.15 (15s), Avg=1600.37, Worst=1606.39, Stag=0
+Gen  21: Best=1506.15 (15s), Avg=1576.32, Worst=1606.39, Stag=1
+Gen  22: Best=1506.15 (15s), Avg=1534.21, Worst=1606.39, Stag=2
+Gen  23: Best=1506.15 (15s), Avg=1506.15, Worst=1506.15, Stag=3
+Gen  24: Best=1506.15 (15s), Avg=1506.15, Worst=1506.15, Stag=4
+Gen  25: Best=1506.15 (15s), Avg=1506.15, Worst=1506.15, Stag=5
+Gen  26: Best=1506.15 (15s), Avg=1506.15, Worst=1506.15, Stag=6
+Gen  27: Best=1506.15 (15s), Avg=1506.15, Worst=1506.15, Stag=7
+Gen  28: Best=1506.15 (15s), Avg=1506.15, Worst=1506.15, Stag=8
+  *** NEW BEST: 14 servers! ***
+Gen  29: Best=1405.87 (14s), Avg=1504.14, Worst=1506.15, Stag=0
+Gen  30: Best=1405.87 (14s), Avg=1502.14, Worst=1506.15, Stag=0
+Gen  31: Best=1405.87 (14s), Avg=1496.12, Worst=1506.15, Stag=1
+Gen  32: Best=1405.87 (14s), Avg=1478.07, Worst=1506.15, Stag=2
+Gen  33: Best=1405.87 (14s), Avg=1443.98, Worst=1506.15, Stag=3
+Gen  34: Best=1405.87 (14s), Avg=1413.89, Worst=1506.15, Stag=4
+Gen  35: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=5
+Gen  36: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=6
+Gen  37: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=7
+Gen  38: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=8
+Gen  39: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=9
+Gen  40: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=10
+Gen  41: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=11
+Gen  42: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=12
+Gen  43: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=13
+Gen  44: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=14
+Gen  45: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=15
+Gen  46: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=16
+Gen  47: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=17
+Gen  48: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=18
+Gen  49: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=19
+Gen  50: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=20
+Gen  51: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=21
+Gen  52: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=22
+Gen  53: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=23
+Gen  54: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=24
+Gen  55: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=25
+Gen  56: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=26
+Gen  57: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=27
+Gen  58: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=28
+Gen  59: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=29
+Gen  60: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=30
+Gen  61: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=31
+Gen  62: Best=1405.87 (14s), Avg=1405.87, Worst=1405.87, Stag=32
+  *** NEW BEST: 13 servers! ***
+Gen  63: Best=1305.55 (13s), Avg=1401.86, Worst=1405.87, Stag=0
+Gen  64: Best=1305.55 (13s), Avg=1389.82, Worst=1405.87, Stag=0
+Gen  65: Best=1305.55 (13s), Avg=1373.77, Worst=1405.87, Stag=1
+Gen  66: Best=1305.55 (13s), Avg=1351.70, Worst=1405.87, Stag=2
+Gen  67: Best=1305.55 (13s), Avg=1313.58, Worst=1405.87, Stag=3
+Gen  68: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=4
+Gen  69: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=5
+Gen  70: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=6
+Gen  71: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=7
+Gen  72: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=8
+Gen  73: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=9
+Gen  74: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=10
+Gen  75: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=11
+Gen  76: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=12
+Gen  77: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=13
+Gen  78: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=14
+Gen  79: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=15
+Gen  80: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=16
+Gen  81: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=17
+Gen  82: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=18
+Gen  83: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=19
+Gen  84: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=20
+Gen  85: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=21
+Gen  86: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=22
+Gen  87: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=23
+Gen  88: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=24
+Gen  89: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=25
+Gen  90: Best=1305.55 (13s), Avg=1305.55, Worst=1305.55, Stag=26
+  *** NEW BEST: 12 servers! ***
+Gen  91: Best=1205.18 (12s), Avg=1303.55, Worst=1305.55, Stag=0
+Gen  92: Best=1205.18 (12s), Avg=1303.55, Worst=1305.55, Stag=0
+Gen  93: Best=1205.18 (12s), Avg=1301.54, Worst=1305.55, Stag=1
+Gen  94: Best=1205.18 (12s), Avg=1299.53, Worst=1305.55, Stag=2
+Gen  95: Best=1205.18 (12s), Avg=1289.49, Worst=1305.55, Stag=3
+Gen  96: Best=1205.18 (12s), Avg=1279.46, Worst=1305.55, Stag=4
+Gen  97: Best=1205.18 (12s), Avg=1239.31, Worst=1305.55, Stag=5
+Gen  98: Best=1205.18 (12s), Avg=1213.21, Worst=1305.55, Stag=6
+Gen  99: Best=1205.18 (12s), Avg=1205.18, Worst=1205.18, Stag=7
+Gen 100: Best=1205.18 (12s), Avg=1205.18, Worst=1205.18, Stag=8
+
+--- Simple GA Finished ---
+Best solution: 12 servers
+Best fitness: 1205.1836
+Valid: True
+Utilization: CPU=56.6%, RAM=50.3%, Storage=37.7%
+✓ GA completed in 3.78s
+  Result: 12 servers, fitness=1205.18
+  Utilization: CPU=56.6%, RAM=50.3%, Storage=37.7%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 0.12s
+  Result: 7 servers, fitness=701.74
+  Speedup: 30.3×
+
+✓ MEDIUM Azure complete
+  GA: 12 servers in 3.78s
+  WoC: 7 servers in 0.12s (30.3× faster)
+
+================================================================================
+Benchmarking LARGE scenario with AZURE data
+================================================================================
+Data source: Azure Packing Trace 2020
+Original pool: 799,479 VMs
+Sampled VMs: 100
+Server capacity: 96 cores, 512 GB RAM, 4000 GB storage
+Total demand: CPU=927.9, RAM=4393.3, Storage=28757.1
+Theoretical minimum: 9.67 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 100 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 44 servers! ***
+Gen   1: Best=4408.07 (44s), Avg=5272.38, Worst=6608.72, Stag=0
+  *** NEW BEST: 42 servers! ***
+Gen   2: Best=4207.98 (42s), Avg=4898.26, Worst=5908.56, Stag=0
+Gen   3: Best=4207.98 (42s), Avg=4720.20, Worst=5208.37, Stag=0
+  *** NEW BEST: 41 servers! ***
+Gen   4: Best=4107.93 (41s), Avg=4570.13, Worst=5308.40, Stag=0
+Gen   5: Best=4107.93 (41s), Avg=4542.12, Worst=5008.30, Stag=0
+  *** NEW BEST: 40 servers! ***
+Gen   6: Best=4007.88 (40s), Avg=4356.05, Worst=4808.23, Stag=0
+Gen   7: Best=4007.88 (40s), Avg=4256.00, Worst=4708.20, Stag=0
+  *** NEW BEST: 37 servers! ***
+Gen   8: Best=3707.71 (37s), Avg=4109.93, Worst=4408.07, Stag=0
+  *** NEW BEST: 35 servers! ***
+Gen   9: Best=3507.58 (35s), Avg=3987.86, Worst=4408.07, Stag=0
+Gen  10: Best=3507.58 (35s), Avg=3847.79, Worst=4408.07, Stag=0
+  *** NEW BEST: 34 servers! ***
+Gen  11: Best=3407.51 (34s), Avg=3687.69, Worst=3907.83, Stag=0
+  *** NEW BEST: 32 servers! ***
+Gen  12: Best=3207.35 (32s), Avg=3593.63, Worst=3907.83, Stag=0
+Gen  13: Best=3207.35 (32s), Avg=3533.59, Worst=3907.83, Stag=0
+Gen  14: Best=3207.35 (32s), Avg=3439.53, Worst=3807.77, Stag=1
+  *** NEW BEST: 31 servers! ***
+Gen  15: Best=3107.27 (31s), Avg=3333.45, Worst=3607.64, Stag=0
+  *** NEW BEST: 30 servers! ***
+Gen  16: Best=3007.17 (30s), Avg=3243.38, Worst=3507.58, Stag=0
+  *** NEW BEST: 29 servers! ***
+Gen  17: Best=2907.08 (29s), Avg=3157.30, Worst=3407.51, Stag=0
+Gen  18: Best=2907.08 (29s), Avg=3077.24, Worst=3307.43, Stag=0
+  *** NEW BEST: 28 servers! ***
+Gen  19: Best=2806.97 (28s), Avg=2983.15, Worst=3207.35, Stag=0
+Gen  20: Best=2806.97 (28s), Avg=2933.10, Worst=3107.27, Stag=0
+  *** NEW BEST: 27 servers! ***
+Gen  21: Best=2706.86 (27s), Avg=2885.05, Worst=3007.17, Stag=0
+Gen  22: Best=2706.86 (27s), Avg=2822.99, Worst=2907.08, Stag=0
+  *** NEW BEST: 26 servers! ***
+Gen  23: Best=2606.74 (26s), Avg=2752.91, Worst=2907.08, Stag=0
+Gen  24: Best=2606.74 (26s), Avg=2700.85, Worst=2806.97, Stag=0
+Gen  25: Best=2606.74 (26s), Avg=2682.83, Worst=2806.97, Stag=1
+  *** NEW BEST: 25 servers! ***
+Gen  26: Best=2506.61 (25s), Avg=2642.78, Worst=2806.97, Stag=0
+Gen  27: Best=2506.61 (25s), Avg=2608.74, Worst=2806.97, Stag=0
+  *** NEW BEST: 24 servers! ***
+Gen  28: Best=2406.47 (24s), Avg=2552.67, Worst=2706.86, Stag=0
+Gen  29: Best=2406.47 (24s), Avg=2528.64, Worst=2606.74, Stag=0
+Gen  30: Best=2406.47 (24s), Avg=2498.60, Worst=2606.74, Stag=1
+Gen  31: Best=2406.47 (24s), Avg=2472.56, Worst=2506.61, Stag=2
+Gen  32: Best=2406.47 (24s), Avg=2438.51, Worst=2506.61, Stag=3
+Gen  33: Best=2406.47 (24s), Avg=2408.47, Worst=2506.61, Stag=4
+Gen  34: Best=2406.47 (24s), Avg=2406.47, Worst=2406.47, Stag=5
+Gen  35: Best=2406.47 (24s), Avg=2406.47, Worst=2406.47, Stag=6
+Gen  36: Best=2406.47 (24s), Avg=2406.47, Worst=2406.47, Stag=7
+Gen  37: Best=2406.47 (24s), Avg=2406.47, Worst=2406.47, Stag=8
+Gen  38: Best=2406.47 (24s), Avg=2406.47, Worst=2406.47, Stag=9
+Gen  39: Best=2406.47 (24s), Avg=2406.47, Worst=2406.47, Stag=10
+Gen  40: Best=2406.47 (24s), Avg=2406.47, Worst=2406.47, Stag=11
+  *** NEW BEST: 23 servers! ***
+Gen  41: Best=2306.31 (23s), Avg=2404.46, Worst=2406.47, Stag=0
+Gen  42: Best=2306.31 (23s), Avg=2402.46, Worst=2406.47, Stag=0
+Gen  43: Best=2306.31 (23s), Avg=2394.45, Worst=2406.47, Stag=1
+Gen  44: Best=2306.31 (23s), Avg=2380.43, Worst=2406.47, Stag=2
+Gen  45: Best=2306.31 (23s), Avg=2356.39, Worst=2406.47, Stag=3
+Gen  46: Best=2306.31 (23s), Avg=2314.33, Worst=2406.47, Stag=4
+Gen  47: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=5
+Gen  48: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=6
+Gen  49: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=7
+Gen  50: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=8
+Gen  51: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=9
+Gen  52: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=10
+Gen  53: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=11
+Gen  54: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=12
+Gen  55: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=13
+Gen  56: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=14
+Gen  57: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=15
+Gen  58: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=16
+Gen  59: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=17
+Gen  60: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=18
+Gen  61: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=19
+Gen  62: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=20
+Gen  63: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=21
+Gen  64: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=22
+Gen  65: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=23
+Gen  66: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=24
+Gen  67: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=25
+Gen  68: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=26
+Gen  69: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=27
+Gen  70: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=28
+Gen  71: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=29
+Gen  72: Best=2306.31 (23s), Avg=2306.31, Worst=2306.31, Stag=30
+  *** NEW BEST: 22 servers! ***
+Gen  73: Best=2206.15 (22s), Avg=2302.31, Worst=2306.31, Stag=0
+Gen  74: Best=2206.15 (22s), Avg=2296.30, Worst=2306.31, Stag=0
+Gen  75: Best=2206.15 (22s), Avg=2288.28, Worst=2306.31, Stag=1
+  *** NEW BEST: 21 servers! ***
+Gen  76: Best=2105.96 (21s), Avg=2282.27, Worst=2306.31, Stag=0
+Gen  77: Best=2105.96 (21s), Avg=2278.27, Worst=2306.31, Stag=0
+Gen  78: Best=2105.96 (21s), Avg=2268.25, Worst=2306.31, Stag=1
+Gen  79: Best=2105.96 (21s), Avg=2228.18, Worst=2306.31, Stag=2
+Gen  80: Best=2105.96 (21s), Avg=2198.13, Worst=2306.31, Stag=3
+Gen  81: Best=2105.96 (21s), Avg=2168.08, Worst=2306.31, Stag=4
+Gen  82: Best=2105.96 (21s), Avg=2121.99, Worst=2206.15, Stag=5
+Gen  83: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=6
+Gen  84: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=7
+Gen  85: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=8
+Gen  86: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=9
+Gen  87: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=10
+Gen  88: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=11
+Gen  89: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=12
+Gen  90: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=13
+Gen  91: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=14
+Gen  92: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=15
+Gen  93: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=16
+Gen  94: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=17
+Gen  95: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=18
+Gen  96: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=19
+Gen  97: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=20
+Gen  98: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=21
+Gen  99: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=22
+Gen 100: Best=2105.96 (21s), Avg=2105.96, Worst=2105.96, Stag=23
+
+--- Simple GA Finished ---
+Best solution: 21 servers
+Best fitness: 2105.9626
+Valid: True
+Utilization: CPU=46.0%, RAM=40.9%, Storage=34.2%
+✓ GA completed in 7.62s
+  Result: 21 servers, fitness=2105.96
+  Utilization: CPU=46.0%, RAM=40.9%, Storage=34.2%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 0.59s
+  Result: 10 servers, fitness=1001.52
+  Speedup: 13.0×
+
+✓ LARGE Azure complete
+  GA: 21 servers in 7.62s
+  WoC: 10 servers in 0.59s (13.0× faster)
+
+================================================================================
+Benchmarking EXTRA_LARGE scenario with AZURE data
+================================================================================
+Data source: Azure Packing Trace 2020
+Original pool: 799,479 VMs
+Sampled VMs: 200
+Server capacity: 128 cores, 1024 GB RAM, 8000 GB storage
+Total demand: CPU=2342.3, RAM=18448.8, Storage=98571.0
+Theoretical minimum: 18.30 servers
+
+[1/2] Running Genetic Algorithm...
+
+--- Simple GA Starting ---
+Problem: 200 VMs, 50 population, 100 generations
+Initial population quality: random
+
+  *** NEW BEST: 93 servers! ***
+Gen   1: Best=9308.26 (93s), Avg=10840.49, Worst=12308.68, Stag=0
+  *** NEW BEST: 90 servers! ***
+Gen   2: Best=9008.20 (90s), Avg=10056.38, Worst=11408.58, Stag=0
+  *** NEW BEST: 87 servers! ***
+Gen   3: Best=8708.14 (87s), Avg=9658.32, Worst=10708.48, Stag=0
+Gen   4: Best=8708.14 (87s), Avg=9402.27, Worst=10008.38, Stag=0
+Gen   5: Best=8708.14 (87s), Avg=9292.25, Worst=10008.38, Stag=1
+  *** NEW BEST: 84 servers! ***
+Gen   6: Best=8408.07 (84s), Avg=9254.24, Worst=9908.36, Stag=0
+Gen   7: Best=8408.07 (84s), Avg=9150.22, Worst=9808.35, Stag=0
+  *** NEW BEST: 83 servers! ***
+Gen   8: Best=8308.05 (83s), Avg=9022.20, Worst=9808.35, Stag=0
+Gen   9: Best=8308.05 (83s), Avg=8888.17, Worst=9908.36, Stag=0
+  *** NEW BEST: 82 servers! ***
+Gen  10: Best=8208.02 (82s), Avg=8722.14, Worst=9308.26, Stag=0
+  *** NEW BEST: 78 servers! ***
+Gen  11: Best=7807.92 (78s), Avg=8596.11, Worst=9208.24, Stag=0
+Gen  12: Best=7807.92 (78s), Avg=8486.09, Worst=9308.26, Stag=0
+  *** NEW BEST: 73 servers! ***
+Gen  13: Best=7307.78 (73s), Avg=8304.04, Worst=8908.18, Stag=0
+Gen  14: Best=7307.78 (73s), Avg=8071.99, Worst=8608.11, Stag=0
+  *** NEW BEST: 71 servers! ***
+Gen  15: Best=7107.72 (71s), Avg=7983.96, Worst=8808.16, Stag=0
+Gen  16: Best=7107.72 (71s), Avg=7729.90, Worst=8408.07, Stag=0
+Gen  17: Best=7107.72 (71s), Avg=7529.84, Worst=8208.02, Stag=1
+  *** NEW BEST: 69 servers! ***
+Gen  18: Best=6907.65 (69s), Avg=7351.79, Worst=7807.92, Stag=0
+  *** NEW BEST: 68 servers! ***
+Gen  19: Best=6807.62 (68s), Avg=7201.74, Worst=7707.89, Stag=0
+  *** NEW BEST: 65 servers! ***
+Gen  20: Best=6507.51 (65s), Avg=7017.69, Worst=7707.89, Stag=0
+  *** NEW BEST: 64 servers! ***
+Gen  21: Best=6407.47 (64s), Avg=6845.63, Worst=7407.81, Stag=0
+  *** NEW BEST: 63 servers! ***
+Gen  22: Best=6307.43 (63s), Avg=6661.56, Worst=7107.72, Stag=0
+  *** NEW BEST: 62 servers! ***
+Gen  23: Best=6207.39 (62s), Avg=6545.52, Worst=6907.65, Stag=0
+Gen  24: Best=6207.39 (62s), Avg=6415.47, Worst=6707.58, Stag=0
+Gen  25: Best=6207.39 (62s), Avg=6323.43, Worst=6607.54, Stag=1
+  *** NEW BEST: 61 servers! ***
+Gen  26: Best=6107.34 (61s), Avg=6239.40, Worst=6407.47, Stag=0
+Gen  27: Best=6107.34 (61s), Avg=6213.39, Worst=6307.43, Stag=0
+  *** NEW BEST: 60 servers! ***
+Gen  28: Best=6007.30 (60s), Avg=6171.37, Worst=6307.43, Stag=0
+  *** NEW BEST: 59 servers! ***
+Gen  29: Best=5907.25 (59s), Avg=6133.35, Worst=6307.43, Stag=0
+Gen  30: Best=5907.25 (59s), Avg=6083.33, Worst=6207.39, Stag=0
+Gen  31: Best=5907.25 (59s), Avg=6015.30, Worst=6207.39, Stag=1
+Gen  32: Best=5907.25 (59s), Avg=5951.27, Worst=6107.34, Stag=2
+Gen  33: Best=5907.25 (59s), Avg=5919.26, Worst=6007.30, Stag=3
+  *** NEW BEST: 58 servers! ***
+Gen  34: Best=5807.20 (58s), Avg=5905.25, Worst=5907.25, Stag=0
+Gen  35: Best=5807.20 (58s), Avg=5895.25, Worst=5907.25, Stag=0
+Gen  36: Best=5807.20 (58s), Avg=5873.24, Worst=5907.25, Stag=1
+Gen  37: Best=5807.20 (58s), Avg=5827.21, Worst=5907.25, Stag=2
+  *** NEW BEST: 57 servers! ***
+Gen  38: Best=5707.16 (57s), Avg=5801.20, Worst=5807.20, Stag=0
+Gen  39: Best=5707.16 (57s), Avg=5787.19, Worst=5907.25, Stag=0
+  *** NEW BEST: 56 servers! ***
+Gen  40: Best=5607.10 (56s), Avg=5733.17, Worst=5807.20, Stag=0
+Gen  41: Best=5607.10 (56s), Avg=5699.15, Worst=5807.20, Stag=0
+Gen  42: Best=5607.10 (56s), Avg=5669.14, Worst=5707.16, Stag=1
+Gen  43: Best=5607.10 (56s), Avg=5623.11, Worst=5707.16, Stag=2
+  *** NEW BEST: 55 servers! ***
+Gen  44: Best=5507.05 (55s), Avg=5605.10, Worst=5607.10, Stag=0
+Gen  45: Best=5507.05 (55s), Avg=5603.10, Worst=5607.10, Stag=0
+Gen  46: Best=5507.05 (55s), Avg=5599.10, Worst=5607.10, Stag=1
+Gen  47: Best=5507.05 (55s), Avg=5581.09, Worst=5607.10, Stag=2
+  *** NEW BEST: 54 servers! ***
+Gen  48: Best=5407.00 (54s), Avg=5545.07, Worst=5607.10, Stag=0
+Gen  49: Best=5407.00 (54s), Avg=5517.06, Worst=5607.10, Stag=0
+Gen  50: Best=5407.00 (54s), Avg=5503.05, Worst=5507.05, Stag=1
+Gen  51: Best=5407.00 (54s), Avg=5485.04, Worst=5507.05, Stag=2
+Gen  52: Best=5407.00 (54s), Avg=5463.03, Worst=5507.05, Stag=3
+Gen  53: Best=5407.00 (54s), Avg=5421.01, Worst=5507.05, Stag=4
+Gen  54: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=5
+Gen  55: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=6
+Gen  56: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=7
+Gen  57: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=8
+Gen  58: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=9
+Gen  59: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=10
+Gen  60: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=11
+Gen  61: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=12
+Gen  62: Best=5407.00 (54s), Avg=5407.00, Worst=5407.00, Stag=13
+  *** NEW BEST: 53 servers! ***
+Gen  63: Best=5306.94 (53s), Avg=5405.00, Worst=5407.00, Stag=0
+Gen  64: Best=5306.94 (53s), Avg=5403.00, Worst=5407.00, Stag=0
+Gen  65: Best=5306.94 (53s), Avg=5398.99, Worst=5407.00, Stag=1
+Gen  66: Best=5306.94 (53s), Avg=5392.99, Worst=5407.00, Stag=2
+Gen  67: Best=5306.94 (53s), Avg=5384.99, Worst=5407.00, Stag=3
+Gen  68: Best=5306.94 (53s), Avg=5352.97, Worst=5407.00, Stag=4
+Gen  69: Best=5306.94 (53s), Avg=5320.95, Worst=5407.00, Stag=5
+Gen  70: Best=5306.94 (53s), Avg=5306.94, Worst=5306.94, Stag=6
+Gen  71: Best=5306.94 (53s), Avg=5306.94, Worst=5306.94, Stag=7
+Gen  72: Best=5306.94 (53s), Avg=5306.94, Worst=5306.94, Stag=8
+  *** NEW BEST: 52 servers! ***
+Gen  73: Best=5206.88 (52s), Avg=5304.94, Worst=5306.94, Stag=0
+Gen  74: Best=5206.88 (52s), Avg=5302.94, Worst=5306.94, Stag=0
+Gen  75: Best=5206.88 (52s), Avg=5296.94, Worst=5306.94, Stag=1
+Gen  76: Best=5206.88 (52s), Avg=5286.93, Worst=5306.94, Stag=2
+Gen  77: Best=5206.88 (52s), Avg=5268.92, Worst=5306.94, Stag=3
+  *** NEW BEST: 51 servers! ***
+Gen  78: Best=5106.82 (51s), Avg=5222.89, Worst=5306.94, Stag=0
+Gen  79: Best=5106.82 (51s), Avg=5190.87, Worst=5206.88, Stag=0
+Gen  80: Best=5106.82 (51s), Avg=5154.85, Worst=5206.88, Stag=1
+Gen  81: Best=5106.82 (51s), Avg=5126.83, Worst=5206.88, Stag=2
+Gen  82: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=3
+Gen  83: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=4
+Gen  84: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=5
+Gen  85: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=6
+Gen  86: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=7
+Gen  87: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=8
+Gen  88: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=9
+Gen  89: Best=5106.82 (51s), Avg=5106.82, Worst=5106.82, Stag=10
+  *** NEW BEST: 50 servers! ***
+Gen  90: Best=5006.76 (50s), Avg=5104.82, Worst=5106.82, Stag=0
+Gen  91: Best=5006.76 (50s), Avg=5100.82, Worst=5106.82, Stag=0
+Gen  92: Best=5006.76 (50s), Avg=5092.81, Worst=5106.82, Stag=1
+Gen  93: Best=5006.76 (50s), Avg=5078.80, Worst=5106.82, Stag=2
+Gen  94: Best=5006.76 (50s), Avg=5038.78, Worst=5106.82, Stag=3
+Gen  95: Best=5006.76 (50s), Avg=5008.76, Worst=5106.82, Stag=4
+Gen  96: Best=5006.76 (50s), Avg=5006.76, Worst=5006.76, Stag=5
+Gen  97: Best=5006.76 (50s), Avg=5006.76, Worst=5006.76, Stag=6
+Gen  98: Best=5006.76 (50s), Avg=5006.76, Worst=5006.76, Stag=7
+Gen  99: Best=5006.76 (50s), Avg=5006.76, Worst=5006.76, Stag=8
+Gen 100: Best=5006.76 (50s), Avg=5006.76, Worst=5006.76, Stag=9
+
+--- Simple GA Finished ---
+Best solution: 50 servers
+Best fitness: 5006.7576
+Valid: True
+Utilization: CPU=36.6%, RAM=36.0%, Storage=24.6%
+✓ GA completed in 14.24s
+  Result: 50 servers, fitness=5006.76
+  Utilization: CPU=36.6%, RAM=36.0%, Storage=24.6%
+
+[2/2] Running Wisdom of Crowds...
+✓ WoC completed in 2.27s
+  Result: 20 servers, fitness=2001.89
+  Speedup: 6.3×
+
+✓ EXTRA_LARGE Azure complete
+  GA: 50 servers in 14.24s
+  WoC: 20 servers in 2.27s (6.3× faster)
+
+================================================================================
+SAVING RESULTS
+================================================================================
+✓ Synthetic results saved: synthetic_benchmark_results.json
+✓ Azure results saved: azure_benchmark_results.json
+✓ Combined results saved: combined_benchmark_results.json
+
+================================================================================
+COMPARISON TABLE
+================================================================================
+
+Scenario     Data       VMs   Method Time     Servers  Fitness    Speedup
+----------------------------------------------------------------------------------------------------
+Small        Synthetic  20    GA     0.89     5        502.60             
+                              WoC    0.01     5        502.60        79.7×
+----------------------------------------------------------------------------------------------------
+Small        Azure      20    GA     1.01     4        403.59             
+                              WoC    0.02     3        301.46        67.0×
+====================================================================================================
+Medium       Synthetic  50    GA     2.09     6        601.87             
+                              WoC    0.07     6        601.87        30.2×
+----------------------------------------------------------------------------------------------------
+Medium       Azure      50    GA     3.78     12       1205.18            
+                              WoC    0.12     7        701.74        30.3×
+====================================================================================================
+Large        Synthetic  100   GA     6.11     8        803.30             
+                              WoC    0.32     8        803.30        19.2×
+----------------------------------------------------------------------------------------------------
+Large        Azure      100   GA     7.62     21       2105.96            
+                              WoC    0.59     10       1001.52       13.0×
+====================================================================================================
+Extra_large  Synthetic  200   GA     12.25    19       1906.54            
+                              WoC    1.72     11       1104.03        7.1×
+----------------------------------------------------------------------------------------------------
+Extra_large  Azure      200   GA     14.24    50       5006.76            
+                              WoC    2.27     20       2001.89        6.3×
+====================================================================================================
+
+================================================================================
+KEY INSIGHTS
+================================================================================
+
+SMALL:
+  • Synthetic: 5 servers (theoretical min: 4.2)
+  • Azure:     4 servers (theoretical min: 2.7)
+  → Azure data packs 1 fewer servers!
+
+MEDIUM:
+  • Synthetic: 6 servers (theoretical min: 5.7)
+  • Azure:     12 servers (theoretical min: 6.8)
+  → Synthetic data packs 6 fewer servers!
+
+LARGE:
+  • Synthetic: 8 servers (theoretical min: 7.3)
+  • Azure:     21 servers (theoretical min: 9.7)
+  → Synthetic data packs 13 fewer servers!
+
+EXTRA_LARGE:
+  • Synthetic: 19 servers (theoretical min: 10.8)
+  • Azure:     50 servers (theoretical min: 18.3)
+  → Synthetic data packs 31 fewer servers!
+
+================================================================================
+✅ COMPREHENSIVE BENCHMARK COMPLETE!
+================================================================================
+
+Next steps:
+  1. python3 create_comparison_visualization.py  # Create visual charts
+  2. Check the JSON files for detailed data
+  3. Use in your presentation/report
+

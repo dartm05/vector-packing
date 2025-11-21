@@ -44,15 +44,20 @@ htmlcov/
 .hypothesis/
 
 # Results and logs
-results/*.json
-results/*.log
-results/*.png
-results/*.csv
+results/**/*.json
+results/**/*.log
+results/**/*.png
+results/**/*.csv
 *.log
 
 # Data files (optional - uncomment if you don't want to track data)
 # data/*.json
 # data/*.csv
+
+# Azure dataset (too large for GitHub - 173 MB)
+datasets/
+datasets/*.sqlite
+datasets/*.zip
 
 # Documentation builds
 docs/_build/

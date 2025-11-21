@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hybrid Architecture: GA + WOC</title>
+    <style>
+        body { font-family: Arial; max-width: 1400px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 40px; }
+        svg { display: block; margin: 0 auto; }
+        .phase { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .phase h3 { margin-top: 0; }
+        .synergy { background: #e8f5e9; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Two-Stage Hybrid Architecture: GA + WOC</h1>
+        
+        <svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stage 1: Genetic Algorithm -->
+            <rect x="50" y="50" width="500" height="300" fill="#e3f2fd" stroke="#2196f3" stroke-width="4" rx="10"/>
+            <text x="300" y="85" text-anchor="middle" font-size="24" font-weight="bold" fill="#1565c0">
+                Stage 1: Genetic Algorithm
+            </text>
+            <text x="300" y="110" text-anchor="middle" font-size="16" fill="#1976d2">
+                (Exploration Phase)
+            </text>
+            
+            <!-- GA Components -->
+            <g transform="translate(80, 130)">
+                <circle cx="0" cy="0" r="8" fill="#2196f3"/>
+                <text x="20" y="5" font-size="14" fill="#333">1. Initialize Population (50 individuals)</text>
+            </g>
+            <g transform="translate(80, 165)">
+                <circle cx="0" cy="0" r="8" fill="#2196f3"/>
+                <text x="20" y="5" font-size="14" fill="#333">2. Evaluate Fitness</text>
+            </g>
+            <g transform="translate(80, 200)">
+                <circle cx="0" cy="0" r="8" fill="#2196f3"/>
+                <text x="20" y="5" font-size="14" fill="#333">3. Select Parents (Tournament k=3)</text>
+            </g>
+            <g transform="translate(80, 235)">
+                <circle cx="0" cy="0" r="8" fill="#2196f3"/>
+                <text x="20" y="5" font-size="14" fill="#333">4. Crossover & Mutation</text>
+            </g>
+            <g transform="translate(80, 270)">
+                <circle cx="0" cy="0" r="8" fill="#2196f3"/>
+                <text x="20" y="5" font-size="14" fill="#333">5. Repeat 50-100 Generations</text>
+            </g>
+            
+            <!-- GA Output -->
+            <rect x="80" y="300" width="400" height="35" fill="#64b5f6" stroke="#1976d2" stroke-width="2" rx="5"/>
+            <text x="280" y="322" text-anchor="middle" font-size="16" font-weight="bold" fill="white">
+                Output: Evolved Population (50 solutions)
+            </text>
+            
+            <!-- Arrow to Stage 2 -->
+            <defs>
+                <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+                </marker>
+            </defs>
+            <path d="M 300 360 L 300 430" stroke="#27ae60" stroke-width="5" marker-end="url(#arrowhead2)"/>
+            <text x="320" y="400" font-size="18" font-weight="bold" fill="#27ae60">Transfer Knowledge</text>
+            
+            <!-- Stage 2: Wisdom of Crowds -->
+            <rect x="50" y="450" width="500" height="300" fill="#f3e5f5" stroke="#9c27b0" stroke-width="4" rx="10"/>
+            <text x="300" y="485" text-anchor="middle" font-size="24" font-weight="bold" fill="#6a1b9a">
+                Stage 2: Wisdom of Crowds
+            </text>
+            <text x="300" y="510" text-anchor="middle" font-size="16" fill="#7b1fa2">
+                (Exploitation Phase)
+            </text>
+            
+            <!-- WOC Components -->
+            <g transform="translate(80, 530)">
+                <circle cx="0" cy="0" r="8" fill="#9c27b0"/>
+                <text x="20" y="5" font-size="14" fill="#333">1. Select Top 20 Solutions</text>
+            </g>
+            <g transform="translate(80, 565)">
+                <circle cx="0" cy="0" r="8" fill="#9c27b0"/>
+                <text x="20" y="5" font-size="14" fill="#333">2. Build Co-Occurrence Matrix C[i][j]</text>
+            </g>
+            <g transform="translate(80, 600)">
+                <circle cx="0" cy="0" r="8" fill="#9c27b0"/>
+                <text x="20" y="5" font-size="14" fill="#333">3. Identify VM Affinity Patterns</text>
+            </g>
+            <g transform="translate(80, 635)">
+                <circle cx="0" cy="0" r="8" fill="#9c27b0"/>
+                <text x="20" y="5" font-size="14" fill="#333">4. Generate 10 Consensus Solutions</text>
+            </g>
+            <g transform="translate(80, 670)">
+                <circle cx="0" cy="0" r="8" fill="#9c27b0"/>
+                <text x="20" y="5" font-size="14" fill="#333">5. Select Best WOC Solution</text>
+            </g>
+            
+            <!-- WOC Output -->
+            <rect x="80" y="700" width="400" height="35" fill="#ba68c8" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+            <text x="280" y="722" text-anchor="middle" font-size="16" font-weight="bold" fill="white">
+                Output: Fast High-Quality Solution
+            </text>
+            
+            <!-- Comparison Box -->
+            <rect x="650" y="50" width="500" height="700" fill="#fff9e6" stroke="#ffc107" stroke-width="4" rx="10"/>
+            <text x="900" y="90" text-anchor="middle" font-size="24" font-weight="bold" fill="#f57c00">
+                Why This Hybrid Works
+            </text>
+            
+            <!-- GA Advantages -->
+            <g transform="translate(680, 130)">
+                <rect width="440" height="140" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
+                <text x="220" y="25" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565c0">
+                    GA Strengths
+                </text>
+                <text x="10" y="50" font-size="14" fill="#333">✓ Global exploration of solution space</text>
+                <text x="10" y="70" font-size="14" fill="#333">✓ Discovers high-quality VM placements</text>
+                <text x="10" y="90" font-size="14" fill="#333">✓ Learns which VMs work well together</text>
+                <text x="10" y="110" font-size="14" fill="#333">✓ Handles complex constraints naturally</text>
+                <text x="10" y="130" font-size="14" fill="#e74c3c">✗ Slow: O(G·P·N²) = O(2500·N²)</text>
+            </g>
+            
+            <!-- WOC Advantages -->
+            <g transform="translate(680, 300)">
+                <rect width="440" height="140" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2" rx="5"/>
+                <text x="220" y="25" text-anchor="middle" font-size="18" font-weight="bold" fill="#6a1b9a">
+                    WOC Strengths
+                </text>
+                <text x="10" y="50" font-size="14" fill="#333">✓ Fast solution construction: O(N²)</text>
+                <text x="10" y="70" font-size="14" fill="#333">✓ Leverages collective intelligence</text>
+                <text x="10" y="90" font-size="14" fill="#333">✓ Pattern-based guided placement</text>
+                <text x="10" y="110" font-size="14" fill="#333">✓ 3.6-12.1× faster than GA alone</text>
+                <text x="10" y="130" font-size="14" fill="#e74c3c">✗ Needs good patterns (from GA)</text>
+            </g>
+            
+            <!-- Synergy -->
+            <g transform="translate(680, 470)">
+                <rect width="440" height="260" fill="#e8f5e9" stroke="#27ae60" stroke-width="3" rx="5"/>
+                <text x="220" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1b5e20">
+                    🚀 Synergistic Benefits
+                </text>
+                
+                <text x="220" y="65" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d32">
+                    Hybrid = Best of Both Worlds
+                </text>
+                
+                <text x="10" y="95" font-size="14" fill="#333">1. <strong>GA discovers</strong> effective VM groupings</text>
+                <text x="25" y="115" font-size="13" fill="#555">through evolutionary search</text>
+                
+                <text x="10" y="145" font-size="14" fill="#333">2. <strong>WOC extracts</strong> successful patterns</text>
+                <text x="25" y="165" font-size="13" fill="#555">from GA's best solutions</text>
+                
+                <text x="10" y="195" font-size="14" fill="#333">3. <strong>WOC constructs</strong> new solutions fast</text>
+                <text x="25" y="215" font-size="13" fill="#555">using learned patterns</text>
+                
+                <text x="10" y="245" font-size="15" font-weight="bold" fill="#27ae60">
+                    Result: Same quality, 3-12× faster!
+                </text>
+            </g>
+        </svg>
+        
+        <div class="synergy">
+            <h2 style="margin-top: 0; color: #1b5e20;">Key Innovation: Learning from Evolution</h2>
+            <p style="font-size: 16px; line-height: 1.8;">
+                The critical insight is that <strong>WOC learns from GA's evolved population</strong>, not from random solutions. 
+                This means the co-occurrence patterns reflect actual optimization dynamics and successful strategies discovered 
+                through evolution, not just problem structure.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8;">
+                This is why WOC can construct competitive solutions so quickly - it's leveraging the "hard-won" evolutionary 
+                knowledge from the GA stage!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# This directory will contain the Azure dataset
+# The actual dataset files are not tracked in git due to size (173 MB)
+
+# To download the dataset:
+# Run: python3 download_azure_dataset.py
+# Or: bash download_azure_dataset.sh
+
+# Expected file after download:
+# packing_trace_zone_a_v1.sqlite (173 MB)

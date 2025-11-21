@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Presentation Slides - GA & WoC</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 42px;
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 20px;
+            margin-bottom: 50px;
+        }
+        .slides {
+            display: grid;
+            gap: 25px;
+        }
+        .slide-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .slide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .slide-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .slide-title {
+            font-size: 26px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .slide-description {
+            color: #546e7a;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .slide-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .slide-link:hover {
+            transform: scale(1.05);
+        }
+        .tips {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        .tips h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        .tips ul {
+            color: #424242;
+            line-height: 1.8;
+        }
+        .footer {
+            text-align: center;
+            color: #7f8c8d;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Presentation Slides</h1>
+        <div class="subtitle">GA & WoC Vector Packing Solver • Validated on Azure Production Data</div>
+
+        <div class="tips" style="margin-top: 0; margin-bottom: 30px; background: #e8f5e9; border-left-color: #4caf50;">
+            <h3>🎯 Key Finding: WoC Superiority on Real-World Data</h3>
+            <ul>
+                <li><strong>6-67× Speedup:</strong> WoC dramatically outperforms GA in execution time</li>
+                <li><strong>Better Solutions:</strong> WoC finds superior solutions in ALL 4 Azure scenarios</li>
+                <li><strong>Real-World Data:</strong> Tested on Microsoft Azure production traces (5.5M VMs, OSDI 2020)</li>
+                <li><strong>Example:</strong> Large scenario - WoC uses 10 servers vs GA's 21 (52% improvement!)</li>
+            </ul>
+        </div>
+
+        <div class="slides">
+            <div class="slide-card">
+                <div class="slide-number">📊</div>
+                <div class="slide-title">Performance Results (Azure Production Data)</div>
+                <div class="slide-description">
+                    GA vs WoC results on real Microsoft Azure production workloads.
+                    Demonstrates 6-67× speedup with WoC finding better solutions in all scenarios.
+                    Includes interactive charts showing time, server count, speedup, and quality improvements.
+                </div>
+                <a href="vis_14_performance_comparison.html" class="slide-link">View Results</a>
+            </div>
+
+            <div class="slide-card">
+                <div class="slide-number">📈</div>
+                <div class="slide-title">GA Convergence Curves (Azure Data)</div>
+                <div class="slide-description">
+                    Shows how GA evolves solutions on real-world Azure data.
+                    Tracks fitness improvement and server count reduction over generations.
+                    Covers small (20 VMs), medium (50 VMs), and large (100 VMs) scenarios.
+                </div>
+                <a href="vis_11_convergence_curves.html" class="slide-link">View Convergence</a>
+            </div>
+
+            <div class="slide-card">
+                <div class="slide-number">🔥</div>
+                <div class="slide-title">Co-Occurrence Matrix (Azure Data)</div>
+                <div class="slide-description">
+                    Interactive heatmap showing which Azure VMs frequently co-locate in top solutions.
+                    Visualizes the "wisdom" extracted from GA population - patterns that WOC learns and exploits.
+                    50×50 matrix from real production workloads.
+                </div>
+                <a href="vis_12_cooccurrence_matrix.html" class="slide-link">View Matrix</a>
+            </div>
+
+            <div class="slide-card">
+                <div class="slide-number">📉</div>
+                <div class="slide-title">Population Diversity & Immigration Events</div>
+                <div class="slide-description">
+                    Shows how diversity naturally declines until hitting the 0.15 threshold.
+                    Immigration events (5 new solutions) trigger when threshold is reached, spiking diversity back up.
+                    Visualizes the adaptive diversity management mechanism that prevents premature convergence.
+                </div>
+                <a href="vis_13_convergence_diversity.html" class="slide-link">View Diversity</a>
+            </div>
+
+            <div class="slide-card">
+                <div class="slide-number">1️⃣</div>
+                <div class="slide-title">Results Comparison & Speedup</div>
+                <div class="slide-description">
+                    Original comparison table showing GA vs WoC results across all scenarios.
+                    Interactive speedup chart demonstrating 8-80× performance improvement.
+                </div>
+                <a href="slide_1_results_comparison.html" class="slide-link">Open Slide 1</a>
+            </div>
+
+            <div class="slide-card">
+                <div class="slide-number">2️⃣</div>
+                <div class="slide-title">Medium Scenario Convergence</div>
+                <div class="slide-description">
+                    50 VMs • Fitness convergence curves showing rapid optimization.
+                    Server count reduction from 7 to 6 servers in just 5 generations.
+                </div>
+                <a href="slide_2_medium_convergence.html" class="slide-link">Open Slide 2</a>
+            </div>
+
+            <div class="slide-card">
+                <div class="slide-number">3️⃣</div>
+                <div class="slide-title">Large Scenario Convergence</div>
+                <div class="slide-description">
+                    100 VMs • Gradual optimization demonstrating GA scalability.
+                    Server count reduction from 11 to 8 servers with 27% fitness improvement.
+                </div>
+                <a href="slide_3_large_convergence.html" class="slide-link">Open Slide 3</a>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h3>💡 Presentation Tips</h3>
+            <ul>
+                <li><strong>Full-Screen Mode:</strong> Press F11 in your browser</li>
+                <li><strong>Interactive Charts:</strong> Hover over data points for details</li>
+                <li><strong>Export to PDF:</strong> Ctrl+P (Cmd+P on Mac) → Save as PDF</li>
+                <li><strong>Offline Use:</strong> All slides work without internet (after first load)</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            Vector Packing Solver • Genetic Algorithm + Wisdom of Crowds
+        </div>
+    </div>
+</body>
+</html>

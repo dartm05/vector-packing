@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GA Mutation Operators</title>
+    <style>
+        body { font-family: Arial; max-width: 1400px; margin: 0 auto; padding: 20px; background: #f0f0f0; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 40px; }
+        .mutation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        .mutation-box { background: #f8f9fa; padding: 25px; border-radius: 10px; border-left: 5px solid; }
+        .mutation-box h3 { margin-top: 0; font-size: 20px; }
+        .move { border-left-color: #3498db; }
+        .swap { border-left-color: #27ae60; }
+        .shuffle { border-left-color: #f39c12; }
+        .consolidate { border-left-color: #e74c3c; }
+        .empty { border-left-color: #9b59b6; }
+        .chromosome { display: flex; justify-content: center; margin: 15px 0; }
+        .gene { width: 50px; height: 50px; margin: 0 3px; border: 2px solid #2c3e50; border-radius: 6px;
+                display: flex; align-items: center; justify-content: center; font-weight: bold;
+                font-size: 16px; }
+        .arrow { text-align: center; font-size: 24px; color: #27ae60; margin: 10px 0; }
+        .highlight { background: #ffe58f !important; animation: pulse 1s ease-in-out infinite; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .probability { background: #e8f5e9; padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; }
+        .adaptive-rate { background: #fff3cd; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Five Mutation Operators for Diverse Exploration</h1>
+        
+        <div class="mutation-grid">
+            <!-- Move Mutation -->
+            <div class="mutation-box move">
+                <h3>1. Move Mutation (20%)</h3>
+                <p><strong>Operation:</strong> Move one VM to a different server</p>
+                
+                <div class="probability">Probability: 20%</div>
+                
+                <p><strong>Before:</strong></p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene highlight" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <p><strong>After:</strong> VM at position 2 moved from Server 2 → Server 1</p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene highlight" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                </div>
+                
+                <p style="margin-top: 15px;"><strong>Purpose:</strong> Local exploration - small changes to test alternative placements</p>
+            </div>
+            
+            <!-- Swap Mutation -->
+            <div class="mutation-box swap">
+                <h3>2. Swap Mutation (20%)</h3>
+                <p><strong>Operation:</strong> Exchange two VMs between different servers</p>
+                
+                <div class="probability">Probability: 20%</div>
+                
+                <p><strong>Before:</strong></p>
+                <div class="chromosome">
+                    <div class="gene highlight" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene highlight" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <p><strong>After:</strong> Positions 0 and 3 swapped assignments</p>
+                <div class="chromosome">
+                    <div class="gene highlight" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene highlight" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                </div>
+                
+                <p style="margin-top: 15px;"><strong>Purpose:</strong> Test if swapping VMs improves server utilization</p>
+            </div>
+            
+            <!-- Shuffle Mutation -->
+            <div class="mutation-box shuffle">
+                <h3>3. Shuffle Mutation (20%)</h3>
+                <p><strong>Operation:</strong> Randomly reassign multiple VMs</p>
+                
+                <div class="probability">Probability: 20%</div>
+                
+                <p><strong>Before:</strong></p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <p><strong>After:</strong> 2-3 VMs randomly reassigned</p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                </div>
+                
+                <p style="margin-top: 15px;"><strong>Purpose:</strong> Higher diversity - escape local optima through larger jumps</p>
+            </div>
+            
+            <!-- Consolidate Mutation -->
+            <div class="mutation-box consolidate">
+                <h3>4. Consolidate Mutation (40%) 🔥</h3>
+                <p><strong>Operation:</strong> Attempt to merge VMs from multiple servers onto fewer servers</p>
+                
+                <div class="probability" style="background: #ffcdd2;">Probability: 40% - HIGH PRIORITY</div>
+                
+                <p><strong>Before:</strong> 3 servers in use</p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <p><strong>After:</strong> Try to consolidate to 2 servers</p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                </div>
+                
+                <p style="margin-top: 15px;"><strong>Purpose:</strong> ⭐ Directly reduces server count - primary optimization goal!</p>
+            </div>
+            
+            <!-- Empty Server Mutation -->
+            <div class="mutation-box empty">
+                <h3>5. Empty Server Mutation (40%)</h3>
+                <p><strong>Operation:</strong> Force a server to be empty, redistribute its VMs</p>
+                
+                <div class="probability" style="background: #ffcdd2;">Probability: 40% - HIGH PRIORITY</div>
+                
+                <p><strong>Before:</strong> Server 3 has VMs</p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #9b59b6;">3</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <p><strong>After:</strong> Server 3 emptied, VMs moved elsewhere</p>
+                <div class="chromosome">
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #3498db;">1</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                    <div class="gene" style="background: #e74c3c;">2</div>
+                </div>
+                
+                <p style="margin-top: 15px;"><strong>Purpose:</strong> ⭐ Aggressive server reduction - eliminate underutilized servers</p>
+            </div>
+        </div>
+        
+        <div class="adaptive-rate">
+            <h2 style="margin-top: 0; color: #856404;">Adaptive Mutation Rate</h2>
+            
+            <p style="font-size: 16px;"><strong>Dynamic adjustment based on convergence state:</strong></p>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0; font-family: 'Courier New'; font-size: 18px;">
+                μ = 0.3 + 0.4 × (stagnant_generations / max_stagnant)
+            </div>
+            
+            <ul style="font-size: 16px; line-height: 1.8;">
+                <li><strong>Initial Rate:</strong> μ = 0.3 (30%) - moderate exploration</li>
+                <li><strong>If Improving:</strong> Keep μ = 0.3 - don't disrupt good progress</li>
+                <li><strong>If Stagnant:</strong> Gradually increase μ → 0.7 (70%) - force exploration</li>
+                <li><strong>Range:</strong> 0.3 to 0.7 (never too low or too high)</li>
+            </ul>
+            
+            <p style="font-size: 16px; margin-top: 20px;"><strong>Why This Works:</strong></p>
+            <ul style="font-size: 16px; line-height: 1.8;">
+                <li>✓ Low mutation during improvement → preserve good solutions</li>
+                <li>✓ High mutation during stagnation → escape local optima</li>
+                <li>✓ Automatic self-adjustment → no manual tuning needed</li>
+            </ul>
+        </div>
+        
+        <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60;">
+            <h2 style="margin-top: 0; color: #1b5e20;">Mutation Strategy Summary</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <th style="text-align: left; padding: 10px; border-bottom: 2px solid #27ae60;">Operator</th>
+                    <th style="text-align: center; padding: 10px; border-bottom: 2px solid #27ae60;">Probability</th>
+                    <th style="text-align: left; padding: 10px; border-bottom: 2px solid #27ae60;">Purpose</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;">Move</td>
+                    <td style="text-align: center; padding: 10px;">20%</td>
+                    <td style="padding: 10px;">Local search</td>
+                </tr>
+                <tr style="background: #f1f8e9;">
+                    <td style="padding: 10px;">Swap</td>
+                    <td style="text-align: center; padding: 10px;">20%</td>
+                    <td style="padding: 10px;">Utilization balance</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;">Shuffle</td>
+                    <td style="text-align: center; padding: 10px;">20%</td>
+                    <td style="padding: 10px;">Diversity</td>
+                </tr>
+                <tr style="background: #f1f8e9;">
+                    <td style="padding: 10px;"><strong>Consolidate</strong></td>
+                    <td style="text-align: center; padding: 10px;"><strong>40%</strong></td>
+                    <td style="padding: 10px;"><strong>Server reduction</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;"><strong>Empty Server</strong></td>
+                    <td style="text-align: center; padding: 10px;"><strong>40%</strong></td>
+                    <td style="padding: 10px;"><strong>Aggressive reduction</strong></td>
+                </tr>
+            </table>
+            <p style="margin-top: 15px; font-size: 14px; color: #555;"><em>Note: Consolidate and Empty Server have high probabilities because they directly target the primary objective (minimize servers)</em></p>
+        </div>
+    </div>
+</body>
+</html>
